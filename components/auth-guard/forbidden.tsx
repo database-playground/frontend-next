@@ -12,7 +12,9 @@ export default function Forbidden({ user }: { user: BasicUserInfo }) {
       bg-gradient-to-br from-red-50 via-white to-red-100 p-6
       md:p-10
     `}>
-        <a href="/" className="flex items-center gap-2 self-center font-medium">
+        <Link href="/" className={`
+          flex items-center gap-2 self-center font-medium
+        `}>
           <div className={`
             flex size-6 items-center justify-center rounded-md
             text-primary-foreground
@@ -20,7 +22,7 @@ export default function Forbidden({ user }: { user: BasicUserInfo }) {
             <Logo />
           </div>
           Database Playground
-        </a>
+        </Link>
       <Card className="min-w-md">
         <CardHeader className="flex w-full flex-col items-center text-center">
           <AlertTriangle className="mb-2 size-7 text-red-500" />

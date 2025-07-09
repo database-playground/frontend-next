@@ -1,5 +1,6 @@
 import { LoginForm } from "@/components/login-form"
 import { Logo } from "@/components/logo"
+import Link from "next/link"
 
 export default function LoginPage() {
   return (
@@ -9,7 +10,9 @@ export default function LoginPage() {
       md:p-10
     `}>
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <a href="/" className="flex items-center gap-2 self-center font-medium">
+        <Link href="/" className={`
+          flex items-center gap-2 self-center font-medium
+        `}>
           <div className={`
             flex size-6 items-center justify-center rounded-md
             text-primary-foreground
@@ -17,7 +20,7 @@ export default function LoginPage() {
             <Logo />
           </div>
           Database Playground
-        </a>
+        </Link>
         <LoginForm />
       </div>
     </div>
