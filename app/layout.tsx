@@ -33,8 +33,7 @@ export default function RootLayout({
         className={`
           ${geistSans.variable}
           ${geistMono.variable}
-          font-sans
-          antialiased
+          font-sans antialiased
         `}
       >
         <ApolloProvider>

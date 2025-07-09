@@ -5,19 +5,34 @@ import React from "react";
 
 export default function ForbiddenPage() {
   return (
-    <div className="min-h-svh flex flex-col items-center justify-center p-6 md:p-10 bg-gradient-to-br from-red-50 via-white to-blue-50">
-      <Card className="w-full max-w-sm flex flex-col items-center gap-6 shadow-xl rounded-2xl border-0">
-        <CardHeader className="flex flex-col items-center gap-3 text-center w-full">
-          <div className="flex items-center justify-center size-12 rounded-full bg-red-100 mb-2">
-            <AlertTriangle className="text-red-500 size-7" />
+    <div className={`
+      flex min-h-svh flex-col items-center justify-center bg-gradient-to-br
+      from-red-50 via-white to-blue-50 p-6
+      md:p-10
+    `}>
+      <Card className={`
+        flex w-full max-w-sm flex-col items-center gap-6 rounded-2xl border-0
+        shadow-xl
+      `}>
+        <CardHeader className={`
+          flex w-full flex-col items-center gap-3 text-center
+        `}>
+          <div className={`
+            mb-2 flex size-12 items-center justify-center rounded-full
+            bg-red-100
+          `}>
+            <AlertTriangle className="size-7 text-red-500" />
           </div>
           <CardTitle className="text-2xl font-bold text-gray-900">權限不足</CardTitle>
-          <CardDescription className="text-gray-500 text-base">您所在的身分組沒有權限使用這個管理介面。</CardDescription>
+          <CardDescription className="text-base text-gray-500">您所在的身分組沒有權限使用這個管理介面。</CardDescription>
         </CardHeader>
         <CardFooter className="w-full">
           <Button 
             variant="outline" 
-            className="w-full flex items-center gap-2 justify-center transition-colors hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+            className={`
+              flex w-full items-center justify-center gap-2 transition-colors
+              hover:border-red-200 hover:bg-red-50 hover:text-red-600
+            `}
           >
             <LogOut />
             登出

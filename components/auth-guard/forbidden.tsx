@@ -7,16 +7,23 @@ import { Logo } from '../logo'
 
 export default function Forbidden({ user }: { user: BasicUserInfo }) {
   return (
-    <div className="min-h-svh flex flex-col items-center justify-center p-6 md:p-10 bg-gradient-to-br from-red-50 via-white to-red-150 gap-6">
+    <div className={`
+      flex min-h-svh flex-col items-center justify-center gap-6
+      bg-gradient-to-br from-red-50 via-white to-red-100 p-6
+      md:p-10
+    `}>
         <a href="#" className="flex items-center gap-2 self-center font-medium">
-          <div className="text-primary-foreground flex size-6 items-center justify-center rounded-md">
+          <div className={`
+            flex size-6 items-center justify-center rounded-md
+            text-primary-foreground
+          `}>
             <Logo />
           </div>
           Database Playground
         </a>
       <Card className="min-w-md">
-        <CardHeader className="flex flex-col items-center text-center w-full">
-          <AlertTriangle className="text-red-500 size-7 mb-2" />
+        <CardHeader className="flex w-full flex-col items-center text-center">
+          <AlertTriangle className="mb-2 size-7 text-red-500" />
           <CardTitle className="text-xl">無權開啟此頁面</CardTitle>
           <CardDescription>
             您所在的身分組沒有權限使用這個管理介面。
@@ -27,7 +34,9 @@ export default function Forbidden({ user }: { user: BasicUserInfo }) {
             <Link href="/">回到主程式</Link>
           </Button>
         </CardContent>
-        <CardFooter className="text-xs text-muted-foreground text-center justify-center">
+        <CardFooter className={`
+          justify-center text-center text-xs text-muted-foreground
+        `}>
           <section className="flex flex-col items-center gap-1">
             <p>您目前登入的帳號是：{user.name} ({user.email})</p>
             <p>如果這不是您想登入的帳號，請切換 Google 帳號後重新登入</p>
