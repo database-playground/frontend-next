@@ -12,7 +12,7 @@ export default function Forbidden({ user }: { user: BasicUserInfo }) {
       bg-gradient-to-br from-red-50 via-white to-red-100 p-6
       md:p-10
     `}>
-        <a href="#" className="flex items-center gap-2 self-center font-medium">
+        <a href="/" className="flex items-center gap-2 self-center font-medium">
           <div className={`
             flex size-6 items-center justify-center rounded-md
             text-primary-foreground
