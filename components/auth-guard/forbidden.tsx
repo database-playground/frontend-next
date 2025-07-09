@@ -3,10 +3,17 @@ import { AlertTriangle } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { BasicUserInfo } from '@/lib/user'
+import { Logo } from '../logo'
 
 export default function Forbidden({ user }: { user: BasicUserInfo }) {
   return (
-    <div className="min-h-svh flex flex-col items-center justify-center p-6 md:p-10 bg-gradient-to-br from-red-50 via-white to-red-150">
+    <div className="min-h-svh flex flex-col items-center justify-center p-6 md:p-10 bg-gradient-to-br from-red-50 via-white to-red-150 gap-6">
+        <a href="#" className="flex items-center gap-2 self-center font-medium">
+          <div className="text-primary-foreground flex size-6 items-center justify-center rounded-md">
+            <Logo />
+          </div>
+          Database Playground
+        </a>
       <Card className="min-w-md">
         <CardHeader className="flex flex-col items-center text-center w-full">
           <AlertTriangle className="text-red-500 size-7 mb-2" />
