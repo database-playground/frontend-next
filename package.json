@@ -11,7 +11,8 @@
     "codegen:watch": "graphql-codegen -w"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.8",
+    "@apollo/client": "4.0.0-rc.4",
+    "@ibm/plex-sans-tc": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.14",
@@ -20,6 +21,7 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
@@ -34,6 +36,8 @@
     "@0no-co/graphqlsp": "^1.14.0",
     "@eslint/eslintrc": "^3",
     "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@parcel/watcher": "^2.5.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

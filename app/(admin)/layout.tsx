@@ -1,5 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import AuthGuard from "@/components/auth-guard";
 
 export default function AdminLayout({
   children,
@@ -7,11 +8,13 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main>
-        {children}
-      </main>
-    </SidebarProvider>
+    <AuthGuard>
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          {children}
+        </main>
+      </SidebarProvider>
+    </AuthGuard>
   );
 }

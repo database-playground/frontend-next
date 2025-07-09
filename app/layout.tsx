@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, IBM_Plex_Sans_JP } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/providers/use-user";
 import ApolloProvider from "@/providers/use-apollo";
 
-const ibmPlexSans = IBM_Plex_Sans_JP({
-  variable: "--font-ibm-plex-sans",
-  weight: ["300", "500", "700"],
-});
+// FIXME: move to CDN
+import "@ibm/plex-sans-tc/css/ibm-plex-sans-tc-default.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +33,7 @@ export default function RootLayout({
         className={`
           ${geistSans.variable}
           ${geistMono.variable}
-          ${ibmPlexSans.variable}
+          font-sans
           antialiased
         `}
       >
