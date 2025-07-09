@@ -3,9 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/providers/use-user";
 import ApolloProvider from "@/providers/use-apollo";
-
-// FIXME: move to CDN
-import "@ibm/plex-sans-tc/css/ibm-plex-sans-tc-default.css"
+import { PreloadResources } from "./preload-resources";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-hant-tw">
+      <head>
+        <PreloadResources />
+
+        <link rel="stylesheet" href="https://assets.dbplay.app/ibm-plex-sans-tc/css/ibm-plex-sans-tc-default.min.css" />
+      </head>
       <body
         className={`
           ${geistSans.variable}
