@@ -67,13 +67,17 @@ export type Group = Node & {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Create a new group. */
   createGroup?: Maybe<Group>;
+  /** Create a new scope set. */
   createScopeSet?: Maybe<ScopeSet>;
-  createUser?: Maybe<User>;
+  /** Delete a group. */
   deleteGroup: Scalars['Boolean']['output'];
   /** Delete the current user. */
   deleteMe: Scalars['Boolean']['output'];
+  /** Delete a scope set. */
   deleteScopeSet: Scalars['Boolean']['output'];
+  /** Delete a user. */
   deleteUser: Scalars['Boolean']['output'];
   /**
    * Impersonate a user.
@@ -84,8 +88,13 @@ export type Mutation = {
   impersonateUser: Scalars['String']['output'];
   /** Logout from all the devices of the current user. */
   logoutAll: Scalars['Boolean']['output'];
+  /** Update a group. */
   updateGroup?: Maybe<Group>;
+  /** Update the information of the current user. */
+  updateMe?: Maybe<User>;
+  /** Update a scope set. */
   updateScopeSet?: Maybe<ScopeSet>;
+  /** Update the information of a user. */
   updateUser?: Maybe<User>;
   /** Verify the registration of this user. */
   verifyRegistration: Scalars['Boolean']['output'];
@@ -99,11 +108,6 @@ export type MutationCreateGroupArgs = {
 
 export type MutationCreateScopeSetArgs = {
   input: CreateScopeSetInput;
-};
-
-
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
 };
 
 
@@ -130,6 +134,11 @@ export type MutationImpersonateUserArgs = {
 export type MutationUpdateGroupArgs = {
   id: Scalars['ID']['input'];
   input: UpdateGroupInput;
+};
+
+
+export type MutationUpdateMeArgs = {
+  input: UpdateUserInput;
 };
 
 
@@ -259,6 +268,7 @@ export type User = Node & {
   email: Scalars['String']['output'];
   group: Group;
   id: Scalars['ID']['output'];
+  /** The user who impersonated this user. */
   impersonatedBy?: Maybe<User>;
   name: Scalars['String']['output'];
   updatedAt: Scalars['Time']['output'];
@@ -284,10 +294,22 @@ export type UserEdge = {
   node?: Maybe<User>;
 };
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type MeUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserQuery = { __typename?: 'Query', me: { __typename?: 'User', name: string, email: string, avatar?: string | null } };
+export type MeUserInfoQuery = { __typename?: 'Query', me: { __typename?: 'User', name: string, avatar?: string | null } };
+
+export type MeUpdateUserInfoMutationVariables = Exact<{
+  input: UpdateUserInput;
+}>;
+
+
+export type MeUpdateUserInfoMutation = { __typename?: 'Mutation', updateMe?: { __typename?: 'User', id: string } | null };
+
+export type SidebarUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SidebarUserInfoQuery = { __typename?: 'Query', me: { __typename?: 'User', name: string, email: string, avatar?: string | null } };
 
 export type BasicUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -295,5 +317,7 @@ export type BasicUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 export type BasicUserInfoQuery = { __typename?: 'Query', me: { __typename?: 'User', name: string, email: string, group: { __typename?: 'Group', name: string } } };
 
 
-export const CurrentUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CurrentUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}}]}}]} as unknown as DocumentNode<CurrentUserQuery, CurrentUserQueryVariables>;
+export const MeUserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MeUserInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}}]}}]} as unknown as DocumentNode<MeUserInfoQuery, MeUserInfoQueryVariables>;
+export const MeUpdateUserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MeUpdateUserInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateMe"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<MeUpdateUserInfoMutation, MeUpdateUserInfoMutationVariables>;
+export const SidebarUserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SidebarUserInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}}]}}]} as unknown as DocumentNode<SidebarUserInfoQuery, SidebarUserInfoQueryVariables>;
 export const BasicUserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BasicUserInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"group"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<BasicUserInfoQuery, BasicUserInfoQueryVariables>;

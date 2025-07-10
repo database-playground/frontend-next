@@ -67,13 +67,17 @@ type Group implements Node {
 }
 
 type Mutation {
+  """Create a new group."""
   createGroup(input: CreateGroupInput!): Group
+  """Create a new scope set."""
   createScopeSet(input: CreateScopeSetInput!): ScopeSet
-  createUser(input: CreateUserInput!): User
+  """Delete a group."""
   deleteGroup(id: ID!): Boolean!
   """Delete the current user."""
   deleteMe: Boolean!
+  """Delete a scope set."""
   deleteScopeSet(id: ID!): Boolean!
+  """Delete a user."""
   deleteUser(id: ID!): Boolean!
   """
   Impersonate a user.
@@ -84,8 +88,13 @@ type Mutation {
   impersonateUser(userID: ID!): String!
   """Logout from all the devices of the current user."""
   logoutAll: Boolean!
+  """Update a group."""
   updateGroup(id: ID!, input: UpdateGroupInput!): Group
+  """Update the information of the current user."""
+  updateMe(input: UpdateUserInput!): User
+  """Update a scope set."""
   updateScopeSet(id: ID!, input: UpdateScopeSetInput!): ScopeSet
+  """Update the information of a user."""
   updateUser(id: ID!, input: UpdateUserInput!): User
   """Verify the registration of this user."""
   verifyRegistration: Boolean!
@@ -206,6 +215,7 @@ type User implements Node {
   email: String!
   group: Group!
   id: ID!
+  """The user who impersonated this user."""
   impersonatedBy: User
   name: String!
   updatedAt: Time!

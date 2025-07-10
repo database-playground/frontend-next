@@ -29,6 +29,7 @@ import {
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import buildUri from "@/lib/build-uri"
+import Link from "next/link"
 
 export function NavUser({
   user,
@@ -114,10 +115,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Info />
-                使用者資訊
-              </DropdownMenuItem>
+              <Link href="/me">
+                <DropdownMenuItem>
+                  <Info />
+                  使用者資訊
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>

@@ -29,9 +29,10 @@ import {
 } from "@/components/ui/sidebar"
 import { graphql } from "@/gql"
 import { useSuspenseQuery } from "@apollo/client"
+import Link from "next/link"
 
-const currentUserQuery = graphql(`
-  query CurrentUser {
+const sidebarUserInfoQuery = graphql(`
+  query SidebarUserInfo {
     me {
       name
       email
@@ -160,7 +161,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: { me } } = useSuspenseQuery(currentUserQuery)
+  const { data: { me } } = useSuspenseQuery(sidebarUserInfoQuery)
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -168,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/">
                 <div className={`
                   flex aspect-square size-8 items-center justify-center
                   rounded-lg text-sidebar-primary-foreground
@@ -179,7 +180,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-medium">資料庫練功坊</span>
                   <span className="truncate text-xs">管理介面</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
