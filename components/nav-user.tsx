@@ -1,12 +1,9 @@
 "use client"
 
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
+  Info,
   LogOut,
-  Sparkles,
 } from "lucide-react"
 
 import {
@@ -29,6 +26,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import buildUri from "@/lib/build-uri"
 
 export function NavUser({
   user,
@@ -36,10 +36,36 @@ export function NavUser({
   user: {
     name: string
     email: string
-    avatar: string
+    avatar?: string | null
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter()
+  const logout = async () => {
+    const loadingToast = toast.loading("正在登出……")
+
+    try {
+      const res = await fetch(buildUri("/api/auth/logout"), {
+        method: "POST",
+        credentials: "include",
+      })
+  
+      if (res.status === 205) {
+        router.push("/login")
+        return;
+      }
+  
+      toast.error("登出失敗", {
+        description: res.statusText,
+      })
+    } catch (error) {
+      toast.error("登出失敗", {
+        description: error instanceof Error ? error.message : "未知錯誤",
+      })
+    } finally {
+      toast.dismiss(loadingToast)
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -54,8 +80,8 @@ export function NavUser({
               `}
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
+                <AvatarFallback className="rounded-lg">{user.name.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -77,8 +103,8 @@ export function NavUser({
                 flex items-center gap-2 px-1 py-1.5 text-left text-sm
               `}>
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
+                  <AvatarFallback className="rounded-lg">{user.name.slice(0, 2)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -89,29 +115,14 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+                <Info />
+                使用者資訊
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut />
-              Log out
+              登出
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

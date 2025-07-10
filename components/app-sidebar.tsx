@@ -10,7 +10,7 @@ import {
   PieChart,
   Send,
   Settings2,
-  SquareTerminal,
+  SquareUser,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -27,30 +27,37 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { graphql } from "@/gql"
+import { useSuspenseQuery } from "@apollo/client"
+
+const currentUserQuery = graphql(`
+  query CurrentUser {
+    me {
+      name
+      email
+      avatar
+    }
+  }
+`)
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
-      title: "Playground",
+      title: "使用者管理",
       url: "#",
-      icon: SquareTerminal,
+      icon: SquareUser,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "使用者",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "群組",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "權限組合",
           url: "#",
         },
       ],
@@ -153,6 +160,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: { me } } = useSuspenseQuery(currentUserQuery)
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -181,7 +190,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={me} />
       </SidebarFooter>
     </Sidebar>
   )

@@ -4,6 +4,7 @@ import "./globals.css";
 import { UserProvider } from "@/providers/use-user";
 import ApolloProvider from "@/providers/use-apollo";
 import { PreloadResources } from "./preload-resources";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
             {children}
           </UserProvider>
         </ApolloProvider>
+        <Toaster />
       </body>
     </html>
   );

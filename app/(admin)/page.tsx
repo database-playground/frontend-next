@@ -1,3 +1,5 @@
+import { graphql } from "@/gql";
+
 export default function Home() {
   return (
     <div>

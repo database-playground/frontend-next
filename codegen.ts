@@ -1,7 +1,7 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "https://api.dbplay.app/query",
+  schema: "https://localhost:8080/query",
   documents: ["{app,components,contexts,hooks,lib}/**/*.{ts,tsx}"],
   ignoreNoDocuments: true,
   generates: {
