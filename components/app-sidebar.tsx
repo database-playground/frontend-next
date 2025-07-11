@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   BookOpen,
   Bot,
@@ -11,13 +11,14 @@ import {
   Send,
   Settings2,
   SquareUser,
-} from "lucide-react"
-import Image from "next/image"
+  type LucideIcon,
+} from "lucide-react";
+import Image from "next/image";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -26,10 +27,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { graphql } from "@/gql"
-import { useSuspenseQuery } from "@apollo/client"
-import Link from "next/link"
+} from "@/components/ui/sidebar";
+import { graphql } from "@/gql";
+import { useSuspenseQuery } from "@apollo/client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SIDEBAR_QUERY = graphql(`
   query SidebarUserInfo {
@@ -39,27 +41,59 @@ const SIDEBAR_QUERY = graphql(`
       avatar
     }
   }
-`)
+`);
 
-const data = {
+export interface NavItem {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  isActive?: boolean;
+  items?: NavSubItem[];
+}
+
+export interface NavSubItem {
+  title: string;
+  url: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+}
+
+export interface NavSmallItem {
+  name: string;
+  url: string;
+  icon: LucideIcon;
+}
+
+const isUserManagement = (pathname: string) => pathname.startsWith("/users") || pathname.startsWith("/groups") || pathname.startsWith("/scopesets");
+
+const buildNavbar = (
+  pathname: string
+): {
+  navMain: NavItem[];
+  navSecondary: NavItem[];
+  projects: NavSmallItem[];
+} => ({
   navMain: [
     {
       title: "使用者管理",
       url: "#",
       icon: SquareUser,
-      isActive: true,
+      isActive: isUserManagement(pathname),
       items: [
         {
           title: "使用者",
           url: "/users",
+          isActive: pathname.startsWith("/users"),
         },
         {
           title: "群組",
           url: "/groups",
+          isActive: pathname.startsWith("/groups"),
         },
         {
-          title: "權限組合",
+          title: "權限集",
           url: "/scopesets",
+          isActive: pathname.startsWith("/scopesets"),
         },
       ],
     },
@@ -158,10 +192,14 @@ const data = {
       icon: Map,
     },
   ],
-}
+});
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: { me } } = useSuspenseQuery(SIDEBAR_QUERY)
+  const pathname = usePathname();
+  const data = buildNavbar(pathname);
+  const {
+    data: { me },
+  } = useSuspenseQuery(SIDEBAR_QUERY);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -170,11 +208,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className={`
+                <div
+                  className={`
                   flex aspect-square size-8 items-center justify-center
                   rounded-lg text-sidebar-primary-foreground
-                `}>
-                  <Image src="/logo.svg" unoptimized alt="Database Playground" width={16} height={16} />
+                `}
+                >
+                  <Image
+                    src="/logo.svg"
+                    unoptimized
+                    alt="Database Playground"
+                    width={16}
+                    height={16}
+                  />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">資料庫練功坊</span>
@@ -194,5 +240,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={me} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
