@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Suspense } from "react";
 import { Loader } from "lucide-react";
+import AppAvatar from "@/components/avatar";
 
 const ME_QUERY = graphql(`
   query MeUserInfo {
@@ -80,6 +81,8 @@ function MeForm() {
     },
   });
 
+  const avatar = form.watch("avatar");
+
   const [updateMe] = useMutation(ME_UPDATE_MUTATION, {
     refetchQueries: [ME_QUERY],
     onError: (error) => {
@@ -101,10 +104,7 @@ function MeForm() {
   return (
     <>
       <div className="flex w-full max-w-xl flex-col items-center">
-        <Avatar className="mb-8 h-20 w-20">
-          {me?.avatar && <AvatarImage src={me.avatar} />}
-          <AvatarFallback>{me?.name ? me.name.charAt(0) : "?"}</AvatarFallback>
-        </Avatar>
+        <AppAvatar src={avatar} name={me?.name ?? ""} className="mb-8 h-20 w-20" />
       </div>
 
       <Form {...form}>
