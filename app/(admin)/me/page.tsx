@@ -20,6 +20,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Loader } from "lucide-react";
 
 const ME_QUERY = graphql(`
   query MeUserInfo {
@@ -44,6 +47,28 @@ const updateUserInput = z.object({
 });
 
 export default function Me() {
+  return (
+    <>
+      <SiteHeader title="個人資訊" />
+      <main className="flex flex-1 flex-col px-4 py-8 items-center">
+        <div className="w-full max-w-xl">
+          <h3 className="text-lg font-medium">個人資訊</h3>
+          <p className="text-muted-foreground text-sm">
+            管理您的個人資訊與頭貼。
+          </p>
+        </div>
+
+        <Separator className="my-4 w-full max-w-xl" />
+
+        <Suspense fallback={<Loader />}>
+          <MeForm />
+        </Suspense>
+      </main>
+    </>
+  );
+}
+
+function MeForm() {
   const {
     data: { me },
   } = useSuspenseQuery(ME_QUERY);
@@ -76,64 +101,51 @@ export default function Me() {
 
   return (
     <>
-      <SiteHeader title="個人資訊" />
-      <main className="flex flex-1 flex-col px-4 py-8 items-center">
-        <div className="w-full max-w-xl">
-          <h3 className="text-lg font-medium">個人資訊</h3>
-          <p className="text-muted-foreground text-sm">
-            管理您的個人資訊與頭貼。
-          </p>
-        </div>
+      <div className="flex flex-col items-center w-full max-w-xl">
+        <Avatar className="w-20 h-20 mb-8">
+          {me?.avatar && <AvatarImage src={me.avatar} />}
+          <AvatarFallback>{me?.name ? me.name.charAt(0) : "?"}</AvatarFallback>
+        </Avatar>
+      </div>
 
-        <Separator className="my-4 w-full max-w-xl" />
-        <div className="flex flex-col items-center w-full max-w-xl">
-          <Avatar className="w-20 h-20 mb-8">
-            {me?.avatar && <AvatarImage src={me.avatar} />}
-            <AvatarFallback>
-              {me?.name ? me.name.charAt(0) : "?"}
-            </AvatarFallback>
-          </Avatar>
-        </div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleUpdateUserInfo)}
+          className="space-y-8 w-xl"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>姓名</FormLabel>
+                <FormControl>
+                  <Input placeholder="姓名" {...field} />
+                </FormControl>
+                <FormDescription>公開顯示的姓名。</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleUpdateUserInfo)}
-            className="space-y-8 w-xl"
-          >
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>姓名</FormLabel>
-                  <FormControl>
-                    <Input placeholder="姓名" {...field} />
-                  </FormControl>
-                  <FormDescription>公開顯示的姓名。</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>頭貼連結</FormLabel>
+                <FormControl>
+                  <Input placeholder="頭貼連結" {...field} />
+                </FormControl>
+                <FormDescription>公開顯示的頭貼連結。</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="avatar"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>頭貼連結</FormLabel>
-                  <FormControl>
-                    <Input placeholder="頭貼連結" {...field} />
-                  </FormControl>
-                  <FormDescription>公開顯示的頭貼連結。</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button type="submit">儲存</Button>
-          </form>
-        </Form>
-      </main>
+          <Button type="submit">儲存</Button>
+        </form>
+      </Form>
     </>
   );
 }

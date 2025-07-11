@@ -29,9 +29,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { graphql } from "@/gql";
-import { useSuspenseQuery } from "@apollo/client";
+import { useQuery, useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
+import { Suspense } from "react";
 
 const SIDEBAR_QUERY = graphql(`
   query SidebarUserInfo {
@@ -64,7 +66,10 @@ export interface NavSmallItem {
   icon: LucideIcon;
 }
 
-const isUserManagement = (pathname: string) => pathname.startsWith("/users") || pathname.startsWith("/groups") || pathname.startsWith("/scopesets");
+const isUserManagement = (pathname: string) =>
+  pathname.startsWith("/users") ||
+  pathname.startsWith("/groups") ||
+  pathname.startsWith("/scopesets");
 
 const buildNavbar = (
   pathname: string
@@ -197,9 +202,6 @@ const buildNavbar = (
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const data = buildNavbar(pathname);
-  const {
-    data: { me },
-  } = useSuspenseQuery(SIDEBAR_QUERY);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -237,8 +239,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={me} />
+        <Suspense fallback={<NavUserLoading />}>
+          <NavUserMe />
+        </Suspense>
       </SidebarFooter>
     </Sidebar>
+  );
+}
+
+function NavUserMe() {
+  const {
+    data: { me },
+  } = useSuspenseQuery(SIDEBAR_QUERY);
+
+  return <NavUser user={me} />;
+}
+
+function NavUserLoading() {
+  return (
+    <NavUser
+      user={{
+        name: "Loading…",
+        email: "載入中…",
+        avatar: null,
+      }}
+    />
   );
 }
