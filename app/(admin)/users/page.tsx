@@ -46,7 +46,7 @@ const USERS_QUERY = graphql(`
 export default function UsersPage() {
   return (
     <>
-      <SiteHeader title="使用者管理" />
+      <SiteHeader title="使用者" />
       <main className={`
         flex-1 space-y-4 p-4 pt-6
         md:p-8

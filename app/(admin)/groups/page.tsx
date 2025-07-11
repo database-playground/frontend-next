@@ -28,7 +28,7 @@ const GROUP_QUERY = graphql(`
 export default function GroupsPage() {
   return (
     <>
-      <SiteHeader title="群組管理" />
+      <SiteHeader title="群組" />
       <main className={`
         flex-1 space-y-4 p-4 pt-6
         md:p-8

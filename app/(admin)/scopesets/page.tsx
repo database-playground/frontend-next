@@ -23,7 +23,7 @@ const SCOPE_SET_QUERY = graphql(`
 export default function ScopesetPage() {
   return (
     <>
-      <SiteHeader title="權限集管理" />
+      <SiteHeader title="權限集" />
       <main className={`
         flex-1 space-y-4 p-4 pt-6
         md:p-8
