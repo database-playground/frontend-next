@@ -52,7 +52,10 @@ export const columns: ColumnDef<User>[] = [
     header: "群組",
     cell: ({ row }) => {
       const group = row.original.group;
-      return <Link href={`/groups/${group}`} className="text-blue-500 hover:underline">{group}</Link>;
+      return <Link href={`/groups/${group}`} className={`
+        text-blue-500
+        hover:underline
+      `}>{group}</Link>;
     },
   },
   {

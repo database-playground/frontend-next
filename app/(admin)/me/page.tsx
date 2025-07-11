@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Loader } from "lucide-react";
 
 const ME_QUERY = graphql(`
@@ -50,10 +49,10 @@ export default function Me() {
   return (
     <>
       <SiteHeader title="個人資訊" />
-      <main className="flex flex-1 flex-col px-4 py-8 items-center">
+      <main className="flex flex-1 flex-col items-center px-4 py-8">
         <div className="w-full max-w-xl">
           <h3 className="text-lg font-medium">個人資訊</h3>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             管理您的個人資訊與頭貼。
           </p>
         </div>
@@ -101,8 +100,8 @@ function MeForm() {
 
   return (
     <>
-      <div className="flex flex-col items-center w-full max-w-xl">
-        <Avatar className="w-20 h-20 mb-8">
+      <div className="flex w-full max-w-xl flex-col items-center">
+        <Avatar className="mb-8 h-20 w-20">
           {me?.avatar && <AvatarImage src={me.avatar} />}
           <AvatarFallback>{me?.name ? me.name.charAt(0) : "?"}</AvatarFallback>
         </Avatar>
@@ -111,7 +110,7 @@ function MeForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleUpdateUserInfo)}
-          className="space-y-8 w-xl"
+          className="w-xl space-y-8"
         >
           <FormField
             control={form.control}

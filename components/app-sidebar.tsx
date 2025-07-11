@@ -29,10 +29,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { graphql } from "@/gql";
-import { useQuery, useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Skeleton } from "./ui/skeleton";
 import { Suspense } from "react";
 
 const SIDEBAR_QUERY = graphql(`
@@ -212,9 +211,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link href="/">
                 <div
                   className={`
-                  flex aspect-square size-8 items-center justify-center
-                  rounded-lg text-sidebar-primary-foreground
-                `}
+                    flex aspect-square size-8 items-center justify-center
+                    rounded-lg text-sidebar-primary-foreground
+                  `}
                 >
                   <Image
                     src="/logo.svg"

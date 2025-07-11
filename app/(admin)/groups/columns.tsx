@@ -40,7 +40,10 @@ export const columns: ColumnDef<Group>[] = [
       return (
         <div className="flex flex-wrap gap-2">
           {scopeSet.map((scope) => (
-            <Link href={`/scopesets/${scope.id}`} className="text-blue-500 hover:underline" key={scope.id}>{scope.slug}</Link>
+            <Link href={`/scopesets/${scope.id}`} className={`
+              text-blue-500
+              hover:underline
+            `} key={scope.id}>{scope.slug}</Link>
           ))}
         </div>
       );
