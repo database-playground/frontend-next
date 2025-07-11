@@ -1,58 +1,49 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-export interface User {
+export interface Group {
   id: string;
   name: string;
-  email: string;
-  avatar?: string | null;
-  group: string;
+  description: string;
+  scopeSet: {
+    id: string;
+    slug: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Group>[] = [
   {
     accessorKey: "id",
     header: "ID",
   },
   {
     accessorKey: "name",
-    header: "姓名",
+    header: "群組名稱",
   },
   {
-    accessorKey: "email",
-    header: "Google 帳號",
+    accessorKey: "description",
+    header: "群組描述",
   },
   {
-    accessorKey: "avatar",
-    header: "頭貼",
-    enableSorting: false,
+    accessorKey: "scopeSet",
+    header: "權限集",
     cell: ({ row }) => {
-      const avatar = row.original.avatar;
-      const name = row.original.name;
+      const scopeSet = row.original.scopeSet;
+
       return (
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage src={avatar || undefined} alt={name} />
-            <AvatarFallback>{row.original.name?.[0] ?? "?"}</AvatarFallback>
-          </Avatar>
+        <div className="flex flex-wrap gap-2">
+          {scopeSet.map((scope) => (
+            <Link href={`/scopesets/${scope.id}`} className="text-blue-500 hover:underline" key={scope.id}>{scope.slug}</Link>
+          ))}
         </div>
       );
-    },
-  },
-  {
-    accessorKey: "group",
-    header: "群組",
-    cell: ({ row }) => {
-      const group = row.original.group;
-      return <Link href={`/groups/${group}`} className="text-blue-500 hover:underline">{group}</Link>;
     },
   },
   {
@@ -74,7 +65,7 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original
+      const group = row.original
  
       return (
         <DropdownMenu>
@@ -87,13 +78,13 @@ export const columns: ColumnDef<User>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>動作</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
+              onClick={() => navigator.clipboard.writeText(group.id)}
             >
-              複製帳號 ID
+              複製群組 ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>編輯使用者</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">刪除使用者</DropdownMenuItem>
+            <DropdownMenuItem>編輯群組</DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">刪除群組</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

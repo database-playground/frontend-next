@@ -55,11 +55,11 @@ const data = {
         },
         {
           title: "群組",
-          url: "#",
+          url: "/groups",
         },
         {
           title: "權限組合",
-          url: "#",
+          url: "/scopesets",
         },
       ],
     },
