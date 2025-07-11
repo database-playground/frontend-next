@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { graphql } from "@/gql";
 import { useMutation, useSuspenseQuery } from "@apollo/client";
 import { toast } from "sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { SiteHeader } from "@/components/site-header";
 import { z } from "zod";
