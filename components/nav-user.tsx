@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import buildUri from "@/lib/build-uri"
 import Link from "next/link"
+import AppAvatar from "./avatar"
 
 export function NavUser({
   user,
@@ -80,10 +81,9 @@ export function NavUser({
                 data-[state=open]:text-sidebar-accent-foreground
               `}
             >
-              <Avatar className="h-8 w-8 rounded-lg">
-                {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
-                <AvatarFallback className="rounded-lg">{user.name.slice(0, 2)}</AvatarFallback>
-              </Avatar>
+              <AppAvatar src={user.avatar} name={user.name} className={`
+                h-8 w-8 rounded-lg
+              `} />
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
@@ -103,10 +103,9 @@ export function NavUser({
               <div className={`
                 flex items-center gap-2 px-1 py-1.5 text-left text-sm
               `}>
-                <Avatar className="h-8 w-8 rounded-lg">
-                  {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
-                  <AvatarFallback className="rounded-lg">{user.name.slice(0, 2)}</AvatarFallback>
-                </Avatar>
+                <AppAvatar src={user.avatar} name={user.name} className={`
+                  h-8 w-8 rounded-lg
+                `} />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
                   <span className="truncate text-xs">{user.email}</span>

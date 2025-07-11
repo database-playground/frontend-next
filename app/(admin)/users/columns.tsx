@@ -1,5 +1,6 @@
 "use client";
 
+import AppAvatar from "@/components/avatar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -39,10 +40,7 @@ export const columns: ColumnDef<User>[] = [
       const name = row.original.name;
       return (
         <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage src={avatar || undefined} alt={name} />
-            <AvatarFallback>{row.original.name?.[0] ?? "?"}</AvatarFallback>
-          </Avatar>
+          <AppAvatar src={avatar} name={name} />
         </div>
       );
     },
