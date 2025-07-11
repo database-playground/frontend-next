@@ -31,7 +31,7 @@ import { graphql } from "@/gql"
 import { useSuspenseQuery } from "@apollo/client"
 import Link from "next/link"
 
-const sidebarUserInfoQuery = graphql(`
+const SIDEBAR_QUERY = graphql(`
   query SidebarUserInfo {
     me {
       name
@@ -51,7 +51,7 @@ const data = {
       items: [
         {
           title: "使用者",
-          url: "#",
+          url: "/users",
         },
         {
           title: "群組",
@@ -161,7 +161,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: { me } } = useSuspenseQuery(sidebarUserInfoQuery)
+  const { data: { me } } = useSuspenseQuery(SIDEBAR_QUERY)
 
   return (
     <Sidebar variant="inset" {...props}>

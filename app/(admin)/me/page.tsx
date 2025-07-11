@@ -1,86 +1,139 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { graphql } from "@/gql";
-import type { UpdateUserInput } from "@/gql/graphql";
 import { useMutation, useSuspenseQuery } from "@apollo/client";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { SiteHeader } from "@/components/site-header";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
-const meUserInfoQuery = graphql(`
-    query MeUserInfo {
-        me {
-            name
-            avatar
-        }
+const ME_QUERY = graphql(`
+  query MeUserInfo {
+    me {
+      name
+      avatar
     }
-`)
+  }
+`);
 
-const meUpdateUserInfoMutation = graphql(`
-    mutation MeUpdateUserInfo($input: UpdateUserInput!) {
-        updateMe(input: $input) {
-            id
-        }
+const ME_UPDATE_MUTATION = graphql(`
+  mutation MeUpdateUserInfo($input: UpdateUserInput!) {
+    updateMe(input: $input) {
+      id
     }
-`)
+  }
+`);
+
+const updateUserInput = z.object({
+  name: z.string(),
+  avatar: z.url().optional(),
+});
 
 export default function Me() {
-    const { data: { me } } = useSuspenseQuery(meUserInfoQuery)
-    const [updateMe] = useMutation(meUpdateUserInfoMutation, {
-        refetchQueries: [meUserInfoQuery],
-        onError: (error) => {
-            toast.error("更新使用者資訊失敗", {
-                description: error.message,
-            })
-        },
-        onCompleted: () => {
-            toast.success("更新使用者資訊成功")
-        },
-    })
+  const {
+    data: { me },
+  } = useSuspenseQuery(ME_QUERY);
 
-    const handleUpdateUserInfo = async (formData: FormData) => {
-        const username = formData.get("username") as string
-        const avatar = formData.get("avatar") as string
+  const form = useForm<z.infer<typeof updateUserInput>>({
+    resolver: zodResolver(updateUserInput),
+    defaultValues: {
+      name: me?.name ?? "",
+      avatar: me?.avatar ?? "",
+    },
+  });
 
-        const updateUserInput: UpdateUserInput = {
-            name: username,
-            avatar: avatar === '' ? undefined : avatar,
-            clearAvatar: avatar === '',
-        }
+  const [updateMe] = useMutation(ME_UPDATE_MUTATION, {
+    refetchQueries: [ME_QUERY],
+    onError: (error) => {
+      toast.error("更新使用者資訊失敗", {
+        description: error.message,
+      });
+    },
+    onCompleted: () => {
+      toast.success("更新使用者資訊成功");
+    },
+  });
 
-        await updateMe({ variables: { input: updateUserInput } })
-    }
+  const handleUpdateUserInfo = async (
+    values: z.infer<typeof updateUserInput>
+  ) => {
+    await updateMe({ variables: { input: values } });
+  };
 
-    return (
-      <div className="flex flex-1 flex-col px-4 py-8 items-center">
+  return (
+    <>
+      <SiteHeader title="個人資訊" />
+      <main className="flex flex-1 flex-col px-4 py-8 items-center">
         <div className="w-full max-w-xl">
           <h3 className="text-lg font-medium">個人資訊</h3>
-          <p className="text-muted-foreground text-sm">管理您的個人資訊與頭貼。</p>
+          <p className="text-muted-foreground text-sm">
+            管理您的個人資訊與頭貼。
+          </p>
         </div>
+
         <Separator className="my-4 w-full max-w-xl" />
         <div className="flex flex-col items-center w-full max-w-xl">
           <Avatar className="w-20 h-20 mb-8">
             {me?.avatar && <AvatarImage src={me.avatar} />}
             <AvatarFallback>
-              {me?.name ? me.name.charAt(0) : '?'}
+              {me?.name ? me.name.charAt(0) : "?"}
             </AvatarFallback>
           </Avatar>
-          <form className="flex flex-col space-y-8 w-full" action={handleUpdateUserInfo}>
-            <div className="flex flex-col space-y-2">
-              <Label htmlFor="username">姓名</Label>
-              <Input id="username" name="username" placeholder="姓名" defaultValue={me?.name} />
-            </div>
-            <div className="flex flex-col space-y-2">
-              <Label htmlFor="avatar">頭貼連結</Label>
-              <Input id="avatar" name="avatar" placeholder="頭貼連結" defaultValue={me?.avatar ?? ''} />
-            </div>
-            <Button className="w-full md:w-auto self-end">儲存</Button>
-          </form>
         </div>
-      </div>
-    );
-  }
-  
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleUpdateUserInfo)}
+            className="space-y-8 w-xl"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>姓名</FormLabel>
+                  <FormControl>
+                    <Input placeholder="姓名" {...field} />
+                  </FormControl>
+                  <FormDescription>公開顯示的姓名。</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="avatar"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>頭貼連結</FormLabel>
+                  <FormControl>
+                    <Input placeholder="頭貼連結" {...field} />
+                  </FormControl>
+                  <FormDescription>公開顯示的頭貼連結。</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit">儲存</Button>
+          </form>
+        </Form>
+      </main>
+    </>
+  );
+}
