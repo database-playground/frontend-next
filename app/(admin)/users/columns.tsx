@@ -12,7 +12,7 @@ export interface User {
   name: string;
   email: string;
   avatar?: string | null;
-  group: string;
+  group: { id: string, slug: string };
   createdAt: string;
   updatedAt: string;
 }
@@ -49,7 +49,7 @@ export const columns: ColumnDef<User>[] = [
     header: "群組",
     cell: ({ row }) => {
       const group = row.original.group;
-      return <StyledLink href={`/groups/${group}`}>{group}</StyledLink>;
+      return <StyledLink href={`/groups/${group.id}`}>{group.slug}</StyledLink>;
     },
   },
   {

@@ -27,6 +27,7 @@ const USERS_QUERY = graphql(`
           createdAt
           updatedAt
           group {
+            id
             name
           }
         }
@@ -92,7 +93,10 @@ function UserDataTable() {
           name: user.name,
           email: user.email,
           avatar: user.avatar,
-          group: user.group.name,
+          group: {
+            id: user.group.id,
+            slug: user.group.name,
+          },
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         } satisfies User;
