@@ -37,6 +37,7 @@ import { Suspense } from "react";
 const SIDEBAR_QUERY = graphql(`
   query SidebarUserInfo {
     me {
+      id
       name
       email
       avatar

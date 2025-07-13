@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 
 export type Direction = "forward" | "backward";
@@ -27,6 +28,7 @@ export default function DataTablePagination({
           onClick={() => onPageChange("backward")}
           disabled={!hasPreviousPage}
         >
+          <ChevronLeft className="h-4 w-4" />
           上一頁
         </Button>
         <Button
@@ -36,6 +38,7 @@ export default function DataTablePagination({
           disabled={!hasNextPage}
         >
           下一頁
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>

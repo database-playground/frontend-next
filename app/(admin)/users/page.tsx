@@ -30,7 +30,6 @@ const USERS_QUERY = graphql(`
             name
           }
         }
-        cursor
       }
       totalCount
       pageInfo {

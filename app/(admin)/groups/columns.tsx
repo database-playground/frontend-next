@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
 
 export interface Group {
   id: string;
@@ -22,6 +22,15 @@ export const columns: ColumnDef<Group>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => {
+      const group = row.original;
+
+      return (
+        <StyledLink href={`/groups/${group.id}`}>
+          {group.id}
+        </StyledLink>
+      )
+    }
   },
   {
     accessorKey: "name",
@@ -40,10 +49,7 @@ export const columns: ColumnDef<Group>[] = [
       return (
         <div className="flex flex-wrap gap-2">
           {scopeSet.map((scope) => (
-            <Link href={`/scopesets/${scope.id}`} className={`
-              text-blue-500
-              hover:underline
-            `} key={scope.id}>{scope.slug}</Link>
+            <StyledLink href={`/scopesets/${scope.id}`} key={scope.id}>{scope.slug}</StyledLink>
           ))}
         </div>
       );

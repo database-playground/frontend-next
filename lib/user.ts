@@ -7,6 +7,7 @@ export type BasicUserInfo = BasicUserInfoQuery["me"];
 export const userQuery = graphql(`
   query BasicUserInfo {
     me {
+      id
       name
       email
 

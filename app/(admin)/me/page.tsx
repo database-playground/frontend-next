@@ -26,6 +26,7 @@ import AppAvatar from "@/components/avatar";
 const ME_QUERY = graphql(`
   query MeUserInfo {
     me {
+      id
       name
       avatar
     }

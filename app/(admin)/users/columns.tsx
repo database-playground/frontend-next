@@ -3,9 +3,9 @@
 import AppAvatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
 
 export interface User {
   id: string;
@@ -49,10 +49,7 @@ export const columns: ColumnDef<User>[] = [
     header: "群組",
     cell: ({ row }) => {
       const group = row.original.group;
-      return <Link href={`/groups/${group}`} className={`
-        text-blue-500
-        hover:underline
-      `}>{group}</Link>;
+      return <StyledLink href={`/groups/${group}`}>{group}</StyledLink>;
     },
   },
   {
