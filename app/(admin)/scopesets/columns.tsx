@@ -6,8 +6,8 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { UpdateScopeSetDropdownTrigger } from "./_actions/update";
-import { DeleteScopeSetDropdownTrigger } from "./_actions/delete";
+import { UpdateScopeSetDropdownTrigger } from "./_components/update";
+import { DeleteScopeSetDropdownTrigger } from "./_components/delete";
 
 export interface ScopeSet {
   id: string;

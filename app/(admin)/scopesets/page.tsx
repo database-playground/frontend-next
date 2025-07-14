@@ -6,8 +6,8 @@ import { columns, type ScopeSet } from "./columns";
 import { GeneralDataTable } from "@/components/data-table/general";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
-import { SCOPE_SET_QUERY } from "./_actions/query";
-import { CreateScopeSetTrigger } from "./_actions/create";
+import { SCOPE_SET_QUERY } from "./_components/query";
+import { CreateScopeSetTrigger } from "./_components/create";
 
 export default function ScopesetPage() {
   return (
