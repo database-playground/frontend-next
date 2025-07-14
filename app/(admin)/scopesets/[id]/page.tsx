@@ -3,16 +3,16 @@
 import { useSuspenseQuery } from "@apollo/client";
 import { graphql } from "@/gql";
 import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import { useParams } from "next/navigation";
-import { Pencil, Trash } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { UpdateScopeSetButtonTrigger } from "../_actions/update";
+import { DeleteScopeSetButtonTrigger } from "../_actions/delete";
 
 const SCOPESET_HEADER_QUERY = graphql(`
   query ScopeSetHeaderQuery($id: ID!) {
@@ -63,14 +63,8 @@ export default function ScopeSetPage() {
           </Suspense>
 
           <div className="flex items-center gap-2">
-            <Button>
-              <Pencil className="h-4 w-4" />
-              編輯
-            </Button>
-            <Button variant="destructive">
-              <Trash className="h-4 w-4" />
-              刪除
-            </Button>
+            <UpdateScopeSetButtonTrigger id={id as string} />
+            <DeleteScopeSetButtonTrigger id={id as string} />
           </div>
         </div>
         <div className={`

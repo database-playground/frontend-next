@@ -6,6 +6,8 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { UpdateScopeSetDropdownTrigger } from "./_actions/update";
+import { DeleteScopeSetDropdownTrigger } from "./_actions/delete";
 
 export interface ScopeSet {
   id: string;
@@ -71,8 +73,8 @@ export const columns: ColumnDef<ScopeSet>[] = [
               複製權限集 ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>編輯權限集</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">刪除權限集</DropdownMenuItem>
+            <UpdateScopeSetDropdownTrigger id={scopeSet.id} />
+            <DeleteScopeSetDropdownTrigger id={scopeSet.id} />
           </DropdownMenuContent>
         </DropdownMenu>
       )
