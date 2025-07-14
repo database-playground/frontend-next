@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +18,15 @@ export const columns: ColumnDef<ScopeSet>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => {
+      const scopeSet = row.original;
+
+      return (
+        <StyledLink href={`/scopesets/${scopeSet.id}`}>
+          {scopeSet.id}
+        </StyledLink>
+      )
+    }
   },
   {
     accessorKey: "slug",

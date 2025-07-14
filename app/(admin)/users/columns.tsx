@@ -22,6 +22,15 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return (
+        <StyledLink href={`/users/${user.id}`}>
+          {user.id}
+        </StyledLink>
+      )
+    }
   },
   {
     accessorKey: "name",
