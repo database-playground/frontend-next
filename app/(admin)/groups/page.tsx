@@ -4,7 +4,6 @@ import { useSuspenseQuery } from "@apollo/client";
 import { graphql } from "@/gql";
 import { SiteHeader } from "@/components/site-header";
 import { columns, type Group } from "./columns";
-import { Button } from "@/components/ui/button";
 import { GeneralDataTable } from "@/components/data-table/general";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
 import { Suspense } from "react";

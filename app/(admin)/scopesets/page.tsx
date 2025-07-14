@@ -15,9 +15,9 @@ export default function ScopesetPage() {
       <SiteHeader title="權限集" />
       <main
         className={`
-        flex-1 space-y-4 p-4 pt-6
-        md:p-8
-      `}
+          flex-1 space-y-4 p-4 pt-6
+          md:p-8
+        `}
       >
         <div className="flex items-center justify-between space-y-2">
           <div>
