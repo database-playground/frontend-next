@@ -27,6 +27,7 @@ const GROUP_HEADER_QUERY = graphql(`
 const GROUP_SCOPES_QUERY = graphql(`
   query GroupScopesQuery($id: ID!) {
     group(id: $id) {
+      id
       scopeSet {
         id
         slug

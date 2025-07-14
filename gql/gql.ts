@@ -15,7 +15,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  query GroupHeaderQuery($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n    }\n  }\n": typeof types.GroupHeaderQueryDocument,
-    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": typeof types.GroupScopesQueryDocument,
+    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": typeof types.GroupScopesQueryDocument,
     "\n  query GroupMembersQuery($id: ID!) {\n    users(where: { hasGroupWith: { id: $id } }) {\n      totalCount\n    }\n  }\n": typeof types.GroupMembersQueryDocument,
     "\n  query GroupAuditInfoQuery($id: ID!) {\n    group(id: $id) {\n      id\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GroupAuditInfoQueryDocument,
     "\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GroupsPageQueryDocument,
@@ -34,7 +34,7 @@ type Documents = {
 };
 const documents: Documents = {
     "\n  query GroupHeaderQuery($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n    }\n  }\n": types.GroupHeaderQueryDocument,
-    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": types.GroupScopesQueryDocument,
+    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": types.GroupScopesQueryDocument,
     "\n  query GroupMembersQuery($id: ID!) {\n    users(where: { hasGroupWith: { id: $id } }) {\n      totalCount\n    }\n  }\n": types.GroupMembersQueryDocument,
     "\n  query GroupAuditInfoQuery($id: ID!) {\n    group(id: $id) {\n      id\n      createdAt\n      updatedAt\n    }\n  }\n": types.GroupAuditInfoQueryDocument,
     "\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.GroupsPageQueryDocument,
@@ -73,7 +73,7 @@ export function graphql(source: "\n  query GroupHeaderQuery($id: ID!) {\n    gro
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
