@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export interface Group {
   id: string;
@@ -86,6 +87,11 @@ export const columns: ColumnDef<Group>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>動作</DropdownMenuLabel>
+            <Link href={`/groups/${group.id}`}>
+              <DropdownMenuItem>
+                檢視群組
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(group.id)}
             >

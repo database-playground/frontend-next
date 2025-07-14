@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export interface ScopeSet {
   id: string;
@@ -49,6 +50,11 @@ export const columns: ColumnDef<ScopeSet>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>動作</DropdownMenuLabel>
+            <Link href={`/scopesets/${scopeSet.id}`}>
+              <DropdownMenuItem>
+                檢視權限集
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(scopeSet.id)}
             >

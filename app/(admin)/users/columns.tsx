@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export interface User {
   id: string;
@@ -83,6 +84,11 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>動作</DropdownMenuLabel>
+            <Link href={`/users/${user.id}`}>
+              <DropdownMenuItem>
+                檢視使用者
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.email)}
             >

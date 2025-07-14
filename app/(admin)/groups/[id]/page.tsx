@@ -60,7 +60,7 @@ export default function GroupPage() {
 
   return (
     <>
-      <SiteHeader title={`群組詳細資訊`} hasBackButton />
+      <SiteHeader title="群組詳細資訊" hasBackButton />
       <main
         className={`
           flex-1 space-y-4 p-4 pt-6
