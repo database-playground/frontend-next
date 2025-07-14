@@ -60,7 +60,7 @@ export default function GroupPage() {
 
   return (
     <>
-      <SiteHeader title="群組詳細資訊" hasBackButton />
+      <SiteHeader title="群組資訊" hasBackButton />
       <main
         className={`
           flex-1 space-y-4 p-4 pt-6
@@ -68,8 +68,8 @@ export default function GroupPage() {
         `}
       >
         <div className="flex items-center justify-between space-y-2">
-          <Suspense fallback={<GroupHeaderSkeleton />}>
-            <GroupHeader id={id as string} />
+          <Suspense fallback={<HeaderSkeleton />}>
+            <Header id={id as string} />
           </Suspense>
 
           <div className="flex items-center gap-2">
@@ -87,16 +87,16 @@ export default function GroupPage() {
           grid grid-cols-1 gap-4
           lg:grid-cols-2
         `}>
-          <Suspense fallback={<GroupCardSkeleton title="權限列表" description="這個群組擁有的權限。" />}>
-            <GroupScopeCard id={id as string} />
+          <Suspense fallback={<CardSkeleton title="權限列表" description="這個群組擁有的權限。" />}>
+            <ScopeCard id={id as string} />
           </Suspense>
 
-          <Suspense fallback={<GroupCardSkeleton title="成員人數" description="這個群組的成員人數。" />}>
-            <GroupMembersCard id={id as string} />
+          <Suspense fallback={<CardSkeleton title="成員人數" description="這個群組的成員人數。" />}>
+            <MembersCard id={id as string} />
           </Suspense>
 
-          <Suspense fallback={<GroupCardSkeleton title="稽核資訊" description="這個群組的建立與更新時間。" skeletonClassName="h-8" />}> 
-            <GroupAuditInfoCard id={id as string} />
+          <Suspense fallback={<CardSkeleton title="稽核資訊" description="這個群組的建立與更新時間。" skeletonClassName="h-8" />}> 
+            <AuditInfoCard id={id as string} />
           </Suspense>
         </div>
       </main>
@@ -104,7 +104,7 @@ export default function GroupPage() {
   );
 }
 
-function GroupHeader({ id }: { id: string }) {
+function Header({ id }: { id: string }) {
   const { data } = useSuspenseQuery(GROUP_HEADER_QUERY, {
     variables: { id },
   });
@@ -112,13 +112,13 @@ function GroupHeader({ id }: { id: string }) {
   return <PageHeader title={`群組「${data.group.name}」`} description={data.group.description ?? "這個群組沒有描述。"} />;
 }
 
-function GroupHeaderSkeleton() {
+function HeaderSkeleton() {
   return (
     <PageHeaderSkeleton description="這個群組的詳細資訊。" />
   );
 }
 
-function GroupScopeCard({ id }: { id: string }) {
+function ScopeCard({ id }: { id: string }) {
   const { data } = useSuspenseQuery(GROUP_SCOPES_QUERY, {
     variables: { id },
   });
@@ -161,7 +161,7 @@ function GroupScopeCard({ id }: { id: string }) {
   )
 }
 
-function GroupCardSkeleton({ title, description, skeletonClassName }: { title: string, description: string, skeletonClassName?: string }) {
+function CardSkeleton({ title, description, skeletonClassName }: { title: string, description: string, skeletonClassName?: string }) {
   return (
     <Card>
       <CardHeader>
@@ -175,7 +175,7 @@ function GroupCardSkeleton({ title, description, skeletonClassName }: { title: s
   )
 }
 
-function GroupMembersCard({ id }: { id: string }) {
+function MembersCard({ id }: { id: string }) {
   const { data } = useSuspenseQuery(GROUP_MEMBERS_QUERY, {
     variables: { id },
   });
@@ -193,7 +193,7 @@ function GroupMembersCard({ id }: { id: string }) {
   )
 }
 
-function GroupAuditInfoCard({ id }: { id: string }) {
+function AuditInfoCard({ id }: { id: string }) {
   const { data } = useSuspenseQuery(GROUP_AUDIT_INFO_QUERY, {
     variables: { id },
   });
