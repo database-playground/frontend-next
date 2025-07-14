@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { GeneralDataTable } from "@/components/data-table/general";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
 import { Suspense } from "react";
+import { CreateGroupTrigger } from "./_components/create";
 
 const GROUP_QUERY = graphql(`
   query GroupsPageQuery {
@@ -38,7 +39,7 @@ export default function GroupsPage() {
             <h2 className="text-2xl font-bold tracking-tight">群組管理</h2>
             <p className="text-muted-foreground">管理群組與其權限集。</p>
           </div>
-          <Button>新增群組</Button>
+          <CreateGroupTrigger />
         </div>
         <div>
           <Suspense fallback={<DataTableSkeleton />}>
