@@ -1,18 +1,12 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { ReactNode } from "react";
 
 export default function CardLayout({
   title,
   description,
-  children
+  children,
 }: {
   title: string;
   description: string;

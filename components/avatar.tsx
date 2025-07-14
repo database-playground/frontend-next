@@ -8,8 +8,8 @@ export interface AppAvatarProps extends React.ComponentProps<typeof Avatar> {
 export default function AppAvatar({ src, name, ...props }: AppAvatarProps) {
   return (
     <Avatar {...props}>
-        {src && <AvatarImage src={src} />}
-        <AvatarFallback>{name ? name.charAt(0) : "?"}</AvatarFallback>
+      {src && <AvatarImage src={src} />}
+      <AvatarFallback>{name ? name.charAt(0) : "?"}</AvatarFallback>
     </Avatar>
-  )
+  );
 }

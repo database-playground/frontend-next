@@ -1,27 +1,19 @@
 "use client";
 
+import AppAvatar from "@/components/avatar";
+import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { graphql } from "@/gql";
 import { useMutation, useSuspenseQuery } from "@apollo/client";
-import { toast } from "sonner";
-import { Separator } from "@/components/ui/separator";
-import { SiteHeader } from "@/components/site-header";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Suspense } from "react";
 import { Loader } from "lucide-react";
-import AppAvatar from "@/components/avatar";
+import { Suspense } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const ME_QUERY = graphql(`
   query MeUserInfo {
@@ -96,7 +88,7 @@ function MeForm() {
   });
 
   const handleUpdateUserInfo = async (
-    values: z.infer<typeof updateUserInput>
+    values: z.infer<typeof updateUserInput>,
   ) => {
     await updateMe({ variables: { input: values } });
   };

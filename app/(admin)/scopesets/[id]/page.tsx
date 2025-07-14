@@ -2,11 +2,11 @@
 
 import { SiteHeader } from "@/components/site-header";
 import { useParams } from "next/navigation";
-import { UpdateScopeSetButtonTrigger } from "../_components/update";
 import { DeleteScopeSetButtonTrigger } from "../_components/delete";
+import { UpdateScopeSetButtonTrigger } from "../_components/update";
+import { GroupsCard } from "./_components/groups";
 import { Header } from "./_components/header";
 import { ScopesCard } from "./_components/scopes";
-import { GroupsCard } from "./_components/groups";
 
 export default function ScopeSetPage() {
   const { id } = useParams();
@@ -28,10 +28,12 @@ export default function ScopeSetPage() {
             <DeleteScopeSetButtonTrigger id={id as string} />
           </div>
         </div>
-        <div className={`
-          grid grid-cols-1 gap-4
-          lg:grid-cols-2
-        `}>
+        <div
+          className={`
+            grid grid-cols-1 gap-4
+            lg:grid-cols-2
+          `}
+        >
           <ScopesCard id={id as string} />
           <GroupsCard id={id as string} />
         </div>

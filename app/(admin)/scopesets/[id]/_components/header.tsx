@@ -1,7 +1,7 @@
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { SCOPESET_HEADER_QUERY } from "./query";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
+import { SCOPESET_HEADER_QUERY } from "./query";
 
 export function Header({ id }: { id: string }) {
   return (

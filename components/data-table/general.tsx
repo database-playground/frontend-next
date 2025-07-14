@@ -1,12 +1,7 @@
-import {
-  type ColumnDef,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { type ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 
-import { DataTableMain } from "./table";
 import DataTablePagination from "./pagination";
+import { DataTableMain } from "./table";
 
 interface GeneralDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

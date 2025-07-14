@@ -1,13 +1,13 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { SiteHeader } from "@/components/site-header";
-import { columns, type ScopeSet } from "./columns";
 import { GeneralDataTable } from "@/components/data-table/general";
-import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
-import { SCOPE_SET_QUERY } from "./_components/query";
+import { SiteHeader } from "@/components/site-header";
+import { useSuspenseQuery } from "@apollo/client";
+import { Suspense } from "react";
 import { CreateScopeSetTrigger } from "./_components/create";
+import { SCOPE_SET_QUERY } from "./_components/query";
+import { columns, type ScopeSet } from "./columns";
 
 export default function ScopesetPage() {
   return (
@@ -39,16 +39,14 @@ export default function ScopesetPage() {
 function ScopeSetDataTable() {
   const { data } = useSuspenseQuery(SCOPE_SET_QUERY);
 
-  const scopeSetList =
-    data?.scopeSets.map(
-      (scopeSet) =>
-        ({
-          id: scopeSet.id,
-          slug: scopeSet.slug,
-          description: scopeSet.description ?? "",
-          scopes: scopeSet.scopes ?? [],
-        } satisfies ScopeSet)
-    ) ?? [];
+  const scopeSetList = data?.scopeSets.map(
+    (scopeSet) => ({
+      id: scopeSet.id,
+      slug: scopeSet.slug,
+      description: scopeSet.description ?? "",
+      scopes: scopeSet.scopes ?? [],
+    } satisfies ScopeSet),
+  ) ?? [];
 
   return <GeneralDataTable columns={columns} data={scopeSetList} />;
 }

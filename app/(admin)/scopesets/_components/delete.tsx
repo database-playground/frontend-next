@@ -9,17 +9,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { buttonVariants } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useSuspenseQuery } from "@apollo/client";
-import { SCOPE_SET_QUERY_BY_ID } from "./query";
 import { useMutation } from "@apollo/client";
-import { SCOPE_SET_DELETE_MUTATION } from "./mutation";
-import { SCOPE_SET_QUERY } from "./query";
-import { toast } from "sonner";
-import { Suspense, useState } from "react";
 import { Trash } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { toast } from "sonner";
+import { SCOPE_SET_DELETE_MUTATION } from "./mutation";
+import { SCOPE_SET_QUERY_BY_ID } from "./query";
+import { SCOPE_SET_QUERY } from "./query";
 
 export function DeleteScopeSetDropdownTrigger({ id }: { id: string }) {
   const router = useRouter();
@@ -43,8 +43,8 @@ export function DeleteScopeSetDropdownTrigger({ id }: { id: string }) {
         <DeleteScopeSetAlertDialogContent
           id={id}
           onCompleted={() => {
-            setOpen(false)
-            router.refresh()
+            setOpen(false);
+            router.refresh();
           }}
         />
       </Suspense>
@@ -67,8 +67,8 @@ export function DeleteScopeSetButtonTrigger({ id }: { id: string }) {
         <DeleteScopeSetAlertDialogContent
           id={id}
           onCompleted={() => {
-            setOpen(false)
-            router.push(".")
+            setOpen(false);
+            router.push(".");
           }}
         />
       </Suspense>

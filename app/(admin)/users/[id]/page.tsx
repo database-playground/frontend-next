@@ -1,24 +1,18 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { graphql } from "@/gql";
+import AppAvatar from "@/components/avatar";
+import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { Suspense } from "react";
-import { useParams } from "next/navigation";
-import { Clock, Pencil, Trash } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { cn } from "@/lib/utils";
-import AppAvatar from "@/components/avatar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { StyledLink } from "@/components/ui/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { graphql } from "@/gql";
+import { cn } from "@/lib/utils";
+import { useSuspenseQuery } from "@apollo/client";
+import { Clock, Pencil, Trash } from "lucide-react";
+import { useParams } from "next/navigation";
+import { Suspense } from "react";
 
 const USER_HEADER_QUERY = graphql(`
   query UserHeaderQuery($id: ID!) {
@@ -152,7 +146,9 @@ function GroupsCard({ id }: { id: string }) {
       </CardHeader>
       <CardContent>
         <p>{data.user.group?.name}</p>
-        <p className="text-sm text-muted-foreground"><StyledLink href={`/groups/${data.user.group?.id}`}>詳細資訊和權限 →</StyledLink></p>
+        <p className="text-sm text-muted-foreground">
+          <StyledLink href={`/groups/${data.user.group?.id}`}>詳細資訊和權限 →</StyledLink>
+        </p>
       </CardContent>
     </Card>
   );
@@ -204,5 +200,5 @@ function AuditInfoCard({ id }: { id: string }) {
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }

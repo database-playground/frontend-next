@@ -1,16 +1,16 @@
 import { Badge } from "@/components/ui/badge";
-import { CardLayout } from "./card";
-import { useSuspenseQuery } from "@apollo/client";
-import { SCOPESET_SCOPES_QUERY } from "./query";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
+import { CardLayout } from "./card";
+import { SCOPESET_SCOPES_QUERY } from "./query";
 
 export function ScopesCard({ id }: { id: string }) {
   return (
     <Suspense fallback={<CardSkeleton />}>
       <CardMain id={id} />
     </Suspense>
-  )
+  );
 }
 
 function CardMain({ id }: { id: string }) {
@@ -28,7 +28,7 @@ function CardMain({ id }: { id: string }) {
         ))}
       </div>
     </CardLayout>
-  )
+  );
 }
 
 function CardSkeleton() {
@@ -38,5 +38,5 @@ function CardSkeleton() {
         <Skeleton className="h-5 w-1/2" />
       </div>
     </CardLayout>
-  )
+  );
 }

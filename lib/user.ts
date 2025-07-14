@@ -19,16 +19,16 @@ export const userQuery = graphql(`
 `);
 
 export function isAdmin(user: BasicUserInfo): boolean {
-  return user.group?.name === 'admin'
+  return user.group?.name === "admin";
 }
 
 export async function logout() {
-  const response = await fetch(buildUri('/api/auth/logout'), {
-    method: 'POST',
-    credentials: 'include',
-  })
+  const response = await fetch(buildUri("/api/auth/logout"), {
+    method: "POST",
+    credentials: "include",
+  });
 
   if (!response.ok) {
-    throw new Error('Failed to logout')
+    throw new Error("Failed to logout");
   }
 }

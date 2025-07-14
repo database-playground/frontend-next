@@ -2,11 +2,11 @@
 
 "use client";
 
-import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { XIcon } from "lucide-react";
+import * as React from "react";
 
 type InputTagsProps = Omit<React.ComponentProps<"input">, "value" | "onChange"> & {
   value: string[];
@@ -50,7 +50,7 @@ const InputTags = React.forwardRef<HTMLInputElement, InputTagsProps>(
             dark:ring-offset-neutral-950
             dark:has-[:focus-visible]:ring-neutral-300
           `,
-          className
+          className,
         )}
       >
         {value.map((item) => (
@@ -81,9 +81,9 @@ const InputTags = React.forwardRef<HTMLInputElement, InputTagsProps>(
               e.preventDefault();
               addPendingDataPoint();
             } else if (
-              e.key === "Backspace" &&
-              pendingDataPoint.length === 0 &&
-              value.length > 0
+              e.key === "Backspace"
+              && pendingDataPoint.length === 0
+              && value.length > 0
             ) {
               e.preventDefault();
               onChange(value.slice(0, -1));
@@ -94,7 +94,7 @@ const InputTags = React.forwardRef<HTMLInputElement, InputTagsProps>(
         />
       </div>
     );
-  }
+  },
 );
 
 InputTags.displayName = "InputTags";

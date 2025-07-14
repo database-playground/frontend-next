@@ -1,8 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Button } from "./ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 export function SiteHeader({
   title,

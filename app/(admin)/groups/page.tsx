@@ -1,13 +1,13 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { graphql } from "@/gql";
-import { SiteHeader } from "@/components/site-header";
-import { columns, type Group } from "./columns";
 import { GeneralDataTable } from "@/components/data-table/general";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
+import { SiteHeader } from "@/components/site-header";
+import { graphql } from "@/gql";
+import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
 import { CreateGroupTrigger } from "./_components/create";
+import { columns, type Group } from "./columns";
 
 const GROUP_QUERY = graphql(`
   query GroupsPageQuery {
@@ -29,10 +29,12 @@ export default function GroupsPage() {
   return (
     <>
       <SiteHeader title="群組" />
-      <main className={`
-        flex-1 space-y-4 p-4 pt-6
-        md:p-8
-      `}>
+      <main
+        className={`
+          flex-1 space-y-4 p-4 pt-6
+          md:p-8
+        `}
+      >
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">群組管理</h2>
@@ -53,18 +55,16 @@ export default function GroupsPage() {
 function GroupDataTable() {
   const { data } = useSuspenseQuery(GROUP_QUERY);
 
-  const groupList =
-    data?.groups.map(
-      (group) =>
-        ({
-          id: group.id,
-          name: group.name,
-          description: group.description ?? "",
-          scopeSet: group.scopeSet ?? [],
-          createdAt: group.createdAt,
-          updatedAt: group.updatedAt,
-        } satisfies Group)
-    ) ?? [];
+  const groupList = data?.groups.map(
+    (group) => ({
+      id: group.id,
+      name: group.name,
+      description: group.description ?? "",
+      scopeSet: group.scopeSet ?? [],
+      createdAt: group.createdAt,
+      updatedAt: group.updatedAt,
+    } satisfies Group),
+  ) ?? [];
 
   return <GeneralDataTable columns={columns} data={groupList} />;
 }

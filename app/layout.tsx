@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { UserProvider } from "@/providers/use-user";
-import ApolloProvider from "@/providers/use-apollo";
-import { PreloadResources } from "./preload-resources";
 import { Toaster } from "@/components/ui/sonner";
+import ApolloProvider from "@/providers/use-apollo";
+import { UserProvider } from "@/providers/use-user";
+import { PreloadResources } from "./preload-resources";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

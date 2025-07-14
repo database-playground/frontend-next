@@ -1,16 +1,12 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { graphql } from "@/gql";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
-import CardLayout from "./card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { graphql } from "@/gql";
+import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
+import CardLayout from "./card";
 
 const GROUP_SCOPES_QUERY = graphql(`
   query GroupScopesQuery($id: ID!) {
@@ -30,7 +26,7 @@ export function ScopeCard({ id }: { id: string }) {
     <Suspense fallback={<CardSkeleton />}>
       <CardMain id={id} />
     </Suspense>
-  )
+  );
 }
 
 function CardMain({ id }: { id: string }) {
@@ -38,17 +34,16 @@ function CardMain({ id }: { id: string }) {
     variables: { id },
   });
 
-  const permissionsList =
-    data.group.scopeSet
-      ?.map((scopeSet) => {
-        return scopeSet.scopes.map((scope) => {
-          return {
-            scope,
-            inheritFrom: scopeSet.slug,
-          };
-        });
-      })
-      .flat() ?? [];
+  const permissionsList = data.group.scopeSet
+    ?.map((scopeSet) => {
+      return scopeSet.scopes.map((scope) => {
+        return {
+          scope,
+          inheritFrom: scopeSet.slug,
+        };
+      });
+    })
+    .flat() ?? [];
 
   return (
     <CardLayout title="權限列表" description="這個群組擁有的權限。">

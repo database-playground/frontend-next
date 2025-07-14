@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { createContext, useContext } from "react";
+import { type BasicUserInfo, userQuery } from "@/lib/user";
 import { useQuery } from "@apollo/client/react";
-import { userQuery, type BasicUserInfo } from "@/lib/user";
+import { createContext, useContext } from "react";
 
 export interface UserContextValue {
   user?: BasicUserInfo;

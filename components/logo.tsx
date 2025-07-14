@@ -1,9 +1,11 @@
 import Image, { type ImageProps } from "next/image";
 
-export type LogoProps = Omit<ImageProps, "src" | "alt" | "width" | "height">
+export type LogoProps = Omit<ImageProps, "src" | "alt" | "width" | "height">;
 
 export function Logo(props: LogoProps) {
-  return <Image src="https://assets.dbplay.app/logo.svg" alt="Database Playground Logo" width={16} height={16} {...props} />;
+  return (
+    <Image src="https://assets.dbplay.app/logo.svg" alt="Database Playground Logo" width={16} height={16} {...props} />
+  );
 }
 
 export function LogoText() {
@@ -12,5 +14,5 @@ export function LogoText() {
       <Logo />
       <div>Database Playground</div>
     </div>
-  )
+  );
 }

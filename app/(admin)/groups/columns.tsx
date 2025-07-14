@@ -1,7 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -30,8 +37,8 @@ export const columns: ColumnDef<Group>[] = [
         <StyledLink href={`/groups/${group.id}`}>
           {group.id}
         </StyledLink>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "name",
@@ -49,9 +56,8 @@ export const columns: ColumnDef<Group>[] = [
 
       return (
         <div className="flex flex-wrap gap-2">
-          {scopeSet.map((scope) => (
-            <StyledLink href={`/scopesets/${scope.id}`} key={scope.id}>{scope.slug}</StyledLink>
-          ))}
+          {scopeSet.map((scope) => <StyledLink href={`/scopesets/${scope.id}`} key={scope.id}>{scope.slug}
+          </StyledLink>)}
         </div>
       );
     },
@@ -61,7 +67,7 @@ export const columns: ColumnDef<Group>[] = [
     header: "建立時間",
     cell: ({ row }) => {
       const createdAt = new Date(row.original.createdAt);
-      return <div>{createdAt.toLocaleString('zh-tw')}</div>;
+      return <div>{createdAt.toLocaleString("zh-tw")}</div>;
     },
   },
   {
@@ -69,14 +75,14 @@ export const columns: ColumnDef<Group>[] = [
     header: "更新時間",
     cell: ({ row }) => {
       const updatedAt = new Date(row.original.updatedAt);
-      return <div>{updatedAt.toLocaleString('zh-tw')}</div>;
+      return <div>{updatedAt.toLocaleString("zh-tw")}</div>;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const group = row.original
- 
+      const group = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -102,7 +108,7 @@ export const columns: ColumnDef<Group>[] = [
             <DropdownMenuItem variant="destructive">刪除群組</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
 ];

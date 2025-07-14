@@ -2,12 +2,12 @@
 
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
 import { Pencil, Trash } from "lucide-react";
-import { ScopeCard } from "./_components/scope-card";
-import { MembersCard } from "./_components/members-card";
+import { useParams } from "next/navigation";
 import { AuditInfoCard } from "./_components/audit-info-card";
 import { Header } from "./_components/header";
+import { MembersCard } from "./_components/members-card";
+import { ScopeCard } from "./_components/scope-card";
 
 export default function GroupPage() {
   const { id } = useParams();
@@ -35,10 +35,12 @@ export default function GroupPage() {
             </Button>
           </div>
         </div>
-        <div className={`
-          grid grid-cols-1 gap-4
-          lg:grid-cols-2
-        `}>
+        <div
+          className={`
+            grid grid-cols-1 gap-4
+            lg:grid-cols-2
+          `}
+        >
           <ScopeCard id={id as string} />
           <MembersCard id={id as string} />
           <AuditInfoCard id={id as string} />

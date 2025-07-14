@@ -1,8 +1,8 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { graphql } from "@/gql";
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
+import { graphql } from "@/gql";
+import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
 
 const GROUP_HEADER_QUERY = graphql(`
@@ -20,7 +20,7 @@ export function Header({ id }: { id: string }) {
     <Suspense fallback={<HeaderSkeleton />}>
       <HeaderMain id={id} />
     </Suspense>
-  )
+  );
 }
 
 function HeaderMain({ id }: { id: string }) {

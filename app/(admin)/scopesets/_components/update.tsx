@@ -1,3 +1,4 @@
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,31 +8,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { InputTags } from "@/components/ui/input-tags";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useSuspenseQuery } from "@apollo/client";
-import { SCOPE_SET_QUERY_BY_ID } from "./query";
 import { useMutation } from "@apollo/client";
-import { SCOPE_SET_UPDATE_MUTATION } from "./mutation";
-import { SCOPE_SET_QUERY } from "./query";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { Suspense, useState } from "react";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { SCOPE_SET_UPDATE_MUTATION } from "./mutation";
+import { SCOPE_SET_QUERY_BY_ID } from "./query";
+import { SCOPE_SET_QUERY } from "./query";
 
 export function UpdateScopeSetDropdownTrigger({ id }: { id: string }) {
   const router = useRouter();
@@ -53,8 +45,8 @@ export function UpdateScopeSetDropdownTrigger({ id }: { id: string }) {
         <UpdateScopeSetDialogContent
           id={id}
           onCompleted={() => {
-            setOpen(false)
-            router.refresh()
+            setOpen(false);
+            router.refresh();
           }}
         />
       </Suspense>
@@ -77,8 +69,8 @@ export function UpdateScopeSetButtonTrigger({ id }: { id: string }) {
         <UpdateScopeSetDialogContent
           id={id}
           onCompleted={() => {
-            setOpen(false)
-            router.refresh()
+            setOpen(false);
+            router.refresh();
           }}
         />
       </Suspense>

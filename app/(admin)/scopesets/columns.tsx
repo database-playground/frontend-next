@@ -1,13 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { UpdateScopeSetDropdownTrigger } from "./_components/update";
 import { DeleteScopeSetDropdownTrigger } from "./_components/delete";
+import { UpdateScopeSetDropdownTrigger } from "./_components/update";
 
 export interface ScopeSet {
   id: string;
@@ -27,8 +34,8 @@ export const columns: ColumnDef<ScopeSet>[] = [
         <StyledLink href={`/scopesets/${scopeSet.id}`}>
           {scopeSet.id}
         </StyledLink>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "slug",
@@ -44,14 +51,14 @@ export const columns: ColumnDef<ScopeSet>[] = [
     cell: ({ row }) => {
       const scopes = row.original.scopes;
 
-      return <code>{scopes.join(", ")}</code>
+      return <code>{scopes.join(", ")}</code>;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const scopeSet = row.original
- 
+      const scopeSet = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -77,7 +84,7 @@ export const columns: ColumnDef<ScopeSet>[] = [
             <DeleteScopeSetDropdownTrigger id={scopeSet.id} />
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
 ];

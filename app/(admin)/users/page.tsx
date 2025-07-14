@@ -1,14 +1,14 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { graphql } from "@/gql";
-import { SiteHeader } from "@/components/site-header";
 import { CursorDataTable } from "@/components/data-table/cursor";
-import { columns, type User } from "./columns";
-import { Button } from "@/components/ui/button";
-import { Suspense, useState } from "react";
-import { DataTableSkeleton } from "@/components/data-table/skeleton";
 import type { Direction } from "@/components/data-table/pagination";
+import { DataTableSkeleton } from "@/components/data-table/skeleton";
+import { SiteHeader } from "@/components/site-header";
+import { Button } from "@/components/ui/button";
+import { graphql } from "@/gql";
+import { useSuspenseQuery } from "@apollo/client";
+import { Suspense, useState } from "react";
+import { columns, type User } from "./columns";
 
 const USERS_QUERY = graphql(`
   query UsersPageQuery(
@@ -47,10 +47,12 @@ export default function UsersPage() {
   return (
     <>
       <SiteHeader title="使用者" />
-      <main className={`
-        flex-1 space-y-4 p-4 pt-6
-        md:p-8
-      `}>
+      <main
+        className={`
+          flex-1 space-y-4 p-4 pt-6
+          md:p-8
+        `}
+      >
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">使用者管理</h2>
@@ -74,34 +76,32 @@ function UserDataTable() {
   const [before, setBefore] = useState<string | null>(null);
   const [direction, setDirection] = useState<Direction>("backward");
 
-  const variables =
-    direction === "backward"
-      ? { first: PAGE_SIZE, after, last: undefined, before: undefined }
-      : { last: PAGE_SIZE, before, first: undefined, after: undefined };
+  const variables = direction === "backward"
+    ? { first: PAGE_SIZE, after, last: undefined, before: undefined }
+    : { last: PAGE_SIZE, before, first: undefined, after: undefined };
 
   const { data } = useSuspenseQuery(USERS_QUERY, {
     variables,
   });
 
-  const userList =
-    data?.users.edges
-      ?.map((edge) => {
-        const user = edge?.node;
-        if (!user) return null;
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          avatar: user.avatar,
-          group: {
-            id: user.group.id,
-            slug: user.group.name,
-          },
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-        } satisfies User;
-      })
-      .filter((user) => user !== null) ?? [];
+  const userList = data?.users.edges
+    ?.map((edge) => {
+      const user = edge?.node;
+      if (!user) return null;
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        group: {
+          id: user.group.id,
+          slug: user.group.name,
+        },
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      } satisfies User;
+    })
+    .filter((user) => user !== null) ?? [];
 
   const pageInfo = data?.users.pageInfo;
 

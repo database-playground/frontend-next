@@ -2,7 +2,14 @@
 
 import AppAvatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -13,7 +20,7 @@ export interface User {
   name: string;
   email: string;
   avatar?: string | null;
-  group: { id: string, slug: string };
+  group: { id: string; slug: string };
   createdAt: string;
   updatedAt: string;
 }
@@ -29,8 +36,8 @@ export const columns: ColumnDef<User>[] = [
         <StyledLink href={`/users/${user.id}`}>
           {user.id}
         </StyledLink>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "name",
@@ -67,7 +74,7 @@ export const columns: ColumnDef<User>[] = [
     header: "建立時間",
     cell: ({ row }) => {
       const createdAt = new Date(row.original.createdAt);
-      return <div>{createdAt.toLocaleString('zh-tw')}</div>;
+      return <div>{createdAt.toLocaleString("zh-tw")}</div>;
     },
   },
   {
@@ -75,14 +82,14 @@ export const columns: ColumnDef<User>[] = [
     header: "更新時間",
     cell: ({ row }) => {
       const updatedAt = new Date(row.original.updatedAt);
-      return <div>{updatedAt.toLocaleString('zh-tw')}</div>;
+      return <div>{updatedAt.toLocaleString("zh-tw")}</div>;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original
- 
+      const user = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -108,7 +115,7 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuItem variant="destructive">刪除使用者</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
 ];

@@ -1,19 +1,19 @@
 "use client";
 
-import * as React from "react";
 import {
   BookOpen,
   Bot,
   Frame,
   LifeBuoy,
+  type LucideIcon,
   Map,
   PieChart,
   Send,
   Settings2,
   SquareUser,
-  type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
+import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
@@ -67,12 +67,12 @@ export interface NavSmallItem {
 }
 
 const isUserManagement = (pathname: string) =>
-  pathname.startsWith("/users") ||
-  pathname.startsWith("/groups") ||
-  pathname.startsWith("/scopesets");
+  pathname.startsWith("/users")
+  || pathname.startsWith("/groups")
+  || pathname.startsWith("/scopesets");
 
 const buildNavbar = (
-  pathname: string
+  pathname: string,
 ): {
   navMain: NavItem[];
   navSecondary: NavItem[];
