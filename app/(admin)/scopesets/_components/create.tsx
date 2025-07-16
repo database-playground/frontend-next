@@ -82,6 +82,11 @@ function CreateScopeSetDialogContent({
       </DialogHeader>
 
       <UpdateScopeSetForm
+        defaultValues={{
+          slug: "",
+          description: "",
+          scopes: [],
+        }}
         onSubmit={onSubmit}
         action="create"
       />
