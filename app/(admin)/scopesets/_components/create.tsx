@@ -1,5 +1,4 @@
 import { buttonVariants } from "@/components/ui/button";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,19 +7,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { InputTags } from "@/components/ui/input-tags";
-import { Textarea } from "@/components/ui/textarea";
 import { useMutation } from "@apollo/client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { SCOPE_SET_CREATE_MUTATION } from "./mutation";
 import { SCOPE_SET_QUERY } from "./query";
+import { formSchema, UpdateScopeSetForm } from "./update";
 
 export function CreateScopeSetTrigger() {
   const router = useRouter();
@@ -44,21 +38,6 @@ function CreateScopeSetDialogContent({
 }: {
   onCompleted: () => void;
 }) {
-  const formSchema = z.object({
-    slug: z.string().min(1),
-    description: z.string().optional(),
-    scopes: z.array(z.string()).optional(),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      slug: "",
-      description: "",
-      scopes: [],
-    },
-  });
-
   const [createScopeSet] = useMutation(SCOPE_SET_CREATE_MUTATION, {
     refetchQueries: [SCOPE_SET_QUERY],
 
@@ -70,7 +49,6 @@ function CreateScopeSetDialogContent({
 
     onCompleted() {
       toast.success("權限集建立成功");
-      form.reset();
       onCompleted();
     },
   });
@@ -102,60 +80,11 @@ function CreateScopeSetDialogContent({
           。
         </DialogDescription>
       </DialogHeader>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="slug"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>權限集名稱</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g. question-reader" {...field} />
-                </FormControl>
-                <FormDescription>
-                  引用權限集時，人類可讀的代號。
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>權限集描述</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="e.g. 可以閱讀問題" {...field} />
-                </FormControl>
-                <FormDescription>幫助管理者理解權限集的用途。</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="scopes"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>權限</FormLabel>
-                <FormControl>
-                  <InputTags
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button type="submit">建立</Button>
-        </form>
-      </Form>
+      <UpdateScopeSetForm
+        onSubmit={onSubmit}
+        action="create"
+      />
     </DialogContent>
   );
 }
