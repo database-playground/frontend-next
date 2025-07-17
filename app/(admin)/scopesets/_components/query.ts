@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
-export const SCOPE_SET_QUERY = graphql(`
-  query ScopesetPageQuery {
+export const SCOPE_SET_TABLE_QUERY = graphql(`
+  query ScopeSetTable {
     scopeSets {
       id
       slug
@@ -11,8 +11,8 @@ export const SCOPE_SET_QUERY = graphql(`
   }
 `);
 
-export const SCOPE_SET_QUERY_BY_ID = graphql(`
-  query ScopesetPageQueryById($id: ID!) {
+export const SCOPE_SET_BY_ID_QUERY = graphql(`
+  query ScopeSetById($id: ID!) {
     scopeSet(filter: { id: $id }) {
       id
       slug

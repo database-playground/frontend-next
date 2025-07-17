@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
 export const USER_HEADER_QUERY = graphql(`
-  query UserHeaderQuery($id: ID!) {
+  query UserHeader($id: ID!) {
     user(id: $id) {
       id
       name
@@ -12,7 +12,7 @@ export const USER_HEADER_QUERY = graphql(`
 `);
 
 export const USER_GROUP_QUERY = graphql(`
-  query UserGroupsQuery($id: ID!) {
+  query UserGroups($id: ID!) {
     user(id: $id) {
       id
       group {
@@ -24,7 +24,7 @@ export const USER_GROUP_QUERY = graphql(`
 `);
 
 export const USER_AUDIT_INFO_QUERY = graphql(`
-  query UserAuditInfoQuery($id: ID!) {
+  query UserAuditInfo($id: ID!) {
     user(id: $id) {
       id
       createdAt

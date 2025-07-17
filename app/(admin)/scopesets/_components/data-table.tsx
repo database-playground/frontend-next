@@ -3,10 +3,10 @@
 import { GeneralDataTable } from "@/components/data-table/general";
 import { useSuspenseQuery } from "@apollo/client";
 import { columns, type ScopeSet } from "./data-table-columns";
-import { SCOPE_SET_QUERY } from "./query";
+import { SCOPE_SET_TABLE_QUERY } from "./query";
 
 export function ScopeSetDataTable() {
-  const { data } = useSuspenseQuery(SCOPE_SET_QUERY);
+  const { data } = useSuspenseQuery(SCOPE_SET_TABLE_QUERY);
 
   const scopeSetList = data?.scopeSets.map(
     (scopeSet) => ({

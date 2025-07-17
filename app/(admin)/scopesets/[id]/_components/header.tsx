@@ -3,7 +3,7 @@
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-import { SCOPESET_HEADER_QUERY } from "./query";
+import { SCOPE_SET_HEADER_QUERY } from "./query";
 
 export function Header({ id }: { id: string }) {
   return (
@@ -14,7 +14,7 @@ export function Header({ id }: { id: string }) {
 }
 
 function HeaderMain({ id }: { id: string }) {
-  const { data } = useSuspenseQuery(SCOPESET_HEADER_QUERY, {
+  const { data } = useSuspenseQuery(SCOPE_SET_HEADER_QUERY, {
     variables: { id },
   });
 

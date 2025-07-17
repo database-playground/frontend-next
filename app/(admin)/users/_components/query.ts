@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
-export const USERS_QUERY = graphql(`
-  query UsersPageQuery(
+export const USERS_TABLE_QUERY = graphql(`
+  query UsersTable(
     $first: Int
     $after: Cursor
     $last: Int

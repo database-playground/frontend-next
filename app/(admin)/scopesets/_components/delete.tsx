@@ -19,9 +19,9 @@ import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { SCOPE_SET_DELETE_MUTATION } from "./mutation";
-import { SCOPE_SET_QUERY_BY_ID } from "./query";
-import { SCOPE_SET_QUERY } from "./query";
+import { DELETE_SCOPE_SET_MUTATION } from "./mutation";
+import { SCOPE_SET_BY_ID_QUERY } from "./query";
+import { SCOPE_SET_TABLE_QUERY } from "./query";
 
 export function DeleteScopeSetDropdownTrigger({ id }: { id: string }) {
   const router = useRouter();
@@ -85,12 +85,12 @@ function DeleteScopeSetAlertDialogContent({
   id: string;
   onCompleted: () => void;
 }) {
-  const { data } = useSuspenseQuery(SCOPE_SET_QUERY_BY_ID, {
+  const { data } = useSuspenseQuery(SCOPE_SET_BY_ID_QUERY, {
     variables: { id },
   });
 
-  const [deleteScopeSet] = useMutation(SCOPE_SET_DELETE_MUTATION, {
-    refetchQueries: [SCOPE_SET_QUERY],
+  const [deleteScopeSet] = useMutation(DELETE_SCOPE_SET_MUTATION, {
+    refetchQueries: [SCOPE_SET_TABLE_QUERY],
 
     onError(error) {
       toast.error("權限集刪除失敗", {

@@ -10,6 +10,7 @@ export const userQuery = graphql(`
       id
       name
       email
+      avatar
 
       group {
         name

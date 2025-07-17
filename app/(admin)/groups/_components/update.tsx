@@ -9,61 +9,115 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useMutation, useSuspenseQuery } from "@apollo/client";
+import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { GROUP_CREATE_MUTATION } from "./mutation";
-import { GROUP_QUERY, SCOPE_SET_LIST_QUERY } from "./query";
+import { GROUP_UPDATE_MUTATION } from "./mutation";
+import { GROUP_BY_ID_QUERY, GROUPS_TABLE_QUERY, SCOPE_SET_LIST_QUERY } from "./query";
 import { UpdateGroupForm, type UpdateGroupFormData } from "./update-form";
 
-export function CreateGroupTrigger() {
+export function UpdateGroupDropdownTrigger({ id }: { id: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={buttonVariants()}>新增群組</DialogTrigger>
-      <CreateGroupDialogContent
-        onCompleted={() => {
-          setOpen(false);
-          router.refresh();
-        }}
-      />
+      <DialogTrigger asChild>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(true);
+          }}
+        >
+          編輯權限集
+        </DropdownMenuItem>
+      </DialogTrigger>
+      <Suspense>
+        <UpdateGroupDialogContent
+          id={id}
+          onCompleted={() => {
+            setOpen(false);
+            router.refresh();
+          }}
+        />
+      </Suspense>
     </Dialog>
   );
 }
 
-function CreateGroupDialogContent({
+export function UpdateGroupButtonTrigger({ id }: { id: string }) {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger className={buttonVariants()}>
+        <Pencil className="h-4 w-4" />
+        編輯
+      </DialogTrigger>
+
+      <Suspense>
+        <UpdateGroupDialogContent
+          id={id}
+          onCompleted={() => {
+            setOpen(false);
+            router.refresh();
+          }}
+        />
+      </Suspense>
+    </Dialog>
+  );
+}
+
+function UpdateGroupDialogContent({
+  id,
   onCompleted,
 }: {
+  id: string;
   onCompleted: () => void;
 }) {
   const { data: scopeSetList } = useSuspenseQuery(SCOPE_SET_LIST_QUERY);
+  const { data: group } = useSuspenseQuery(GROUP_BY_ID_QUERY, {
+    variables: { id },
+  });
 
-  const [createGroup] = useMutation(GROUP_CREATE_MUTATION, {
-    refetchQueries: [GROUP_QUERY],
+  const [updateGroup] = useMutation(GROUP_UPDATE_MUTATION, {
+    refetchQueries: [GROUPS_TABLE_QUERY],
 
     onError(error) {
-      toast.error("群組建立失敗", {
+      toast.error("群組更新失敗", {
         description: error.message,
       });
     },
 
     onCompleted() {
-      toast.success("群組建立成功");
+      toast.success("群組更新成功");
       onCompleted();
     },
   });
 
   const onSubmit = (data: UpdateGroupFormData) => {
     try {
-      createGroup({
+      const addScopeSetIDs = data.scopeSetIDs.filter(
+        (id) => !group.group.scopeSets?.some((scopeSet) => scopeSet.id === id),
+      );
+      const removeScopeSetIDs = group.group.scopeSets
+        ?.filter((scopeSet) => !data.scopeSetIDs.includes(scopeSet.id))
+        .map((scopeSet) => scopeSet.id) ?? undefined;
+      const clearScopeSets = data.scopeSetIDs.length === 0;
+
+      updateGroup({
         variables: {
+          id,
           input: {
             name: data.name,
             description: data.description,
-            scopeSetIDs: data.scopeSetIDs,
+            addScopeSetIDs,
+            removeScopeSetIDs,
+            clearScopeSets,
           },
         },
       });
@@ -77,19 +131,19 @@ function CreateGroupDialogContent({
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>新增群組</DialogTitle>
+        <DialogTitle>編輯群組</DialogTitle>
         <DialogDescription>
-          建立一個群組，對成員進行分組並授予相關權限。
+          編輯一個群組，對成員進行分組並授予相關權限。
         </DialogDescription>
       </DialogHeader>
       <UpdateGroupForm
         defaultValues={{
-          name: "",
-          description: "",
-          scopeSetSlugs: [],
+          name: group.group.name,
+          description: group.group.description ?? undefined,
+          scopeSetSlugs: group.group.scopeSets?.map((scopeSet) => scopeSet.slug) ?? [],
         }}
         onSubmit={onSubmit}
-        action="create"
+        action="update"
         scopeSetList={scopeSetList.scopeSets}
       />
     </DialogContent>

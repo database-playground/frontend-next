@@ -1,8 +1,8 @@
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
 import { SiteHeader } from "@/components/site-header";
 import { Suspense } from "react";
+import { CreateGroupTrigger } from "./_components/create";
 import { GroupDataTable } from "./_components/data-table";
-import { CreateGroupTrigger } from "./_components/update";
 
 export default function GroupsPage() {
   return (

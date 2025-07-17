@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import { GROUPS_WITH_SCOPESET_QUERY } from "./query";
+import { GROUPS_WITH_SCOPE_SET_QUERY } from "./query";
 
 export function GroupsCard({ id }: { id: string }) {
   return (
@@ -17,7 +17,7 @@ export function GroupsCard({ id }: { id: string }) {
 }
 
 function CardMain({ id }: { id: string }) {
-  const { data } = useSuspenseQuery(GROUPS_WITH_SCOPESET_QUERY);
+  const { data } = useSuspenseQuery(GROUPS_WITH_SCOPE_SET_QUERY);
   const groupWithThisScopeSet = data.groups.filter((group) => group.scopeSets?.some((scopeSet) => scopeSet.id === id));
 
   return (

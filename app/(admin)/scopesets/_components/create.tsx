@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { SCOPE_SET_CREATE_MUTATION } from "./mutation";
-import { SCOPE_SET_QUERY } from "./query";
+import { CREATE_SCOPE_SET_MUTATION } from "./mutation";
+import { SCOPE_SET_TABLE_QUERY } from "./query";
 import { formSchema, UpdateScopeSetForm } from "./update-form";
 
 export function CreateScopeSetTrigger() {
@@ -40,8 +40,8 @@ function CreateScopeSetDialogContent({
 }: {
   onCompleted: () => void;
 }) {
-  const [createScopeSet] = useMutation(SCOPE_SET_CREATE_MUTATION, {
-    refetchQueries: [SCOPE_SET_QUERY],
+  const [createScopeSet] = useMutation(CREATE_SCOPE_SET_MUTATION, {
+    refetchQueries: [SCOPE_SET_TABLE_QUERY],
 
     onError(error) {
       toast.error("權限集建立失敗", {

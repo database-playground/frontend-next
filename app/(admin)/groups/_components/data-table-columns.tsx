@@ -11,6 +11,7 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { UpdateGroupDropdownTrigger } from "./update";
 
 export interface Group {
   id: string;
@@ -102,7 +103,7 @@ export const columns: ColumnDef<Group>[] = [
               複製群組 ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>編輯群組</DropdownMenuItem>
+            <UpdateGroupDropdownTrigger id={group.id} />
             <DropdownMenuItem variant="destructive">刪除群組</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -5,7 +5,7 @@ import type { Direction } from "@/components/data-table/pagination";
 import { useSuspenseQuery } from "@apollo/client";
 import { useState } from "react";
 import { columns, type User } from "./data-table-columns";
-import { USERS_QUERY } from "./query";
+import { USERS_TABLE_QUERY } from "./query";
 
 export function UserDataTable() {
   const PAGE_SIZE = 5;
@@ -17,7 +17,7 @@ export function UserDataTable() {
     ? { first: PAGE_SIZE, after, last: undefined, before: undefined }
     : { last: PAGE_SIZE, before, first: undefined, after: undefined };
 
-  const { data } = useSuspenseQuery(USERS_QUERY, {
+  const { data } = useSuspenseQuery(USERS_TABLE_QUERY, {
     variables,
   });
 

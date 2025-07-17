@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-import { SCOPESET_SCOPES_QUERY } from "./query";
+import { SCOPE_SET_SCOPES_QUERY } from "./query";
 
 export function ScopesCard({ id }: { id: string }) {
   return (
@@ -16,7 +16,7 @@ export function ScopesCard({ id }: { id: string }) {
 }
 
 function CardMain({ id }: { id: string }) {
-  const { data } = useSuspenseQuery(SCOPESET_SCOPES_QUERY, {
+  const { data } = useSuspenseQuery(SCOPE_SET_SCOPES_QUERY, {
     variables: { id },
   });
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { GROUP_CREATE_MUTATION } from "./mutation";
-import { GROUP_QUERY, SCOPE_SET_LIST_QUERY } from "./query";
+import { GROUPS_TABLE_QUERY, SCOPE_SET_LIST_QUERY } from "./query";
 import { UpdateGroupForm, type UpdateGroupFormData } from "./update-form";
 
 export function CreateGroupTrigger() {
@@ -40,7 +42,7 @@ function CreateGroupDialogContent({
   const { data: scopeSetList } = useSuspenseQuery(SCOPE_SET_LIST_QUERY);
 
   const [createGroup] = useMutation(GROUP_CREATE_MUTATION, {
-    refetchQueries: [GROUP_QUERY],
+    refetchQueries: [GROUPS_TABLE_QUERY],
 
     onError(error) {
       toast.error("群組建立失敗", {

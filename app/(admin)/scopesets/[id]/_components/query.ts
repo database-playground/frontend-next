@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
-export const SCOPESET_HEADER_QUERY = graphql(`
-  query ScopeSetHeaderQuery($id: ID!) {
+export const SCOPE_SET_HEADER_QUERY = graphql(`
+  query ScopeSetHeader($id: ID!) {
     scopeSet(filter: { id: $id }) {
       id
       slug
@@ -10,8 +10,8 @@ export const SCOPESET_HEADER_QUERY = graphql(`
   }
 `);
 
-export const SCOPESET_SCOPES_QUERY = graphql(`
-  query ScopeSetScopesQuery($id: ID!) {
+export const SCOPE_SET_SCOPES_QUERY = graphql(`
+  query ScopeSetScopes($id: ID!) {
     scopeSet(filter: { id: $id }) {
       id
       scopes
@@ -19,8 +19,8 @@ export const SCOPESET_SCOPES_QUERY = graphql(`
   }
 `);
 
-export const GROUPS_WITH_SCOPESET_QUERY = graphql(`
-  query GroupsWithScopeSetQuery {
+export const GROUPS_WITH_SCOPE_SET_QUERY = graphql(`
+  query GroupsWithScopeSet {
     groups {
       id
       name

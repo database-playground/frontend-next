@@ -4,22 +4,9 @@ import { CardLayout } from "@/components/information-card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-
-const GROUP_SCOPES_QUERY = graphql(`
-  query GroupScopesQuery($id: ID!) {
-    group(id: $id) {
-      id
-      scopeSets {
-        id
-        slug
-        scopes
-      }
-    }
-  }
-`);
+import { GROUP_SCOPES_QUERY } from "./query";
 
 export function ScopeCard({ id }: { id: string }) {
   return (

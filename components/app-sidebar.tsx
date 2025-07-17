@@ -28,22 +28,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { graphql } from "@/gql";
-import { useSuspenseQuery } from "@apollo/client";
+import { useUser } from "@/providers/use-user";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Suspense } from "react";
-
-const SIDEBAR_QUERY = graphql(`
-  query SidebarUserInfo {
-    me {
-      id
-      name
-      email
-      avatar
-    }
-  }
-`);
 
 export interface NavItem {
   title: string;
@@ -239,20 +226,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <Suspense fallback={<NavUserLoading />}>
-          <NavUserMe />
-        </Suspense>
+        <NavUserMe />
       </SidebarFooter>
     </Sidebar>
   );
 }
 
 function NavUserMe() {
-  const {
-    data: { me },
-  } = useSuspenseQuery(SIDEBAR_QUERY);
+  const { user, isInitialized } = useUser();
 
-  return <NavUser user={me} />;
+  if (!isInitialized || !user) {
+    return <NavUserLoading />;
+  }
+
+  return <NavUser user={user} />;
 }
 
 function NavUserLoading() {
