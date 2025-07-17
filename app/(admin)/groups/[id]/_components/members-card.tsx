@@ -1,17 +1,10 @@
 "use client";
+
+import { CardLayout } from "@/components/information-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-import CardLayout from "./card";
-
-const GROUP_MEMBERS_QUERY = graphql(`
-  query GroupMembersQuery($id: ID!) {
-    users(where: { hasGroupWith: { id: $id } }) {
-      totalCount
-    }
-  }
-`);
+import { GROUP_MEMBERS_QUERY } from "./query";
 
 export function MembersCard({ id }: { id: string }) {
   return (

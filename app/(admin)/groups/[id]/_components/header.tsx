@@ -1,19 +1,9 @@
 "use client";
 
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-
-const GROUP_HEADER_QUERY = graphql(`
-  query GroupHeaderQuery($id: ID!) {
-    group(id: $id) {
-      id
-      name
-      description
-    }
-  }
-`);
+import { GROUP_HEADER_QUERY } from "./query";
 
 export function Header({ id }: { id: string }) {
   return (

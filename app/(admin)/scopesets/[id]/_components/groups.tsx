@@ -1,11 +1,11 @@
 "use client";
 
+import { CardLayout } from "@/components/information-card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import { CardLayout } from "../../../../../components/information-card";
 import { GROUPS_WITH_SCOPESET_QUERY } from "./query";
 
 export function GroupsCard({ id }: { id: string }) {

@@ -1,21 +1,11 @@
 "use client";
 
+import { CardLayout } from "@/components/information-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client";
 import { Clock } from "lucide-react";
 import { Suspense } from "react";
-import CardLayout from "./card";
-
-const GROUP_AUDIT_INFO_QUERY = graphql(`
-  query GroupAuditInfoQuery($id: ID!) {
-    group(id: $id) {
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`);
+import { GROUP_AUDIT_INFO_QUERY } from "./query";
 
 export function AuditInfoCard({ id }: { id: string }) {
   return (
