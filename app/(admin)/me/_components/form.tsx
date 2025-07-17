@@ -4,13 +4,14 @@ import AppAvatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMutation, useSuspenseQuery } from "@apollo/client";
+import { BASIC_USER_INFO_QUERY } from "@/lib/user";
+import { useUser } from "@/providers/use-user";
+import { useMutation } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ME_UPDATE_MUTATION } from "./mutation";
-import { ME_QUERY } from "./query";
 
 const updateUserInput = z.object({
   name: z.string(),
@@ -18,22 +19,20 @@ const updateUserInput = z.object({
 });
 
 export function MeForm() {
-  const {
-    data: { me },
-  } = useSuspenseQuery(ME_QUERY);
+  const { user } = useUser();
 
   const form = useForm<z.infer<typeof updateUserInput>>({
     resolver: zodResolver(updateUserInput),
     defaultValues: {
-      name: me?.name ?? "",
-      avatar: me?.avatar ?? "",
+      name: user?.name ?? "",
+      avatar: user?.avatar ?? undefined,
     },
   });
 
   const avatar = form.watch("avatar");
 
   const [updateMe] = useMutation(ME_UPDATE_MUTATION, {
-    refetchQueries: [ME_QUERY],
+    refetchQueries: [BASIC_USER_INFO_QUERY],
     onError: (error) => {
       toast.error("更新使用者資訊失敗", {
         description: error.message,
@@ -55,7 +54,7 @@ export function MeForm() {
       <div className="flex w-full max-w-xl flex-col items-center">
         <AppAvatar
           src={avatar}
-          name={me?.name ?? ""}
+          name={user?.name ?? ""}
           className="mb-8 h-20 w-20"
         />
       </div>

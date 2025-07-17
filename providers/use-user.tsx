@@ -1,6 +1,6 @@
 "use client";
 
-import { type BasicUserInfo, userQuery } from "@/lib/user";
+import { BASIC_USER_INFO_QUERY, type BasicUserInfo } from "@/lib/user";
 import { useQuery } from "@apollo/client/react";
 import { createContext, useContext } from "react";
 
@@ -24,7 +24,7 @@ export function useUser() {
 }
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const { data, loading } = useQuery(userQuery);
+  const { data, loading } = useQuery(BASIC_USER_INFO_QUERY);
 
   return (
     <UserContext.Provider

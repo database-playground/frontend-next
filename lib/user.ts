@@ -4,7 +4,7 @@ import buildUri from "./build-uri";
 
 export type BasicUserInfo = BasicUserInfoQuery["me"];
 
-export const userQuery = graphql(`
+export const BASIC_USER_INFO_QUERY = graphql(`
   query BasicUserInfo {
     me {
       id
