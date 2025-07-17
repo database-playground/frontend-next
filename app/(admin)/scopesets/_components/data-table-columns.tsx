@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,8 +11,8 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { DeleteScopeSetDropdownTrigger } from "./_components/delete";
-import { UpdateScopeSetDropdownTrigger } from "./_components/update";
+import { DeleteScopeSetDropdownTrigger } from "./delete";
+import { UpdateScopeSetDropdownTrigger } from "./update";
 
 export interface ScopeSet {
   id: string;

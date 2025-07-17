@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,7 +16,7 @@ export interface Group {
   id: string;
   name: string;
   description: string;
-  scopeSet: {
+  scopeSets: {
     id: string;
     slug: string;
   }[];
@@ -49,14 +47,14 @@ export const columns: ColumnDef<Group>[] = [
     header: "群組描述",
   },
   {
-    accessorKey: "scopeSet",
+    accessorKey: "scopeSets",
     header: "權限集",
     cell: ({ row }) => {
-      const scopeSet = row.original.scopeSet;
+      const scopeSets = row.original.scopeSets;
 
       return (
         <div className="flex flex-wrap gap-2">
-          {scopeSet.map((scope) => <StyledLink href={`/scopesets/${scope.id}`} key={scope.id}>{scope.slug}
+          {scopeSets.map((scope) => <StyledLink href={`/scopesets/${scope.id}`} key={scope.id}>{scope.slug}
           </StyledLink>)}
         </div>
       );

@@ -1,16 +1,17 @@
-"use client";
-
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash } from "lucide-react";
-import { useParams } from "next/navigation";
 import { AuditInfoCard } from "./_components/audit-info-card";
 import { Header } from "./_components/header";
 import { MembersCard } from "./_components/members-card";
 import { ScopeCard } from "./_components/scope-card";
 
-export default function GroupPage() {
-  const { id } = useParams();
+export default async function GroupPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
   return (
     <>

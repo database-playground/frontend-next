@@ -12,7 +12,7 @@ const GROUP_SCOPES_QUERY = graphql(`
   query GroupScopesQuery($id: ID!) {
     group(id: $id) {
       id
-      scopeSet {
+      scopeSets {
         id
         slug
         scopes
@@ -34,7 +34,7 @@ function CardMain({ id }: { id: string }) {
     variables: { id },
   });
 
-  const permissionsList = data.group.scopeSet
+  const permissionsList = data.group.scopeSets
     ?.map((scopeSet) => {
       return scopeSet.scopes.map((scope) => {
         return {

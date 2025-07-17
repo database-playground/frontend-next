@@ -1,29 +1,8 @@
-"use client";
-
-import { GeneralDataTable } from "@/components/data-table/general";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
 import { SiteHeader } from "@/components/site-header";
-import { graphql } from "@/gql";
-import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-import { CreateGroupTrigger } from "./_components/create";
-import { columns, type Group } from "./columns";
-
-const GROUP_QUERY = graphql(`
-  query GroupsPageQuery {
-    groups {
-      id
-      name
-      description
-      scopeSet {
-        id
-        slug
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`);
+import { GroupDataTable } from "./_components/data-table";
+import { CreateGroupTrigger } from "./_components/update";
 
 export default function GroupsPage() {
   return (
@@ -50,21 +29,4 @@ export default function GroupsPage() {
       </main>
     </>
   );
-}
-
-function GroupDataTable() {
-  const { data } = useSuspenseQuery(GROUP_QUERY);
-
-  const groupList = data?.groups.map(
-    (group) => ({
-      id: group.id,
-      name: group.name,
-      description: group.description ?? "",
-      scopeSet: group.scopeSet ?? [],
-      createdAt: group.createdAt,
-      updatedAt: group.updatedAt,
-    } satisfies Group),
-  ) ?? [];
-
-  return <GeneralDataTable columns={columns} data={groupList} />;
 }

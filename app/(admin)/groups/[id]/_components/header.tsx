@@ -37,5 +37,5 @@ function HeaderMain({ id }: { id: string }) {
 }
 
 function HeaderSkeleton() {
-  return <PageHeaderSkeleton description="這個群組的詳細資訊。" />;
+  return <PageHeaderSkeleton description="這個群組沒有描述。" />;
 }

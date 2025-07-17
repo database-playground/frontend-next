@@ -1,8 +1,10 @@
+"use client";
+
+import { CardLayout } from "@/components/information-card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
-import { CardLayout } from "./card";
 import { SCOPESET_SCOPES_QUERY } from "./query";
 
 export function ScopesCard({ id }: { id: string }) {

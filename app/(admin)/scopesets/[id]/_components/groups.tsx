@@ -1,9 +1,11 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import { CardLayout } from "./card";
+import { CardLayout } from "../../../../../components/information-card";
 import { GROUPS_WITH_SCOPESET_QUERY } from "./query";
 
 export function GroupsCard({ id }: { id: string }) {
@@ -16,7 +18,7 @@ export function GroupsCard({ id }: { id: string }) {
 
 function CardMain({ id }: { id: string }) {
   const { data } = useSuspenseQuery(GROUPS_WITH_SCOPESET_QUERY);
-  const groupWithThisScopeSet = data.groups.filter((group) => group.scopeSet?.some((scopeSet) => scopeSet.id === id));
+  const groupWithThisScopeSet = data.groups.filter((group) => group.scopeSets?.some((scopeSet) => scopeSet.id === id));
 
   return (
     <CardLayout title="擁有此權限集的群組" description="這個權限集被哪些群組使用。">

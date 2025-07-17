@@ -17,16 +17,15 @@ type Documents = {
     "\n  query GroupAuditInfoQuery($id: ID!) {\n    group(id: $id) {\n      id\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GroupAuditInfoQueryDocument,
     "\n  query GroupHeaderQuery($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n    }\n  }\n": typeof types.GroupHeaderQueryDocument,
     "\n  query GroupMembersQuery($id: ID!) {\n    users(where: { hasGroupWith: { id: $id } }) {\n      totalCount\n    }\n  }\n": typeof types.GroupMembersQueryDocument,
-    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": typeof types.GroupScopesQueryDocument,
+    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": typeof types.GroupScopesQueryDocument,
     "\n  mutation CreateGroupMutation($input: CreateGroupInput!) {\n    createGroup(input: $input) {\n      id\n    }\n  }\n": typeof types.CreateGroupMutationDocument,
-    "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSet {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n": typeof types.GroupsPageQueryDocument,
+    "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSets {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n": typeof types.GroupsPageQueryDocument,
     "\n    query ScopeSetListQuery {\n        scopeSets {\n            id\n            slug\n        }\n    }\n": typeof types.ScopeSetListQueryDocument,
-    "\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GroupsPageQueryDocument,
-    "\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n": typeof types.MeUserInfoDocument,
     "\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n": typeof types.MeUpdateUserInfoDocument,
+    "\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n": typeof types.MeUserInfoDocument,
     "\n  query ScopeSetHeaderQuery($id: ID!) {\n    scopeSet(filter: { id: $id }) {\n      id\n      slug\n      description\n    }\n  }\n": typeof types.ScopeSetHeaderQueryDocument,
     "\n  query ScopeSetScopesQuery($id: ID!) {\n    scopeSet(filter: { id: $id }) {\n      id\n      scopes\n    }\n  }\n": typeof types.ScopeSetScopesQueryDocument,
-    "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSet {\n        id\n      }\n    }\n  }\n": typeof types.GroupsWithScopeSetQueryDocument,
+    "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSets {\n        id\n      }\n    }\n  }\n": typeof types.GroupsWithScopeSetQueryDocument,
     "\n    mutation CreateScopeSetMutation($input: CreateScopeSetInput!) {\n      createScopeSet(input: $input) {\n        id\n      }\n    }\n": typeof types.CreateScopeSetMutationDocument,
     "\n    mutation UpdateScopeSetMutation($id: ID!, $input: UpdateScopeSetInput!) {\n      updateScopeSet(id: $id, input: $input) {\n        id\n      }\n    }\n": typeof types.UpdateScopeSetMutationDocument,
     "\n    mutation DeleteScopeSetMutation($id: ID!) {\n      deleteScopeSet(id: $id)\n    }\n": typeof types.DeleteScopeSetMutationDocument,
@@ -43,16 +42,15 @@ const documents: Documents = {
     "\n  query GroupAuditInfoQuery($id: ID!) {\n    group(id: $id) {\n      id\n      createdAt\n      updatedAt\n    }\n  }\n": types.GroupAuditInfoQueryDocument,
     "\n  query GroupHeaderQuery($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n    }\n  }\n": types.GroupHeaderQueryDocument,
     "\n  query GroupMembersQuery($id: ID!) {\n    users(where: { hasGroupWith: { id: $id } }) {\n      totalCount\n    }\n  }\n": types.GroupMembersQueryDocument,
-    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": types.GroupScopesQueryDocument,
+    "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": types.GroupScopesQueryDocument,
     "\n  mutation CreateGroupMutation($input: CreateGroupInput!) {\n    createGroup(input: $input) {\n      id\n    }\n  }\n": types.CreateGroupMutationDocument,
-    "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSet {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n": types.GroupsPageQueryDocument,
+    "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSets {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n": types.GroupsPageQueryDocument,
     "\n    query ScopeSetListQuery {\n        scopeSets {\n            id\n            slug\n        }\n    }\n": types.ScopeSetListQueryDocument,
-    "\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.GroupsPageQueryDocument,
-    "\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n": types.MeUserInfoDocument,
     "\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n": types.MeUpdateUserInfoDocument,
+    "\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n": types.MeUserInfoDocument,
     "\n  query ScopeSetHeaderQuery($id: ID!) {\n    scopeSet(filter: { id: $id }) {\n      id\n      slug\n      description\n    }\n  }\n": types.ScopeSetHeaderQueryDocument,
     "\n  query ScopeSetScopesQuery($id: ID!) {\n    scopeSet(filter: { id: $id }) {\n      id\n      scopes\n    }\n  }\n": types.ScopeSetScopesQueryDocument,
-    "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSet {\n        id\n      }\n    }\n  }\n": types.GroupsWithScopeSetQueryDocument,
+    "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSets {\n        id\n      }\n    }\n  }\n": types.GroupsWithScopeSetQueryDocument,
     "\n    mutation CreateScopeSetMutation($input: CreateScopeSetInput!) {\n      createScopeSet(input: $input) {\n        id\n      }\n    }\n": types.CreateScopeSetMutationDocument,
     "\n    mutation UpdateScopeSetMutation($id: ID!, $input: UpdateScopeSetInput!) {\n      updateScopeSet(id: $id, input: $input) {\n        id\n      }\n    }\n": types.UpdateScopeSetMutationDocument,
     "\n    mutation DeleteScopeSetMutation($id: ID!) {\n      deleteScopeSet(id: $id)\n    }\n": types.DeleteScopeSetMutationDocument,
@@ -95,7 +93,7 @@ export function graphql(source: "\n  query GroupMembersQuery($id: ID!) {\n    us
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSet {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupScopesQuery($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -103,7 +101,7 @@ export function graphql(source: "\n  mutation CreateGroupMutation($input: Create
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSet {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n"): (typeof documents)["\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSet {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n"];
+export function graphql(source: "\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSets {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n"): (typeof documents)["\n    query GroupsPageQuery {\n        groups {\n            id\n            name\n            description\n            scopeSets {\n                id\n                slug\n            }\n            createdAt\n            updatedAt\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -111,15 +109,11 @@ export function graphql(source: "\n    query ScopeSetListQuery {\n        scopeS
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GroupsPageQuery {\n    groups {\n      id\n      name\n      description\n      scopeSet {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"];
+export function graphql(source: "\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n"): (typeof documents)["\n  query MeUserInfo {\n    me {\n      id\n      name\n      avatar\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation MeUpdateUserInfo($input: UpdateUserInput!) {\n    updateMe(input: $input) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -131,7 +125,7 @@ export function graphql(source: "\n  query ScopeSetScopesQuery($id: ID!) {\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSet {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSet {\n        id\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSets {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query GroupsWithScopeSetQuery {\n    groups {\n      id\n      name\n      scopeSets {\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

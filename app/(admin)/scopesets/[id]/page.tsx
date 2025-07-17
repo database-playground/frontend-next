@@ -1,15 +1,16 @@
-"use client";
-
 import { SiteHeader } from "@/components/site-header";
-import { useParams } from "next/navigation";
 import { DeleteScopeSetButtonTrigger } from "../_components/delete";
 import { UpdateScopeSetButtonTrigger } from "../_components/update";
 import { GroupsCard } from "./_components/groups";
 import { Header } from "./_components/header";
 import { ScopesCard } from "./_components/scopes";
 
-export default function ScopeSetPage() {
-  const { id } = useParams();
+export default async function ScopeSetPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
   return (
     <>

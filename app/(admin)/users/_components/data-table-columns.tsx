@@ -1,5 +1,3 @@
-"use client";
-
 import AppAvatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
 import {

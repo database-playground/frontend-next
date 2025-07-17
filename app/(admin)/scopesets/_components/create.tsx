@@ -1,3 +1,5 @@
+"use client";
+
 import { buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,7 +16,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { SCOPE_SET_CREATE_MUTATION } from "./mutation";
 import { SCOPE_SET_QUERY } from "./query";
-import { formSchema, UpdateScopeSetForm } from "./update";
+import { formSchema, UpdateScopeSetForm } from "./update-form";
 
 export function CreateScopeSetTrigger() {
   const router = useRouter();

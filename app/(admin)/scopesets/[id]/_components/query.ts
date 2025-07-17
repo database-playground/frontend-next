@@ -24,7 +24,7 @@ export const GROUPS_WITH_SCOPESET_QUERY = graphql(`
     groups {
       id
       name
-      scopeSet {
+      scopeSets {
         id
       }
     }

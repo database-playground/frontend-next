@@ -6,7 +6,7 @@ export const GROUP_QUERY = graphql(`
             id
             name
             description
-            scopeSet {
+            scopeSets {
                 id
                 slug
             }
