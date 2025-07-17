@@ -81,7 +81,7 @@ const buildNavbar = (
   navMain: [
     {
       title: "使用者管理",
-      url: "#",
+      url: "/users",
       icon: SquareUser,
       isActive: isUserManagement(pathname),
       items: [
