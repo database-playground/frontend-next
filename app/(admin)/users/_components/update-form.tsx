@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -8,17 +9,29 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { InputTags } from "@/components/ui/input-tags";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const formSchema = z.object({
-  groupSlugs: z.array(z.string()).optional(),
+  name: z.string().min(1),
+  avatar: z.string().optional(),
+  groupID: z.string(),
 });
 
 export interface UpdateUserFormData {
-  groupIDs: string[];
+  name: string;
+  avatar?: string;
+  clearAvatar?: boolean;
+  groupID: string;
 }
 
 export interface UpdateUserFormProps {
@@ -43,17 +56,11 @@ export function UpdateUserForm({
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
     form.reset();
 
-    // map scope set slugs to scope set ids
-    const groupIDs = data.groupSlugs?.map((slug) => {
-      const group = groupList.find((group) => group.name === slug);
-      if (!group) {
-        throw new Error(`群組「${slug}」不存在`);
-      }
-      return group.id;
-    });
-
     onSubmit({
-      groupIDs: groupIDs ?? [],
+      name: data.name,
+      avatar: data.avatar,
+      clearAvatar: data.avatar === undefined,
+      groupID: data.groupID,
     });
   };
 
@@ -62,35 +69,70 @@ export function UpdateUserForm({
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="groupSlugs"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>群組</FormLabel>
+              <FormLabel>名稱</FormLabel>
               <FormControl>
-                <InputTags
-                  name="groupSlugs"
-                  value={field.value ?? []}
-                  onChange={field.onChange}
-                  list="groupList"
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
-              <FormDescription>
-                輸入要加入的群組名稱，例如 <code>甲班</code>。
-              </FormDescription>
             </FormItem>
           )}
         />
 
-        {/* scope set list */}
-        <datalist id="groupList">
-          {groupList.map((group) => (
-            <option key={group.id} value={group.name} />
-          ))}
-        </datalist>
+        <div className="flex items-center gap-4">
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>頭貼</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="頭貼 URL" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Avatar>
+            <AvatarImage src={form.watch("avatar")} />
+            <AvatarFallback>{form.watch("name")}</AvatarFallback>
+          </Avatar>
+        </div>
+
+        <FormField
+          control={form.control}
+          name="groupID"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>群組</FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="選擇群組" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {groupList.map((group) => (
+                      <SelectItem key={group.id} value={group.id}>
+                        {group.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+              <FormDescription>選擇這個使用者屬於的群組。</FormDescription>
+            </FormItem>
+          )}
+        />
 
         <Button type="submit">{action === "update" ? "編輯" : "建立"}</Button>
       </form>
     </Form>
   );
-} 
+}

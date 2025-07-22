@@ -105,14 +105,10 @@ function UpdateUserDialogContent({
 
   const onSubmit = (data: UpdateUserFormData) => {
     try {
-      const newGroupId = data.groupIDs[0];
-      
       updateUser({
         variables: {
           id,
-          input: {
-            groupID: newGroupId,
-          },
+          input: data,
         },
       });
     } catch (error) {
@@ -132,7 +128,9 @@ function UpdateUserDialogContent({
       </DialogHeader>
       <UpdateUserForm
         defaultValues={{
-          groupSlugs: user.user.group ? [user.user.group.name] : [],
+          name: user.user.name,
+          avatar: user.user.avatar ?? undefined,
+          groupID: user.user.group.id,
         }}
         onSubmit={onSubmit}
         action="update"
