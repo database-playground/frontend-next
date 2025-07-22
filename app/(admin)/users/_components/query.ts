@@ -1,5 +1,31 @@
 import { graphql } from "@/gql";
 
+export const USER_BY_ID_QUERY = graphql(`
+  query UserById($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      email
+      avatar
+      createdAt
+      updatedAt
+      group {
+        id
+        name
+      }
+    }
+  }
+`);
+
+export const GROUP_LIST_QUERY = graphql(`
+  query GroupList {
+    groups {
+      id
+      name
+    }
+  }
+`);
+
 export const USERS_TABLE_QUERY = graphql(`
   query UsersTable(
     $first: Int

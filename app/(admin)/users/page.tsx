@@ -1,10 +1,9 @@
-import { DataTableSkeleton } from "@/components/data-table/skeleton";
-import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
-import { UserDataTable } from "./_components/data-table";
+import { UsersDataTable } from "./_components/data-table";
+import { SiteHeader } from "@/components/site-header";
+import { DataTableSkeleton } from "@/components/data-table/skeleton";
 
-export default function UsersPage() {
+export default function Page() {
   return (
     <>
       <SiteHeader title="使用者" />
@@ -17,13 +16,12 @@ export default function UsersPage() {
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">使用者管理</h2>
-            <p className="text-muted-foreground">管理使用者與其角色。</p>
+            <p className="text-muted-foreground">管理使用者，並為其授予權限。</p>
           </div>
-          <Button>新增使用者</Button>
         </div>
         <div>
           <Suspense fallback={<DataTableSkeleton />}>
-            <UserDataTable />
+            <UsersDataTable />
           </Suspense>
         </div>
       </main>

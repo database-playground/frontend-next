@@ -1,11 +1,11 @@
 import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
-import { Pencil, Trash } from "lucide-react";
-import { AuditInfoCard } from "./_components/audit-info";
+import { DeleteUserButtonTrigger } from "../_components/delete";
+import { UpdateUserButtonTrigger } from "../_components/update";
 import { GroupsCard } from "./_components/groups";
 import { Header } from "./_components/header";
+import { AuditInfoCard } from "./_components/audit-info";
 
-export default async function GroupPage({
+export default async function UserPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -25,14 +25,8 @@ export default async function GroupPage({
           <Header id={id as string} />
 
           <div className="flex items-center gap-2">
-            <Button>
-              <Pencil className="h-4 w-4" />
-              編輯
-            </Button>
-            <Button variant="destructive">
-              <Trash className="h-4 w-4" />
-              刪除
-            </Button>
+            <UpdateUserButtonTrigger id={id as string} />
+            <DeleteUserButtonTrigger id={id as string} />
           </div>
         </div>
         <div

@@ -12,6 +12,8 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { DeleteUserDropdownTrigger } from "./delete";
+import { UpdateUserDropdownTrigger } from "./update";
 
 export interface User {
   id: string;
@@ -86,8 +88,6 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -98,19 +98,12 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>動作</DropdownMenuLabel>
-            <Link href={`/users/${user.id}`}>
-              <DropdownMenuItem>
-                檢視使用者
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
-            >
-              複製帳號 ID
+            <DropdownMenuItem asChild>
+              <Link href={`/users/${row.original.id}`}>檢視使用者</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>編輯使用者</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">刪除使用者</DropdownMenuItem>
+            <UpdateUserDropdownTrigger id={row.original.id} />
+            <DeleteUserDropdownTrigger id={row.original.id} />
           </DropdownMenuContent>
         </DropdownMenu>
       );
