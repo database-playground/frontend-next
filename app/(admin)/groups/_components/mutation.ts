@@ -15,3 +15,9 @@ export const GROUP_UPDATE_MUTATION = graphql(`
     }
   }
 `);
+
+export const GROUP_DELETE_MUTATION = graphql(`
+  mutation DeleteGroup($id: ID!) {
+    deleteGroup(id: $id)
+  }
+`);

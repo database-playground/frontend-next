@@ -2,3 +2,5 @@ onlyBuiltDependencies:
   - '@ibm/plex-sans-tc'
   - '@parcel/watcher'
   - dprint
+  - sharp
+  - unrs-resolver

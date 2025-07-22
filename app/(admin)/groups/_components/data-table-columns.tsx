@@ -11,6 +11,7 @@ import { StyledLink } from "@/components/ui/link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { DeleteGroupDropdownTrigger } from "./delete";
 import { UpdateGroupDropdownTrigger } from "./update";
 
 export interface Group {
@@ -104,7 +105,7 @@ export const columns: ColumnDef<Group>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <UpdateGroupDropdownTrigger id={group.id} />
-            <DropdownMenuItem variant="destructive">刪除群組</DropdownMenuItem>
+            <DeleteGroupDropdownTrigger id={group.id} />
           </DropdownMenuContent>
         </DropdownMenu>
       );

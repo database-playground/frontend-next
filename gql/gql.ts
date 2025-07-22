@@ -20,6 +20,7 @@ type Documents = {
     "\n  query GroupScopes($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": typeof types.GroupScopesDocument,
     "\n  mutation CreateGroup($input: CreateGroupInput!) {\n    createGroup(input: $input) {\n      id\n    }\n  }\n": typeof types.CreateGroupDocument,
     "\n  mutation UpdateGroup($id: ID!, $input: UpdateGroupInput!) {\n    updateGroup(id: $id, input: $input) {\n      id\n    }\n  }\n": typeof types.UpdateGroupDocument,
+    "\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n": typeof types.DeleteGroupDocument,
     "\n  query GroupsTable {\n    groups {\n      id\n      name\n      description\n      scopeSets {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GroupsTableDocument,
     "\n  query GroupById($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n      scopeSets {\n        id\n        slug\n      }\n    }\n  }\n": typeof types.GroupByIdDocument,
     "\n  query ScopeSetList {\n    scopeSets {\n      id\n      slug\n    }\n  }\n": typeof types.ScopeSetListDocument,
@@ -46,6 +47,7 @@ const documents: Documents = {
     "\n  query GroupScopes($id: ID!) {\n    group(id: $id) {\n      id\n      scopeSets {\n        id\n        slug\n        scopes\n      }\n    }\n  }\n": types.GroupScopesDocument,
     "\n  mutation CreateGroup($input: CreateGroupInput!) {\n    createGroup(input: $input) {\n      id\n    }\n  }\n": types.CreateGroupDocument,
     "\n  mutation UpdateGroup($id: ID!, $input: UpdateGroupInput!) {\n    updateGroup(id: $id, input: $input) {\n      id\n    }\n  }\n": types.UpdateGroupDocument,
+    "\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n": types.DeleteGroupDocument,
     "\n  query GroupsTable {\n    groups {\n      id\n      name\n      description\n      scopeSets {\n        id\n        slug\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.GroupsTableDocument,
     "\n  query GroupById($id: ID!) {\n    group(id: $id) {\n      id\n      name\n      description\n      scopeSets {\n        id\n        slug\n      }\n    }\n  }\n": types.GroupByIdDocument,
     "\n  query ScopeSetList {\n    scopeSets {\n      id\n      slug\n    }\n  }\n": types.ScopeSetListDocument,
@@ -104,6 +106,10 @@ export function graphql(source: "\n  mutation CreateGroup($input: CreateGroupInp
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateGroup($id: ID!, $input: UpdateGroupInput!) {\n    updateGroup(id: $id, input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateGroup($id: ID!, $input: UpdateGroupInput!) {\n    updateGroup(id: $id, input: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

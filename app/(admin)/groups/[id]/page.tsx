@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
+import { DeleteGroupButtonTrigger } from "../_components/delete";
 import { UpdateGroupButtonTrigger } from "../_components/update";
 import { AuditInfoCard } from "./_components/audit-info-card";
 import { Header } from "./_components/header";
@@ -28,10 +27,7 @@ export default async function GroupPage({
 
           <div className="flex items-center gap-2">
             <UpdateGroupButtonTrigger id={id as string} />
-            <Button variant="destructive">
-              <Trash className="h-4 w-4" />
-              刪除
-            </Button>
+            <DeleteGroupButtonTrigger id={id as string} />
           </div>
         </div>
         <div
