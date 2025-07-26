@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { QUESTION_CREATE_MUTATION } from "./mutation";
 import { DATABASE_LIST_QUERY, QUESTIONS_TABLE_QUERY } from "./query";
 import { UpdateQuestionForm, type UpdateQuestionFormData } from "./update-form";
+import { QuestionDifficulty } from "@/gql/graphql";
 
 export function CreateQuestionTrigger() {
   const router = useRouter();
@@ -95,9 +96,9 @@ function CreateQuestionDialogContent({
           title: "",
           description: "",
           category: "",
-          difficulty: "unspecified",
+          difficulty: QuestionDifficulty.Unspecified,
           referenceAnswer: "",
-          databaseID: undefined, // Optional for form validation
+          databaseID: undefined,
         }}
         onSubmit={onSubmit}
         action="create"
