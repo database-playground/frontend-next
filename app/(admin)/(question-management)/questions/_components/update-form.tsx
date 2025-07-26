@@ -119,50 +119,48 @@ export function UpdateQuestionForm({
           )}
         />
 
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>分類</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="例如：query, join, aggregation" />
-                </FormControl>
-                <FormDescription>題目的分類標籤。</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>分類</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="例如：query, join, aggregation" />
+              </FormControl>
+              <FormDescription>題目的分類標籤。</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="difficulty"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>難度</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="選擇難度" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {difficultyOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="difficulty"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>難度</FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="選擇難度" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {difficultyOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
@@ -198,10 +196,9 @@ export function UpdateQuestionForm({
                     <SelectValue placeholder="選擇資料庫" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">無資料庫</SelectItem>
                     {databaseList.map((database) => (
                       <SelectItem key={database.id} value={database.id}>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col text-left">
                           <span>{database.slug}</span>
                           {database.description && (
                             <span className="text-xs text-muted-foreground">

@@ -1,6 +1,5 @@
 "use client";
 
-import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
@@ -30,32 +29,22 @@ function HeaderMain({ id }: { id: string }) {
   const difficultyInfo = difficultyMap[question.difficulty as keyof typeof difficultyMap];
 
   return (
-    <div className="flex items-start gap-4">
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline">{question.category}</Badge>
-          <Badge variant={difficultyInfo.variant}>{difficultyInfo.label}</Badge>
-        </div>
+    <div>
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-bold">題目「{question.title}」</h1>
+        <Badge variant="outline">{question.category}</Badge>
+        <Badge variant={difficultyInfo.variant}>{difficultyInfo.label}</Badge> 
       </div>
-      <PageHeader
-        title={question.title}
-        description={question.description}
-        className="flex-1"
-      />
+      <p className="text-muted-foreground">{question.description}</p>
     </div>
   );
 }
 
 function HeaderSkeleton() {
   return (
-    <div className="flex items-start gap-4">
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline">載入中...</Badge>
-          <Badge variant="outline">載入中...</Badge>
-        </div>
-      </div>
-      <PageHeaderSkeleton description="載入中..." />
+    <div>
+      <h1 className="text-2xl font-bold">載入中…</h1>
+      <p className="text-muted-foreground">載入中…</p>
     </div>
   );
-} 
+}

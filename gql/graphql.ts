@@ -738,6 +738,8 @@ export type UpdateDatabaseInput = {
   clearDescription?: InputMaybe<Scalars['Boolean']['input']>;
   clearQuestions?: InputMaybe<Scalars['Boolean']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  /** relation figure */
+  relationFigure?: InputMaybe<Scalars['String']['input']>;
   removeQuestionIDs?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** SQL schema */
   schema?: InputMaybe<Scalars['String']['input']>;

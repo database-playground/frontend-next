@@ -1,6 +1,6 @@
 "use client";
 
-import { CardLayout } from "@/components/information-card";
+import { CardLayout } from "@/components/card-layout";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";
 import { Clock } from "lucide-react";

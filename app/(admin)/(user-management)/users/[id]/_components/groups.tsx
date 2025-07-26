@@ -1,6 +1,6 @@
 "use client";
 
-import { CardLayout } from "@/components/information-card";
+import { CardLayout } from "@/components/card-layout";
 import { StyledLink } from "@/components/ui/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@apollo/client";

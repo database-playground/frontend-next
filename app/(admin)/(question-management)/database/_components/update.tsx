@@ -103,22 +103,15 @@ function UpdateDatabaseDialogContent({
 
   const onSubmit = (data: UpdateDatabaseFormData) => {
     try {
-      const input: any = {};
-      
-      if (data.description !== undefined) {
-        input.description = data.description;
-      }
-      if (data.schema !== undefined) {
-        input.schema = data.schema;
-      }
-      if (data.clearDescription) {
-        input.clearDescription = true;
-      }
-
       updateDatabase({
         variables: {
           id,
-          input,
+          input: {
+            description: data.description,
+            schema: data.schema,
+            relationFigure: data.relationFigure,
+            clearDescription: data.clearDescription,
+          }
         },
       });
     } catch (error) {

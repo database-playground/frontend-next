@@ -57,11 +57,11 @@ export function UpdateDatabaseForm({
       });
     } else {
       onSubmit({
-        slug: data.slug !== defaultValues?.slug ? data.slug : undefined,
-        description: data.description !== defaultValues?.description ? data.description : undefined,
-        schema: data.schema !== defaultValues?.schema ? data.schema : undefined,
-        relationFigure: data.relationFigure !== defaultValues?.relationFigure ? data.relationFigure : undefined,
-        clearDescription: !data.description && defaultValues?.description,
+        slug: data.slug || undefined,
+        description: data.description || undefined,
+        schema: data.schema || undefined,
+        relationFigure: data.relationFigure || undefined,
+        clearDescription: data.description === '',
       });
     }
   };

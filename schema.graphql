@@ -632,6 +632,8 @@ input UpdateDatabaseInput {
   clearDescription: Boolean
   clearQuestions: Boolean
   description: String
+  """relation figure"""
+  relationFigure: String
   removeQuestionIDs: [ID!]
   """SQL schema"""
   schema: String

@@ -1,6 +1,6 @@
 "use client";
 
-import { CardLayout } from "@/components/information-card";
+import { CardLayout } from "@/components/card-layout";
 import { useSuspenseQuery } from "@apollo/client";
 import { DATABASE_DETAIL_QUERY } from "./query";
 
@@ -15,9 +15,6 @@ export function SchemaCard({ id }: { id: string }) {
     <CardLayout title="資料結構" description="SQL DDL 建表語句">
       <div className="space-y-4">
         <div>
-          <p className="text-sm font-medium text-muted-foreground mb-2">
-            SQL 建表語句：
-          </p>
           <pre className="text-xs bg-muted p-4 rounded-lg font-mono overflow-x-auto whitespace-pre-wrap border max-h-96">
             {database.schema}
           </pre>

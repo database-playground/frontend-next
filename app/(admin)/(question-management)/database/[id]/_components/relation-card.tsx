@@ -1,6 +1,6 @@
 "use client";
 
-import { CardLayout } from "@/components/information-card";
+import { CardLayout } from "@/components/card-layout";
 import { useSuspenseQuery } from "@apollo/client";
 import { DATABASE_DETAIL_QUERY } from "./query";
 
@@ -19,9 +19,6 @@ export function RelationCard({ id }: { id: string }) {
       <div className="space-y-4">
         {isUrl ? (
           <div>
-            <p className="text-sm font-medium text-muted-foreground mb-2">
-              關係圖圖片：
-            </p>
             <div className="border rounded-lg overflow-hidden">
               <img 
                 src={database.relationFigure} 
@@ -39,9 +36,6 @@ export function RelationCard({ id }: { id: string }) {
           </div>
         ) : (
           <div>
-            <p className="text-sm font-medium text-muted-foreground mb-2">
-              關係圖描述：
-            </p>
             <pre className="text-sm bg-muted p-4 rounded-lg font-mono overflow-x-auto whitespace-pre-wrap border max-h-80">
               {database.relationFigure}
             </pre>
