@@ -71,7 +71,9 @@ export const columns: ColumnDef<Database>[] = [
       const schema = row.original.schema;
       return (
         <div className="max-w-[200px]">
-          <pre className="text-xs bg-muted p-1 rounded font-mono overflow-hidden">
+          <pre
+            className={`overflow-hidden rounded bg-muted p-1 font-mono text-xs`}
+          >
             {schema.slice(0, 50)}{schema.length > 50 ? "..." : ""}
           </pre>
         </div>
@@ -85,8 +87,9 @@ export const columns: ColumnDef<Database>[] = [
       const relationFigure = row.original.relationFigure;
       return (
         <div className="max-w-[200px]">
-          <div className="text-xs text-muted-foreground truncate">
-            {relationFigure.slice(0, 30)}{relationFigure.length > 30 ? "..." : ""}
+          <div className="truncate text-xs text-muted-foreground">
+            {relationFigure.slice(0, 30)}
+            {relationFigure.length > 30 ? "..." : ""}
           </div>
         </div>
       );
@@ -116,4 +119,4 @@ export const columns: ColumnDef<Database>[] = [
       );
     },
   },
-]; 
+];

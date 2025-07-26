@@ -2,7 +2,6 @@
 
 import {
   BookOpen,
-  Bot,
   Frame,
   LibrarySquare,
   LifeBuoy,

@@ -16,11 +16,7 @@ import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { USER_UPDATE_MUTATION } from "./mutation";
-import {
-  GROUP_LIST_QUERY,
-  USER_BY_ID_QUERY,
-  USERS_TABLE_QUERY,
-} from "./query";
+import { GROUP_LIST_QUERY, USER_BY_ID_QUERY, USERS_TABLE_QUERY } from "./query";
 import { UpdateUserForm, type UpdateUserFormData } from "./update-form";
 
 export function UpdateUserDropdownTrigger({ id }: { id: string }) {
@@ -138,4 +134,4 @@ function UpdateUserDialogContent({
       />
     </DialogContent>
   );
-} 
+}

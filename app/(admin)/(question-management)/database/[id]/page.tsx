@@ -2,8 +2,8 @@ import { SiteHeader } from "@/components/site-header";
 import { DeleteDatabaseButtonTrigger } from "../_components/delete";
 import { UpdateDatabaseButtonTrigger } from "../_components/update";
 import { Header } from "./_components/header";
-import { SchemaCard } from "./_components/schema-card";
 import { RelationCard } from "./_components/relation-card";
+import { SchemaCard } from "./_components/schema-card";
 
 export default async function DatabasePage({
   params,
@@ -41,4 +41,4 @@ export default async function DatabasePage({
       </main>
     </>
   );
-} 
+}

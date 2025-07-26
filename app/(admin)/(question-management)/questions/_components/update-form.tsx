@@ -1,22 +1,9 @@
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { QuestionDifficulty } from "@/gql/graphql";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,7 +12,7 @@ export const formSchema = z.object({
   title: z.string().min(1, "題目標題不能為空"),
   description: z.string().min(1, "題目描述不能為空"),
   category: z.string().min(1, "分類不能為空"),
-  difficulty: z.enum(["easy", "medium", "hard", "unspecified"]),
+  difficulty: z.enum(QuestionDifficulty),
   referenceAnswer: z.string().min(1, "參考答案不能為空"),
   databaseID: z.string().optional(), // Optional, validation handled dynamically
 });
@@ -34,7 +21,7 @@ export interface UpdateQuestionFormData {
   title: string;
   description: string;
   category: string;
-  difficulty: "easy" | "medium" | "hard" | "unspecified";
+  difficulty: QuestionDifficulty;
   referenceAnswer: string;
   databaseID?: string; // Changed to single databaseID for 1-N relationship
 }
@@ -70,7 +57,7 @@ export function UpdateQuestionForm({
       form.setError("databaseID", { message: "建立題目時必須選擇一個資料庫" });
       return;
     }
-    
+
     form.reset();
 
     onSubmit({
@@ -107,9 +94,9 @@ export function UpdateQuestionForm({
             <FormItem>
               <FormLabel>題目描述</FormLabel>
               <FormControl>
-                <Textarea 
-                  {...field} 
-                  placeholder="請輸入詳細的題目描述" 
+                <Textarea
+                  {...field}
+                  placeholder="請輸入詳細的題目描述"
                   className="min-h-[100px]"
                 />
               </FormControl>
@@ -169,9 +156,9 @@ export function UpdateQuestionForm({
             <FormItem>
               <FormLabel>參考答案</FormLabel>
               <FormControl>
-                <Textarea 
-                  {...field} 
-                  placeholder="請輸入 SQL 參考答案" 
+                <Textarea
+                  {...field}
+                  placeholder="請輸入 SQL 參考答案"
                   className="min-h-[120px] font-mono"
                 />
               </FormControl>
@@ -221,4 +208,4 @@ export function UpdateQuestionForm({
       </form>
     </Form>
   );
-} 
+}

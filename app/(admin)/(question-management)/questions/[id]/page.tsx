@@ -1,9 +1,9 @@
 import { SiteHeader } from "@/components/site-header";
 import { DeleteQuestionButtonTrigger } from "../_components/delete";
 import { UpdateQuestionButtonTrigger } from "../_components/update";
-import { Header } from "./_components/header";
-import { DatabaseCard } from "./_components/database-card";
 import { AnswerCard } from "./_components/answer-card";
+import { DatabaseCard } from "./_components/database-card";
+import { Header } from "./_components/header";
 
 export default async function QuestionPage({
   params,
@@ -41,4 +41,4 @@ export default async function QuestionPage({
       </main>
     </>
   );
-} 
+}

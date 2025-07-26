@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { QUESTION_REFERENCE_ANSWER_RESULT_QUERY } from "./query";
-import { useState } from "react";
-import { AlertTriangle, ChevronDown, Database, Table } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { useQuery } from "@apollo/client";
+import { AlertTriangle, ChevronDown, Database, Table } from "lucide-react";
+import React from "react";
+import { useState } from "react";
+import { QUESTION_REFERENCE_ANSWER_RESULT_QUERY } from "./query";
 
 export function ReferenceAnswerResult({ id }: { id: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +19,15 @@ export function ReferenceAnswerResult({ id }: { id: string }) {
 
   return (
     <div className="space-y-4">
-      <details className="group border border-border rounded-lg overflow-hidden" open={isOpen}>
-        <summary 
-          className="flex cursor-pointer items-center justify-between bg-muted/50 px-4 py-3 font-medium transition-all hover:bg-muted/70 [&_svg]:shrink-0 [&_svg]:transition-transform [&_svg]:duration-200 group-open:[&_svg]:rotate-180"
+      <details className="group overflow-hidden rounded-lg border border-border" open={isOpen}>
+        <summary
+          className={`
+            flex cursor-pointer items-center justify-between bg-muted/50 px-4
+            py-3 font-medium transition-all
+            hover:bg-muted/70
+            [&_svg]:shrink-0 [&_svg]:transition-transform [&_svg]:duration-200
+            group-open:[&_svg]:rotate-180
+          `}
           onClick={handleToggle}
         >
           <span className="flex items-center gap-2 text-sm">
@@ -47,7 +53,13 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="flex items-center gap-3 text-muted-foreground">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-muted-foreground/20 border-t-muted-foreground"></div>
+          <div
+            className={`
+              h-5 w-5 animate-spin rounded-full border-2
+              border-muted-foreground/20 border-t-muted-foreground
+            `}
+          >
+          </div>
           <span className="text-sm">載入執行結果中...</span>
         </div>
       </div>
@@ -67,8 +79,12 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
 
   if (!data?.question?.referenceAnswerResult) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-        <Database className="h-12 w-12 mb-3 text-muted-foreground/30" />
+      <div
+        className={`
+          flex flex-col items-center justify-center py-12 text-muted-foreground
+        `}
+      >
+        <Database className="mb-3 h-12 w-12 text-muted-foreground/30" />
         <p className="text-sm">此題目沒有參考答案執行結果</p>
       </div>
     );
@@ -80,9 +96,9 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
     <div className="space-y-6">
       {result.columns && result.columns.length > 0 && (
         <div>
-          <div className="flex items-center gap-2 mb-3">
+          <div className="mb-3 flex items-center gap-2">
             <div className="h-1 w-1 rounded-full bg-blue-600"></div>
-            <h4 className="font-medium text-sm text-foreground">
+            <h4 className="text-sm font-medium text-foreground">
               欄位結構
             </h4>
             <span className="text-xs text-muted-foreground">
@@ -94,7 +110,10 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
               <Badge
                 key={index}
                 variant="outline"
-                className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 font-mono text-xs"
+                className={`
+                  border-blue-200 bg-blue-50 font-mono text-xs text-blue-700
+                  hover:bg-blue-100
+                `}
               >
                 {column}
               </Badge>
@@ -102,19 +121,23 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
           </div>
         </div>
       )}
-      
+
       {result.rows && result.rows.length > 0 && (
         <div>
-          <div className="flex items-center gap-2 mb-3">
+          <div className="mb-3 flex items-center gap-2">
             <div className="h-1 w-1 rounded-full bg-green-600"></div>
-            <h4 className="font-medium text-sm text-foreground">
+            <h4 className="text-sm font-medium text-foreground">
               查詢結果
             </h4>
             <span className="text-xs text-muted-foreground">
               ({result.rows.length} 筆資料)
             </span>
           </div>
-          <div className="overflow-hidden rounded-md border border-border bg-background">
+          <div
+            className={`
+              overflow-hidden rounded-md border border-border bg-background
+            `}
+          >
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead>
@@ -122,7 +145,10 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
                     {result.columns?.map((column, index) => (
                       <th
                         key={index}
-                        className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider"
+                        className={`
+                          px-4 py-3 text-left text-xs font-semibold
+                          tracking-wider text-muted-foreground uppercase
+                        `}
                       >
                         {column}
                       </th>
@@ -131,12 +157,13 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
                 </thead>
                 <tbody>
                   {result.rows.map((row, rowIndex) => (
-                    <tr 
-                      key={rowIndex} 
+                    <tr
+                      key={rowIndex}
                       className={`
-                        border-b border-border/50 last:border-b-0
-                        hover:bg-muted/20 transition-colors
-                        ${rowIndex % 2 === 0 ? 'bg-background' : 'bg-muted/10'}
+                        border-b border-border/50 transition-colors
+                        last:border-b-0
+                        hover:bg-muted/20
+                        ${rowIndex % 2 === 0 ? "bg-background" : "bg-muted/10"}
                       `}
                     >
                       {row.map((cell, cellIndex) => (
@@ -144,8 +171,19 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
                           key={cellIndex}
                           className="px-4 py-3 text-sm"
                         >
-                          <code className="inline-block bg-muted px-2 py-1 rounded text-xs font-mono text-foreground border">
-                            {cell || <span className="text-muted-foreground italic">NULL</span>}
+                          <code
+                            className={`
+                              inline-block rounded border bg-muted px-2 py-1
+                              font-mono text-xs text-foreground
+                            `}
+                          >
+                            {cell || (
+                              <span
+                                className={`text-muted-foreground italic`}
+                              >
+                                NULL
+                              </span>
+                            )}
                           </code>
                         </td>
                       ))}
@@ -157,10 +195,15 @@ function ReferenceAnswerResultContent({ id }: { id: string }) {
           </div>
         </div>
       )}
-      
+
       {(!result.rows || result.rows.length === 0) && (
-        <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-          <Table className="h-12 w-12 mb-3 text-muted-foreground/30" />
+        <div
+          className={`
+            flex flex-col items-center justify-center py-12
+            text-muted-foreground
+          `}
+        >
+          <Table className="mb-3 h-12 w-12 text-muted-foreground/30" />
           <p className="text-sm">查詢沒有返回任何資料列</p>
         </div>
       )}

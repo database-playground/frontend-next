@@ -1,9 +1,9 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { DATABASES_TABLE_QUERY } from "./query";
 import { GeneralDataTable } from "@/components/data-table/general";
+import { useSuspenseQuery } from "@apollo/client";
 import { columns, type Database } from "./data-table-columns";
+import { DATABASES_TABLE_QUERY } from "./query";
 
 export function DatabaseDataTable() {
   const { data } = useSuspenseQuery(DATABASES_TABLE_QUERY);
@@ -22,4 +22,4 @@ export function DatabaseDataTable() {
       data={databaseList}
     />
   );
-} 
+}

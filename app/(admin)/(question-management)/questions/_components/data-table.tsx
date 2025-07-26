@@ -1,11 +1,11 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { QUESTIONS_TABLE_QUERY } from "./query";
-import { useState } from "react";
-import type { Direction } from "@/components/data-table/pagination";
 import { CursorDataTable } from "@/components/data-table/cursor";
+import type { Direction } from "@/components/data-table/pagination";
+import { useSuspenseQuery } from "@apollo/client";
+import { useState } from "react";
 import { columns, type Question } from "./data-table-columns";
+import { QUESTIONS_TABLE_QUERY } from "./query";
 
 export function QuestionsDataTable() {
   const PAGE_SIZE = 5;
@@ -62,4 +62,4 @@ export function QuestionsDataTable() {
       onPageChange={handlePageChange}
     />
   );
-} 
+}

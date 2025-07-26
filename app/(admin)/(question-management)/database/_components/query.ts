@@ -22,4 +22,4 @@ export const DATABASES_TABLE_QUERY = graphql(`
       relationFigure
     }
   }
-`); 
+`);

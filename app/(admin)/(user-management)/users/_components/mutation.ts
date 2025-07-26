@@ -12,4 +12,4 @@ export const USER_DELETE_MUTATION = graphql(`
   mutation DeleteUser($id: ID!) {
     deleteUser(id: $id)
   }
-`); 
+`);

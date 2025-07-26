@@ -1,13 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,7 +53,7 @@ export function UpdateDatabaseForm({
         description: data.description || undefined,
         schema: data.schema || undefined,
         relationFigure: data.relationFigure || undefined,
-        clearDescription: data.description === '',
+        clearDescription: data.description === "",
       });
     }
   };
@@ -91,9 +83,9 @@ export function UpdateDatabaseForm({
             <FormItem>
               <FormLabel>描述（可選）</FormLabel>
               <FormControl>
-                <Textarea 
-                  {...field} 
-                  placeholder="請輸入資料庫的描述" 
+                <Textarea
+                  {...field}
+                  placeholder="請輸入資料庫的描述"
                   className="min-h-[80px]"
                 />
               </FormControl>
@@ -110,9 +102,9 @@ export function UpdateDatabaseForm({
             <FormItem>
               <FormLabel>資料結構</FormLabel>
               <FormControl>
-                <Textarea 
-                  {...field} 
-                  placeholder="請輸入完整的 SQL 建表語句" 
+                <Textarea
+                  {...field}
+                  placeholder="請輸入完整的 SQL 建表語句"
                   className="min-h-[200px] font-mono text-sm"
                 />
               </FormControl>
@@ -129,9 +121,9 @@ export function UpdateDatabaseForm({
             <FormItem>
               <FormLabel>關係圖</FormLabel>
               <FormControl>
-                <Textarea 
-                  {...field} 
-                  placeholder="請輸入資料庫關係圖的描述或圖表代碼" 
+                <Textarea
+                  {...field}
+                  placeholder="請輸入資料庫關係圖的描述或圖表代碼"
                   className="min-h-[120px] font-mono text-sm"
                 />
               </FormControl>
@@ -147,4 +139,4 @@ export function UpdateDatabaseForm({
       </form>
     </Form>
   );
-} 
+}

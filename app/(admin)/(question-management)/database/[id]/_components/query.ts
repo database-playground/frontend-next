@@ -10,4 +10,4 @@ export const DATABASE_DETAIL_QUERY = graphql(`
       relationFigure
     }
   }
-`); 
+`);

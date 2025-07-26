@@ -1,8 +1,8 @@
-import { Suspense } from "react";
-import { QuestionsDataTable } from "./_components/data-table";
-import { SiteHeader } from "@/components/site-header";
 import { DataTableSkeleton } from "@/components/data-table/skeleton";
+import { SiteHeader } from "@/components/site-header";
+import { Suspense } from "react";
 import { CreateQuestionTrigger } from "./_components/create";
+import { QuestionsDataTable } from "./_components/data-table";
 
 export default function Page() {
   return (
@@ -29,4 +29,4 @@ export default function Page() {
       </main>
     </>
   );
-} 
+}

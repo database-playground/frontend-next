@@ -1,11 +1,11 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
-import { USERS_TABLE_QUERY } from "./query";
-import { useState } from "react";
-import type { Direction } from "@/components/data-table/pagination";
 import { CursorDataTable } from "@/components/data-table/cursor";
+import type { Direction } from "@/components/data-table/pagination";
+import { useSuspenseQuery } from "@apollo/client";
+import { useState } from "react";
 import { columns, type User } from "./data-table-columns";
+import { USERS_TABLE_QUERY } from "./query";
 
 export function UsersDataTable() {
   const PAGE_SIZE = 5;

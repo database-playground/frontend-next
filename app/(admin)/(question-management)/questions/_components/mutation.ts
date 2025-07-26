@@ -20,4 +20,4 @@ export const QUESTION_DELETE_MUTATION = graphql(`
   mutation DeleteQuestion($id: ID!) {
     deleteQuestion(id: $id)
   }
-`); 
+`);

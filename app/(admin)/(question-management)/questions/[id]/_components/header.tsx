@@ -33,7 +33,7 @@ function HeaderMain({ id }: { id: string }) {
       <div className="flex items-center gap-2">
         <h1 className="text-2xl font-bold">題目「{question.title}」</h1>
         <Badge variant="outline">{question.category}</Badge>
-        <Badge variant={difficultyInfo.variant}>{difficultyInfo.label}</Badge> 
+        <Badge variant={difficultyInfo.variant}>{difficultyInfo.label}</Badge>
       </div>
       <p className="text-muted-foreground">{question.description}</p>
     </div>

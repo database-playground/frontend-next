@@ -80,7 +80,7 @@ export const columns: ColumnDef<Question>[] = [
     cell: ({ row }) => {
       const databases = row.original.database;
       if (!databases.length) return <span className="text-muted-foreground">無</span>;
-      
+
       // For 1-N relationship, show only the first (and should be only) database
       const database = databases[0];
       return (
@@ -130,4 +130,4 @@ export const columns: ColumnDef<Question>[] = [
       );
     },
   },
-]; 
+];

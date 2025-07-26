@@ -20,4 +20,4 @@ export const DATABASE_DELETE_MUTATION = graphql(`
   mutation DeleteDatabase($id: ID!) {
     deleteDatabase(id: $id)
   }
-`); 
+`);

@@ -16,11 +16,7 @@ import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { QUESTION_UPDATE_MUTATION } from "./mutation";
-import {
-  DATABASE_LIST_QUERY,
-  QUESTION_BY_ID_QUERY,
-  QUESTIONS_TABLE_QUERY,
-} from "./query";
+import { DATABASE_LIST_QUERY, QUESTION_BY_ID_QUERY, QUESTIONS_TABLE_QUERY } from "./query";
 import { UpdateQuestionForm, type UpdateQuestionFormData } from "./update-form";
 
 export function UpdateQuestionDropdownTrigger({ id }: { id: string }) {
@@ -105,18 +101,10 @@ function UpdateQuestionDialogContent({
 
   const onSubmit = (data: UpdateQuestionFormData) => {
     try {
-      const input: any = {
-        title: data.title,
-        description: data.description,
-        difficulty: data.difficulty,
-        referenceAnswer: data.referenceAnswer,
-        databaseID: data.databaseID || null, // Single databaseID as per new schema
-      };
-
       updateQuestion({
         variables: {
           id,
-          input,
+          input: data,
         },
       });
     } catch (error) {
@@ -127,7 +115,7 @@ function UpdateQuestionDialogContent({
   };
 
   return (
-    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+    <DialogContent className="max-h-[80vh] max-w-2xl overflow-y-auto">
       <DialogHeader>
         <DialogTitle>編輯題目</DialogTitle>
         <DialogDescription>
@@ -139,9 +127,9 @@ function UpdateQuestionDialogContent({
           title: question.question.title,
           description: question.question.description,
           category: question.question.category,
-          difficulty: question.question.difficulty as "easy" | "medium" | "hard" | "unspecified",
+          difficulty: question.question.difficulty,
           referenceAnswer: question.question.referenceAnswer,
-          databaseID: question.question.database.id, // Single database now
+          databaseID: question.question.database.id,
         }}
         onSubmit={onSubmit}
         action="update"
@@ -149,4 +137,4 @@ function UpdateQuestionDialogContent({
       />
     </DialogContent>
   );
-} 
+}

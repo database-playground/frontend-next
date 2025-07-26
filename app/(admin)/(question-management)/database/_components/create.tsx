@@ -74,7 +74,7 @@ function CreateDatabaseDialogContent({
   };
 
   return (
-    <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+    <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto">
       <DialogHeader>
         <DialogTitle>新增資料庫</DialogTitle>
         <DialogDescription>
@@ -93,4 +93,4 @@ function CreateDatabaseDialogContent({
       />
     </DialogContent>
   );
-} 
+}

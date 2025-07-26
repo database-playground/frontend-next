@@ -1,7 +1,6 @@
 "use client";
 
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { Badge } from "@/components/ui/badge";
 import { useSuspenseQuery } from "@apollo/client";
 import { Suspense } from "react";
 import { DATABASE_DETAIL_QUERY } from "./query";
@@ -37,4 +36,4 @@ function HeaderSkeleton() {
       <PageHeaderSkeleton description="載入中…" />
     </div>
   );
-} 
+}

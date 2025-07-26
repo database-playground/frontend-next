@@ -1,7 +1,7 @@
+import { DataTableSkeleton } from "@/components/data-table/skeleton";
+import { SiteHeader } from "@/components/site-header";
 import { Suspense } from "react";
 import { UsersDataTable } from "./_components/data-table";
-import { SiteHeader } from "@/components/site-header";
-import { DataTableSkeleton } from "@/components/data-table/skeleton";
 
 export default function Page() {
   return (

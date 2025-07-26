@@ -123,4 +123,4 @@ function DeleteDatabaseAlertDialogContent({
       </AlertDialogFooter>
     </AlertDialogContent>
   );
-} 
+}

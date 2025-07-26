@@ -58,4 +58,4 @@ export const QUESTIONS_TABLE_QUERY = graphql(`
       }
     }
   }
-`); 
+`);

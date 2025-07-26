@@ -15,12 +15,17 @@ export function SchemaCard({ id }: { id: string }) {
     <CardLayout title="資料結構" description="SQL DDL 建表語句">
       <div className="space-y-4">
         <div>
-          <pre className="text-xs bg-muted p-4 rounded-lg font-mono overflow-x-auto whitespace-pre-wrap border max-h-96">
+          <pre
+            className={`
+              max-h-96 overflow-x-auto rounded-lg border bg-muted p-4 font-mono
+              text-xs whitespace-pre-wrap
+            `}
+          >
             {database.schema}
           </pre>
         </div>
-        
-        <div className="pt-2 border-t">
+
+        <div className="border-t pt-2">
           <p className="text-xs text-muted-foreground">
             這些 DDL 語句定義了資料庫的結構，包含所有表格、欄位和約束。
           </p>
@@ -28,4 +33,4 @@ export function SchemaCard({ id }: { id: string }) {
       </div>
     </CardLayout>
   );
-} 
+}

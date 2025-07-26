@@ -16,10 +16,7 @@ import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { DATABASE_UPDATE_MUTATION } from "./mutation";
-import {
-  DATABASE_BY_ID_QUERY,
-  DATABASES_TABLE_QUERY,
-} from "./query";
+import { DATABASE_BY_ID_QUERY, DATABASES_TABLE_QUERY } from "./query";
 import { UpdateDatabaseForm, type UpdateDatabaseFormData } from "./update-form";
 
 export function UpdateDatabaseDropdownTrigger({ id }: { id: string }) {
@@ -111,7 +108,7 @@ function UpdateDatabaseDialogContent({
             schema: data.schema,
             relationFigure: data.relationFigure,
             clearDescription: data.clearDescription,
-          }
+          },
         },
       });
     } catch (error) {
@@ -122,7 +119,7 @@ function UpdateDatabaseDialogContent({
   };
 
   return (
-    <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+    <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto">
       <DialogHeader>
         <DialogTitle>編輯資料庫</DialogTitle>
         <DialogDescription>
@@ -141,4 +138,4 @@ function UpdateDatabaseDialogContent({
       />
     </DialogContent>
   );
-} 
+}
