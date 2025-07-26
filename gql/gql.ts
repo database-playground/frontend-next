@@ -20,7 +20,8 @@ type Documents = {
     "\n  mutation DeleteDatabase($id: ID!) {\n    deleteDatabase(id: $id)\n  }\n": typeof types.DeleteDatabaseDocument,
     "\n  query DatabaseById($id: ID!) {\n    database(id: $id) {\n      id\n      slug\n      description\n      schema\n      relationFigure\n    }\n  }\n": typeof types.DatabaseByIdDocument,
     "\n  query DatabasesTable {\n    databases {\n      id\n      slug\n      description\n      schema\n      relationFigure\n    }\n  }\n": typeof types.DatabasesTableDocument,
-    "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n        schema\n      }\n    }\n  }\n": typeof types.QuestionDetailDocument,
+    "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n      }\n    }\n  }\n": typeof types.QuestionDetailDocument,
+    "\n  query QuestionReferenceAnswerResult($id: ID!) {\n    question(id: $id) {\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.QuestionReferenceAnswerResultDocument,
     "\n  mutation CreateQuestion($input: CreateQuestionInput!) {\n    createQuestion(input: $input) {\n      id\n    }\n  }\n": typeof types.CreateQuestionDocument,
     "\n  mutation UpdateQuestion($id: ID!, $input: UpdateQuestionInput!) {\n    updateQuestion(id: $id, input: $input) {\n      id\n    }\n  }\n": typeof types.UpdateQuestionDocument,
     "\n  mutation DeleteQuestion($id: ID!) {\n    deleteQuestion(id: $id)\n  }\n": typeof types.DeleteQuestionDocument,
@@ -64,7 +65,8 @@ const documents: Documents = {
     "\n  mutation DeleteDatabase($id: ID!) {\n    deleteDatabase(id: $id)\n  }\n": types.DeleteDatabaseDocument,
     "\n  query DatabaseById($id: ID!) {\n    database(id: $id) {\n      id\n      slug\n      description\n      schema\n      relationFigure\n    }\n  }\n": types.DatabaseByIdDocument,
     "\n  query DatabasesTable {\n    databases {\n      id\n      slug\n      description\n      schema\n      relationFigure\n    }\n  }\n": types.DatabasesTableDocument,
-    "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n        schema\n      }\n    }\n  }\n": types.QuestionDetailDocument,
+    "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n      }\n    }\n  }\n": types.QuestionDetailDocument,
+    "\n  query QuestionReferenceAnswerResult($id: ID!) {\n    question(id: $id) {\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.QuestionReferenceAnswerResultDocument,
     "\n  mutation CreateQuestion($input: CreateQuestionInput!) {\n    createQuestion(input: $input) {\n      id\n    }\n  }\n": types.CreateQuestionDocument,
     "\n  mutation UpdateQuestion($id: ID!, $input: UpdateQuestionInput!) {\n    updateQuestion(id: $id, input: $input) {\n      id\n    }\n  }\n": types.UpdateQuestionDocument,
     "\n  mutation DeleteQuestion($id: ID!) {\n    deleteQuestion(id: $id)\n  }\n": types.DeleteQuestionDocument,
@@ -143,7 +145,11 @@ export function graphql(source: "\n  query DatabasesTable {\n    databases {\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n        schema\n      }\n    }\n  }\n"): (typeof documents)["\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n        schema\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n      }\n    }\n  }\n"): (typeof documents)["\n  query QuestionDetail($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      category\n      difficulty\n      referenceAnswer\n      database {\n        id\n        slug\n        description\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query QuestionReferenceAnswerResult($id: ID!) {\n    question(id: $id) {\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"): (typeof documents)["\n  query QuestionReferenceAnswerResult($id: ID!) {\n    question(id: $id) {\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -13,8 +13,18 @@ export const QUESTION_DETAIL_QUERY = graphql(`
         id
         slug
         description
-        schema
       }
     }
   }
-`); 
+`);
+
+export const QUESTION_REFERENCE_ANSWER_RESULT_QUERY = graphql(`
+  query QuestionReferenceAnswerResult($id: ID!) {
+    question(id: $id) {
+      referenceAnswerResult {
+        columns
+        rows
+      }
+    }
+  }
+`);
