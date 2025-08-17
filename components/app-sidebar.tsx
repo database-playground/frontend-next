@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Book,
-  Code,
-  LibrarySquare,
-  type LucideIcon,
-  SquareUser,
-} from "lucide-react";
+import { Book, Code, LibrarySquare, type LucideIcon, SquareUser } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 

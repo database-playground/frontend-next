@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { QuestionDifficulty } from "@/gql/graphql";
 import { useMutation, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,7 +17,6 @@ import { toast } from "sonner";
 import { QUESTION_CREATE_MUTATION } from "./mutation";
 import { DATABASE_LIST_QUERY, QUESTIONS_TABLE_QUERY } from "./query";
 import { UpdateQuestionForm, type UpdateQuestionFormData } from "./update-form";
-import { QuestionDifficulty } from "@/gql/graphql";
 
 export function CreateQuestionTrigger() {
   const router = useRouter();
