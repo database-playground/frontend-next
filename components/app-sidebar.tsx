@@ -1,22 +1,16 @@
 "use client";
 
 import {
-  BookOpen,
-  Frame,
+  Book,
+  Code,
   LibrarySquare,
-  LifeBuoy,
   type LucideIcon,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
   SquareUser,
 } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
@@ -63,7 +57,6 @@ const buildNavbar = (
 ): {
   navMain: NavItem[];
   navSecondary: NavItem[];
-  projects: NavSmallItem[];
 } => ({
   navMain: [
     {
@@ -107,80 +100,17 @@ const buildNavbar = (
         },
       ],
     },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
   ],
   navSecondary: [
     {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
+      title: "程式碼儲存庫",
+      url: "https://github.com/database-playground",
+      icon: Code,
     },
     {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      title: "API 文件",
+      url: "https://api.dbplay.app",
+      icon: Book,
     },
   ],
 });
@@ -221,7 +151,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
