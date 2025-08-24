@@ -6,10 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen -w",
-    "format": "dprint fmt && next lint --fix",
+    "format": "dprint fmt && eslint --fix .",
     "format:check": "dprint check"
   },
   "dependencies": {
