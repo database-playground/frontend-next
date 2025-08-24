@@ -270,9 +270,11 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                     timeZone: "Asia/Taipei",
                   })}
                 </p>
-                {"digest" in error && error.digest && <p className={`
-                  text-red-600
-                `}>錯誤 ID：{error.digest}</p>}
+                {error.digest && (
+                  <p className="text-red-600">
+                    錯誤 ID：{error.digest}
+                  </p>
+                )}
               </section>
             </CardFooter>
           </Card>
