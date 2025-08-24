@@ -3,31 +3,10 @@
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ERROR_NOT_FOUND,
-  ERROR_NOT_IMPLEMENTED,
-  ERROR_UNAUTHORIZED,
-  ERROR_USER_VERIFIED,
-} from "@/lib/apollo";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ERROR_NOT_FOUND, ERROR_NOT_IMPLEMENTED, ERROR_UNAUTHORIZED, ERROR_USER_VERIFIED } from "@/lib/apollo";
 import { CombinedGraphQLErrors, CombinedProtocolErrors } from "@apollo/client";
-import {
-  AlertCircle,
-  Code,
-  Home,
-  Lock,
-  RefreshCw,
-  Search,
-  Shield,
-  WifiOff,
-} from "lucide-react";
+import { AlertCircle, Code, Home, Lock, RefreshCw, Search, Shield, WifiOff } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 
@@ -213,25 +192,25 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                           </div>
                         )}
 
-                        {error.errors &&
-                          error.errors.length > 0 && (
-                            <div>
-                              <Badge
-                                variant="destructive"
-                                className={`mb-1 text-xs`}
-                              >
-                                GraphQL Errors ({error.errors.length})
-                              </Badge>
-                              <pre
-                                className={`
+                        {error.errors
+                          && error.errors.length > 0 && (
+                          <div>
+                            <Badge
+                              variant="destructive"
+                              className={`mb-1 text-xs`}
+                            >
+                              GraphQL Errors ({error.errors.length})
+                            </Badge>
+                            <pre
+                              className={`
                                 rounded bg-red-100 p-2 text-xs
                                 whitespace-pre-wrap
                               `}
-                              >
+                            >
                                 {JSON.stringify(error.errors, null, 2)}
-                              </pre>
-                            </div>
-                          )}
+                            </pre>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -253,26 +232,28 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                   重試
                 </Button>
 
-                {errorInfo.actionHref ? (
-                  <Button
-                    asChild
-                    variant="outline"
-                    className={`flex items-center gap-2`}
-                  >
-                    <Link href={errorInfo.actionHref}>前往處理</Link>
-                  </Button>
-                ) : (
-                  <Button
-                    asChild
-                    variant="outline"
-                    className={`flex items-center gap-2`}
-                  >
-                    <Link href="/">
-                      <Home className="size-4" />
-                      回到首頁
-                    </Link>
-                  </Button>
-                )}
+                {errorInfo.actionHref
+                  ? (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className={`flex items-center gap-2`}
+                    >
+                      <Link href={errorInfo.actionHref}>前往處理</Link>
+                    </Button>
+                  )
+                  : (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className={`flex items-center gap-2`}
+                    >
+                      <Link href="/">
+                        <Home className="size-4" />
+                        回到首頁
+                      </Link>
+                    </Button>
+                  )}
               </div>
             </CardContent>
 
@@ -289,9 +270,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                     timeZone: "Asia/Taipei",
                   })}
                 </p>
-                {"digest" in error && error.digest && (
-                  <p className={`text-red-600`}>錯誤 ID：{error.digest}</p>
-                )}
+                {"digest" in error && error.digest && <p className={`
+                  text-red-600
+                `}>錯誤 ID：{error.digest}</p>}
               </section>
             </CardFooter>
           </Card>
