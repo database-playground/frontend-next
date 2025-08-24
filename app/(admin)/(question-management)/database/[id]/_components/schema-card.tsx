@@ -1,7 +1,7 @@
 "use client";
 
 import { CardLayout } from "@/components/card-layout";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { DATABASE_DETAIL_QUERY } from "./query";
 
 export function SchemaCard({ id }: { id: string }) {

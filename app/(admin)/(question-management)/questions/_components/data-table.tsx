@@ -2,7 +2,7 @@
 
 import { CursorDataTable } from "@/components/data-table/cursor";
 import type { Direction } from "@/components/data-table/pagination";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { useState } from "react";
 import { columns, type Question } from "./data-table-columns";
 import { QUESTIONS_TABLE_QUERY } from "./query";

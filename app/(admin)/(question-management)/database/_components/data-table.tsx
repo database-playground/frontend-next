@@ -1,7 +1,7 @@
 "use client";
 
 import { GeneralDataTable } from "@/components/data-table/general";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { columns, type Database } from "./data-table-columns";
 import { DATABASES_TABLE_QUERY } from "./query";
 

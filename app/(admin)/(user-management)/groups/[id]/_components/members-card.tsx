@@ -2,7 +2,7 @@
 
 import { CardLayout } from "@/components/card-layout";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { Suspense } from "react";
 import { GROUP_MEMBERS_QUERY } from "./query";
 

@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { useSuspenseQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { useMutation, useSuspenseQuery } from "@apollo/client/react";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";

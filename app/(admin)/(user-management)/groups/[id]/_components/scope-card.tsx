@@ -4,7 +4,7 @@ import { CardLayout } from "@/components/card-layout";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { Suspense } from "react";
 import { GROUP_SCOPES_QUERY } from "./query";
 

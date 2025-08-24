@@ -2,7 +2,7 @@
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { AlertTriangle, ChevronDown, Database, Table } from "lucide-react";
 import React from "react";
 import { useState } from "react";
