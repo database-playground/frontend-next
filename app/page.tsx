@@ -103,7 +103,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                       <Brain className="w-4 h-4 text-white" />
                     </div>
