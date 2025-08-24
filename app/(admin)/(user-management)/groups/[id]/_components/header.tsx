@@ -1,7 +1,7 @@
 "use client";
 
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { Suspense } from "react";
 import { GROUP_HEADER_QUERY } from "./query";
 

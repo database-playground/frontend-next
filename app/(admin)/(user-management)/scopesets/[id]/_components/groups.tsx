@@ -3,7 +3,7 @@
 import { CardLayout } from "@/components/card-layout";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { GROUPS_WITH_SCOPE_SET_QUERY } from "./query";

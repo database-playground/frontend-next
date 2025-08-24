@@ -2,7 +2,7 @@
 
 import AppAvatar from "@/components/avatar";
 import PageHeader, { PageHeaderSkeleton } from "@/components/page-header";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { Suspense } from "react";
 import { USER_HEADER_QUERY } from "./query";
 

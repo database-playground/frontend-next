@@ -5,22 +5,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ERROR_NOT_FOUND, ERROR_NOT_IMPLEMENTED, ERROR_UNAUTHORIZED, ERROR_USER_VERIFIED } from "@/lib/apollo";
-import { ApolloError } from "@apollo/client";
+import { CombinedGraphQLErrors, CombinedProtocolErrors } from "@apollo/client";
 import { AlertCircle, Code, Home, Lock, RefreshCw, Search, Shield, WifiOff } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 
 interface GlobalErrorProps {
-  error: (Error & { digest?: string }) | ApolloError;
+  error: Error & { digest?: string };
   reset: () => void;
 }
 
-function getErrorInfo(error: Error | ApolloError) {
-  // Check if it's an ApolloError
-  if (error instanceof ApolloError) {
+function getErrorInfo(error: Error) {
+  if (CombinedProtocolErrors.is(error)) {
     // Network errors
-    if (error.networkError && "statusCode" in error.networkError) {
-      switch (error.networkError.statusCode) {
+    if (error && "statusCode" in error) {
+      switch (error.statusCode) {
         case 401:
           return {
             title: "未經授權",
@@ -47,9 +46,7 @@ function getErrorInfo(error: Error | ApolloError) {
             icon: AlertCircle,
           };
       }
-    }
 
-    if (error.networkError) {
       return {
         title: "網路連線錯誤",
         description: "無法連接到伺服器，請檢查網路連線。",
@@ -58,43 +55,47 @@ function getErrorInfo(error: Error | ApolloError) {
     }
 
     // GraphQL errors with codes
-    if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-      const firstError = error.graphQLErrors[0];
-      const errorCode = firstError.extensions?.code as string;
+    if (CombinedGraphQLErrors.is(error)) {
+      const graphQLErrors = error.errors;
 
-      switch (errorCode) {
-        case ERROR_NOT_FOUND:
-          return {
-            title: "找不到資料",
-            description: "請求的資料不存在或已被刪除。",
-            icon: Search,
-          };
-        case ERROR_UNAUTHORIZED:
-          return {
-            title: "未經授權",
-            description: "請登入後再試，或您的權限不足。",
-            icon: Lock,
-            actionHref: "/login",
-          };
-        case ERROR_USER_VERIFIED:
-          return {
-            title: "帳號已驗證",
-            description: "此帳號已經完成驗證程序。",
-            icon: Shield,
-          };
-        case ERROR_NOT_IMPLEMENTED:
-          return {
-            title: "功能未實作",
-            description: "此功能目前尚未實作，請稍後再試。",
-            icon: Code,
-          };
+      if (graphQLErrors && graphQLErrors.length > 0) {
+        const firstError = graphQLErrors[0];
+        const errorCode = firstError.extensions?.code as string;
+
+        switch (errorCode) {
+          case ERROR_NOT_FOUND:
+            return {
+              title: "找不到資料",
+              description: "請求的資料不存在或已被刪除。",
+              icon: Search,
+            };
+          case ERROR_UNAUTHORIZED:
+            return {
+              title: "未經授權",
+              description: "請登入後再試，或您的權限不足。",
+              icon: Lock,
+              actionHref: "/login",
+            };
+          case ERROR_USER_VERIFIED:
+            return {
+              title: "帳號已驗證",
+              description: "此帳號已經完成驗證程序。",
+              icon: Shield,
+            };
+          case ERROR_NOT_IMPLEMENTED:
+            return {
+              title: "功能未實作",
+              description: "此功能目前尚未實作，請稍後再試。",
+              icon: Code,
+            };
+        }
+
+        return {
+          title: "GraphQL 查詢錯誤",
+          description: firstError.message || "GraphQL 查詢發生錯誤。",
+          icon: AlertCircle,
+        };
       }
-
-      return {
-        title: "GraphQL 查詢錯誤",
-        description: firstError.message || "GraphQL 查詢發生錯誤。",
-        icon: AlertCircle,
-      };
     }
   }
 
@@ -145,9 +146,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             >
               <errorInfo.icon className="mb-2 size-7 text-red-500" />
               <CardTitle className="text-xl">{errorInfo.title}</CardTitle>
-              <CardDescription>
-                {errorInfo.description}
-              </CardDescription>
+              <CardDescription>{errorInfo.description}</CardDescription>
             </CardHeader>
 
             <CardContent className="flex flex-col items-center gap-4">
@@ -157,7 +156,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                     錯誤詳細資訊
                   </summary>
                   <div className="mt-2 space-y-2 text-red-700">
-                    <p className="font-medium">{error.name}: {error.message}</p>
+                    <p className="font-medium">
+                      {error.name}: {error.message}
+                    </p>
 
                     {error.stack && (
                       <pre
@@ -166,13 +167,13 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                           whitespace-pre-wrap
                         `}
                       >
-                          {error.stack}
+                        {error.stack}
                       </pre>
                     )}
 
-                    {error instanceof ApolloError && (
+                    {CombinedProtocolErrors.is(error) && (
                       <div className="space-y-2">
-                        {error.networkError && (
+                        {error.errors && (
                           <div>
                             <Badge
                               variant="destructive"
@@ -186,18 +187,19 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                                 whitespace-pre-wrap
                               `}
                             >
-                                {JSON.stringify(error.networkError, null, 2)}
+                              {JSON.stringify(error.errors, null, 2)}
                             </pre>
                           </div>
                         )}
 
-                        {error.graphQLErrors && error.graphQLErrors.length > 0 && (
+                        {error.errors
+                          && error.errors.length > 0 && (
                           <div>
                             <Badge
                               variant="destructive"
                               className={`mb-1 text-xs`}
                             >
-                              GraphQL Errors ({error.graphQLErrors.length})
+                              GraphQL Errors ({error.errors.length})
                             </Badge>
                             <pre
                               className={`
@@ -205,7 +207,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                                 whitespace-pre-wrap
                               `}
                             >
-                                {JSON.stringify(error.graphQLErrors, null, 2)}
+                                {JSON.stringify(error.errors, null, 2)}
                             </pre>
                           </div>
                         )}
@@ -237,9 +239,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                       variant="outline"
                       className={`flex items-center gap-2`}
                     >
-                      <Link href={errorInfo.actionHref}>
-                        前往處理
-                      </Link>
+                      <Link href={errorInfo.actionHref}>前往處理</Link>
                     </Button>
                   )
                   : (
@@ -265,12 +265,13 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               <section className="flex flex-col items-center gap-1">
                 <p>如果問題持續發生，請聯絡開發者進行處理。</p>
                 <p className="text-red-600">
-                  錯誤時間：{new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}
+                  錯誤時間：
+                  {new Date().toLocaleString("zh-TW", {
+                    timeZone: "Asia/Taipei",
+                  })}
                 </p>
-                {"digest" in error && error.digest && (
-                  <p
-                    className={`text-red-600`}
-                  >
+                {error.digest && (
+                  <p className="text-red-600">
                     錯誤 ID：{error.digest}
                   </p>
                 )}

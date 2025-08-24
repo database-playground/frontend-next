@@ -2,7 +2,7 @@
 
 import { CardLayout } from "@/components/card-layout";
 import { StyledLink } from "@/components/ui/link";
-import { useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client/react";
 import { QUESTION_DETAIL_QUERY } from "./query";
 
 export function DatabaseCard({ id }: { id: string }) {
