@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Database, Brain, Trophy, Code, Users, Zap } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 export default function HomePage() {
   return (
@@ -10,9 +11,7 @@ export default function HomePage() {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Database className="w-6 h-6 text-primary-foreground" />
-            </div>
+            <Logo className="size-8" />
             <div>
               <h1 className="font-heading font-bold text-xl text-foreground">資料庫練功房</h1>
               <p className="text-sm text-muted-foreground">Database Playground</p>
@@ -45,7 +44,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto text-center max-w-4xl">
-          <Badge variant="secondary" className="mb-4 bg-accent/10 text-accent border-accent/20">
+          <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary border-accent/20">
             🚀 全新 AI 驅動學習體驗
           </Badge>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
@@ -96,8 +95,8 @@ export default function HomePage() {
             {/* AI Coach Block */}
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <Brain className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <Brain className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="font-heading text-xl">AI 教練指導</CardTitle>
                 <CardDescription>智能分析你的程式碼，提供個人化建議和最佳化提示</CardDescription>
@@ -105,7 +104,7 @@ export default function HomePage() {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                       <Brain className="w-4 h-4 text-white" />
                     </div>
                     <div className="bg-muted rounded-lg p-3 flex-1">
@@ -124,8 +123,8 @@ export default function HomePage() {
             {/* Points System Block */}
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Trophy className="w-6 h-6 text-secondary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <Trophy className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="font-heading text-xl">積分獎勵系統</CardTitle>
                 <CardDescription>完成挑戰獲得積分，解鎖新功能和專屬徽章</CardDescription>
@@ -137,7 +136,7 @@ export default function HomePage() {
                     <Badge variant="secondary">1,250 分</Badge>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-secondary h-2 rounded-full w-3/4"></div>
+                    <div className="bg-primary h-2 rounded-full w-3/4"></div>
                   </div>
                   <img
                     src="/placeholder.svg?height=60&width=300"
@@ -169,8 +168,8 @@ export default function HomePage() {
             {/* Community */}
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="font-heading text-xl">學習社群</CardTitle>
                 <CardDescription>與其他學習者交流經驗，分享解題技巧和最佳實踐</CardDescription>
@@ -187,8 +186,8 @@ export default function HomePage() {
             {/* Progress Tracking */}
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Database className="w-6 h-6 text-secondary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <Database className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="font-heading text-xl">學習追蹤</CardTitle>
                 <CardDescription>詳細的學習分析報告，幫你了解強項和需要改進的地方</CardDescription>
@@ -238,9 +237,7 @@ export default function HomePage() {
       <footer className="border-t border-border bg-muted/30 py-8 px-4">
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Database className="w-5 h-5 text-primary-foreground" />
-            </div>
+            <Logo className="size-4" />
             <span className="font-heading font-semibold text-foreground">資料庫練功房</span>
           </div>
           <p className="text-muted-foreground text-sm">© 2025 Database Playground. 讓學習資料庫變得更簡單、更有趣。</p>
