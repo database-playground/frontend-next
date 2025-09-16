@@ -19,13 +19,11 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
     <Button
       variant="ghost"
       className={cn(
-        "flex items-center gap-3 px-3 py-2 h-auto text-sm rounded",
-        active
-          ? "bg-primary text-primary-foreground"
-          : "bg-primary-50 text-primary-900",
+        "flex h-auto items-center gap-3 rounded px-3 py-2 text-sm",
+        active && "bg-primary text-primary-foreground"
       )}
     >
-      <div className="w-4 h-4 flex-shrink-0">{icon}</div>
+      <div className="h-4 w-4 flex-shrink-0">{icon}</div>
       <span className="whitespace-nowrap">{label}</span>
     </Button>
   );
@@ -39,11 +37,11 @@ function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex items-center gap-3 px-3 py-2 rounded"
+          className="flex items-center gap-3 rounded px-3 py-2"
         >
-          <AppAvatar src={user?.avatar} name={user?.name} className="w-4 h-4" />
+          <AppAvatar src={user?.avatar} name={user?.name} className="h-4 w-4" />
           <span className="whitespace-nowrap">{user?.name}</span>
-          <ChevronDown className="w-4 h-4 flex-shrink-0" />
+          <ChevronDown className="h-4 w-4 flex-shrink-0" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -60,15 +58,15 @@ export default function AppNavbar({ path }: { path: string }) {
   const navItemLabel = getActiveNavItemLabel(path);
 
   return (
-    <nav className="bg-stone-50 border-b border-stone-200">
+    <nav className="border-b border-stone-200 bg-stone-50">
       <div className="flex items-center justify-between px-6 py-0">
         {/* Left Section */}
         <div className="flex items-center gap-4">
           {/* Logo and Title */}
           <Link href="/">
             <div className="flex items-center gap-3 px-3 py-4">
-              <Logo className="w-4 h-4" />
-              <span className="text-stone-900 whitespace-nowrap">
+              <Logo className="h-4 w-4" />
+              <span className="whitespace-nowrap text-stone-900">
                 資料庫練功房
               </span>
             </div>
@@ -108,22 +106,22 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    icon: <BarChart3 className="w-full h-full" />,
+    icon: <BarChart3 className="h-full w-full" />,
     label: "統計資料",
     pathPrefix: "/statistics",
   },
   {
-    icon: <Swords className="w-full h-full" />,
+    icon: <Swords className="h-full w-full" />,
     label: "挑戰題目",
     pathPrefix: "/challenges",
   },
   {
-    icon: <MessageSquare className="w-full h-full" />,
+    icon: <MessageSquare className="h-full w-full" />,
     label: "經驗分享",
     pathPrefix: "/comments",
   },
   {
-    icon: <BookOpen className="w-full h-full" />,
+    icon: <BookOpen className="h-full w-full" />,
     label: "補充資料",
     pathPrefix: "/materials",
   },

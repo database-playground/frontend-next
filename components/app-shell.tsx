@@ -7,7 +7,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col min-h-screen gap-4">
+    <div className="flex min-h-screen flex-col gap-4">
       <AppNavbar path={pathname} />
       {children}
     </div>

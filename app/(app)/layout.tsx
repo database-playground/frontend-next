@@ -4,7 +4,7 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <AppShell>
-      <div className="p-3 flex-1 w-full max-w-7xl mx-auto">
+      <div className="mx-auto w-full max-w-7xl flex-1 p-3">
         <ViewTransition name="app-content">{children}</ViewTransition>
       </div>
     </AppShell>

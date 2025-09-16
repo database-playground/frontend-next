@@ -20,12 +20,28 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <div className="bg-gradient-to-br from-blue-100 via-white to-blue-50">
-      <div className="flex flex-col-reverse lg:flex-row min-h-svh">
+      <div
+        className={`
+          flex min-h-svh flex-col-reverse
+          lg:flex-row
+        `}
+      >
         {/* Left Information Panel */}
-        <div className="lg:w-[40vw] w-full bg-stone-100/50 backdrop-blur-md flex flex-col justify-between px-8 lg:px-14 py-6 lg:py-8">
+        <div
+          className={`
+            flex w-full flex-col justify-between px-8 py-6
+            backdrop-blur-md
+            lg:w-[40vw] lg:px-14 lg:py-8
+          `}
+        >
           <div className="flex flex-col gap-6">
             {/* Placeholder Image */}
-            <div className="w-full h-[200px] lg:h-[297px] bg-stone-300 rounded-lg" />
+            <div
+              className={`
+                h-[200px] w-full rounded-lg bg-stone-300
+                lg:h-[297px]
+              `}
+            />
 
             {/* Information Section */}
             <DoYouKnow />
@@ -34,12 +50,17 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           {/* Bottom Section */}
           <div className="flex flex-col gap-4">
             {/* Status and Navigation */}
-            <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+            <div
+              className={`
+                flex flex-wrap items-center gap-4
+                lg:gap-8
+              `}
+            >
               <Suspense fallback={<UpstreamStatusPlaceholder />}>
                 <UpstreamStatus />
               </Suspense>
 
-              <div className="w-px h-6 bg-stone-400" />
+              <div className="h-6 w-px bg-stone-400" />
 
               <div className="flex items-center gap-4">
                 <Tooltip>
@@ -50,7 +71,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                       target="_blank"
                     >
                       <svg
-                        className="w-3.5 h-3.5"
+                        className="h-3.5 w-3.5"
                         role="img"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -74,8 +95,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         {/* Right Login Area */}
         <div
           className={`
-            flex flex-1 flex-col items-center justify-center gap-6
-            px-8 lg:px-14 py-6 lg:py-8
+            flex flex-1 flex-col items-center justify-center gap-6 px-8 py-6
+            lg:px-14 lg:py-8
           `}
         >
           <div className="flex w-full max-w-sm flex-col gap-6">
@@ -85,9 +106,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             >
               <div
                 className={`
-              flex size-6 items-center justify-center rounded-md
-              text-primary-foreground
-            `}
+                  flex size-6 items-center justify-center rounded-md
+                  text-primary-foreground
+                `}
               >
                 <Logo />
               </div>
