@@ -1,7 +1,6 @@
 "use client";
 
 import { Book, Code, LibrarySquare, type LucideIcon, SquareUser } from "lucide-react";
-import Image from "next/image";
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
@@ -19,6 +18,8 @@ import {
 import { useUser } from "@/providers/use-user";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
+import { Logo } from "./logo";
 
 export interface NavItem {
   title: string;
@@ -126,13 +127,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     rounded-lg text-sidebar-primary-foreground
                   `}
                 >
-                  <Image
-                    src="/logo.svg"
-                    unoptimized
-                    alt="Database Playground"
-                    width={16}
-                    height={16}
-                  />
+                  <Logo />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">資料庫練功坊</span>
@@ -148,18 +143,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUserMe />
+        <Suspense fallback={<NavUserLoading />}>
+          <NavUserMe />
+        </Suspense>
       </SidebarFooter>
     </Sidebar>
   );
 }
 
 function NavUserMe() {
-  const { user, isInitialized } = useUser();
-
-  if (!isInitialized || !user) {
-    return <NavUserLoading />;
-  }
+  const { user } = useUser();
 
   return <NavUser user={user} />;
 }
