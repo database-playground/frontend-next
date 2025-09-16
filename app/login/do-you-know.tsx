@@ -12,7 +12,7 @@ export default async function DoYouKnow() {
   const randomKnow = knowsList[Math.floor(Math.random() * knowsList.length)];
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-sm font-light text-gray-500">DO YOU KNOW?</div>
+      <div className="text-sm text-gray-500">DO YOU KNOW?</div>
       <div className="text-lg leading-6 font-normal">{randomKnow}</div>
     </div>
   );
