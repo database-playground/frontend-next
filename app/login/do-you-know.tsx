@@ -15,7 +15,7 @@ export default async function DoYouKnow() {
     </p>,
     <p key="do-you-knows-wrong-no-penalty">
       寫錯不會扣點數，錯誤次數也不會列入排名<br />可以盡量在平台上練習！
-    </p>
+    </p>,
   ];
 
   const randomKnow = knowsList[Math.floor(Math.random() * knowsList.length)];

@@ -29,8 +29,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         {/* Left Information Panel */}
         <div
           className={`
-            flex w-full flex-col justify-between px-8 py-6
-            backdrop-blur-md
+            flex w-full flex-col justify-between px-8 py-6 backdrop-blur-md
             lg:w-[40vw] lg:px-14 lg:py-8
           `}
         >

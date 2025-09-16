@@ -20,7 +20,7 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
       variant="ghost"
       className={cn(
         "flex h-auto items-center gap-3 rounded px-3 py-2 text-sm",
-        active && "bg-primary text-primary-foreground"
+        active && "bg-primary text-primary-foreground",
       )}
     >
       <div className="h-4 w-4 flex-shrink-0">{icon}</div>
