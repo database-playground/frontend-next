@@ -76,12 +76,14 @@ export default function AppNavbar({ path }: { path: string }) {
         {/* Left Section */}
         <div className="flex items-center gap-4">
           {/* Logo and Title */}
-          <div className="flex items-center gap-3 px-3 py-4">
-            <Logo className="w-4 h-4" />
-            <span className="text-stone-900 whitespace-nowrap">
-              資料庫練功房
-            </span>
-          </div>
+          <Link href="/">
+            <div className="flex items-center gap-3 px-3 py-4">
+                <Logo className="w-4 h-4" />
+                <span className="text-stone-900 whitespace-nowrap">
+                資料庫練功房
+                </span>
+            </div>
+          </Link>
 
           {/* Navigation Items */}
           <div className="flex items-center gap-1">
