@@ -1,11 +1,12 @@
 import Link from "next/link";
 
-export default function Home() {
+export default function App() {
   return (
-    <div className="flex h-svh items-center justify-center">
-      Working in Progress
-
-      <Link className="text-blue-500 underline" href="/api/auth/logout" prefetch={false}>Logout</Link>
+    <div>
+      <p>WIP</p>
+      <Link prefetch={false} href="/api/auth/logout">
+        Logout
+      </Link>
     </div>
   );
 }
