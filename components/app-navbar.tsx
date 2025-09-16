@@ -1,23 +1,12 @@
-import { Logo } from "@/components/logo";
 import AppAvatar from "@/components/avatar";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import {
-  ChevronDown,
-  BarChart3,
-  Swords,
-  MessageSquare,
-  BookOpen,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Suspense } from "react";
 import useUser from "@/hooks/use-user";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { BarChart3, BookOpen, ChevronDown, MessageSquare, Swords } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 interface NavItemProps {
   icon: React.ReactNode;
@@ -33,7 +22,7 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
         "flex items-center gap-3 px-3 py-2 h-auto text-sm rounded",
         active
           ? "bg-primary text-primary-foreground"
-          : "bg-primary-50 text-primary-900"
+          : "bg-primary-50 text-primary-900",
       )}
     >
       <div className="w-4 h-4 flex-shrink-0">{icon}</div>
@@ -78,10 +67,10 @@ export default function AppNavbar({ path }: { path: string }) {
           {/* Logo and Title */}
           <Link href="/">
             <div className="flex items-center gap-3 px-3 py-4">
-                <Logo className="w-4 h-4" />
-                <span className="text-stone-900 whitespace-nowrap">
+              <Logo className="w-4 h-4" />
+              <span className="text-stone-900 whitespace-nowrap">
                 資料庫練功房
-                </span>
+              </span>
             </div>
           </Link>
 

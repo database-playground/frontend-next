@@ -1,7 +1,7 @@
 "use client";
 
-import AppNavbar from "./app-navbar";
 import { usePathname } from "next/navigation";
+import AppNavbar from "./app-navbar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

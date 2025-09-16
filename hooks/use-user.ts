@@ -4,7 +4,7 @@ import { BASIC_USER_INFO_QUERY } from "@/lib/user";
 import { useSuspenseQuery } from "@apollo/client/react";
 
 export default function useUser() {
-    const { data } = useSuspenseQuery(BASIC_USER_INFO_QUERY);
+  const { data } = useSuspenseQuery(BASIC_USER_INFO_QUERY);
 
-    return { user: data?.me };
+  return { user: data?.me };
 }

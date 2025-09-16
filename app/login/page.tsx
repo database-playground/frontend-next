@@ -1,14 +1,10 @@
-import { LoginForm } from "./form";
 import { Logo } from "@/components/logo";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import Link from "next/link";
-import { UpstreamStatus, UpstreamStatusPlaceholder } from "./status";
 import { Suspense } from "react";
 import DoYouKnow from "./do-you-know";
+import { LoginForm } from "./form";
+import { UpstreamStatus, UpstreamStatusPlaceholder } from "./status";
 
 interface LoginPageProps {
   searchParams: Promise<{
@@ -67,8 +63,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                   </TooltipTrigger>
 
                   <TooltipContent>
-                    向 GitHub 貢獻程式碼，每次都能直接獲得 200 - 700
-                    點不等的點數！
+                    向 GitHub 貢獻程式碼，每次都能直接獲得 200 - 700 點不等的點數！
                   </TooltipContent>
                 </Tooltip>
               </div>
