@@ -8,7 +8,7 @@ export async function getUpstreamLatency(): Promise<number> {
     if (!response.ok) {
       return -1;
     }
-    
+
     return Date.now() - start;
   } catch (error) {
     console.error("Error getting upstream status:", error);

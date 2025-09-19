@@ -1,10 +1,6 @@
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Circle } from "lucide-react";
 import { getUpstreamLatency } from "./status.action";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 export async function UpstreamStatus() {
   const latency = await getUpstreamLatency();
