@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="space-y-2">
+      <div className="space-y-2 tracking-wide">
         <h1 className="text-xl font-bold">
           <HeaderTitle
             totalQuestions={totalQuestions}
