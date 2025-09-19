@@ -14,9 +14,11 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n  query ChallengeStatisticsQuery {\n    me {\n        submissionStatistics {\n            totalQuestions\n            solvedQuestions\n            attemptedQuestions\n        }\n    }\n  }\n": typeof types.ChallengeStatisticsQueryDocument,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
 };
 const documents: Documents = {
+    "\n  query ChallengeStatisticsQuery {\n    me {\n        submissionStatistics {\n            totalQuestions\n            solvedQuestions\n            attemptedQuestions\n        }\n    }\n  }\n": types.ChallengeStatisticsQueryDocument,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": types.BasicUserInfoDocument,
 };
 
@@ -34,6 +36,10 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query ChallengeStatisticsQuery {\n    me {\n        submissionStatistics {\n            totalQuestions\n            solvedQuestions\n            attemptedQuestions\n        }\n    }\n  }\n"): (typeof documents)["\n  query ChallengeStatisticsQuery {\n    me {\n        submissionStatistics {\n            totalQuestions\n            solvedQuestions\n            attemptedQuestions\n        }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
