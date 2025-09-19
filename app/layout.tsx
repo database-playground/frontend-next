@@ -3,8 +3,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { getAuthToken } from "@/lib/auth";
 import { ApolloWrapper } from "@/providers/use-apollo";
-import { PreloadResources } from "./preload-resources";
 import { ProgressProvider } from "@/providers/use-progress-provider";
+import { PreloadResources } from "./preload-resources";
 
 export const metadata: Metadata = {
   title: "資料庫練功坊",
