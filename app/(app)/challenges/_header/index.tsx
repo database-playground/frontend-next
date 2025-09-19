@@ -13,8 +13,8 @@ export default function Header() {
     data.me.submissionStatistics.attemptedQuestions;
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="space-y-2 tracking-wide">
+    <div className="flex items-center justify-between pb-6">
+      <div className="space-y-1 tracking-wide">
         <h1 className="text-xl font-bold">
           <HeaderTitle
             totalQuestions={totalQuestions}
