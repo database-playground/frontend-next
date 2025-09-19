@@ -1,10 +1,15 @@
 import { Circle } from "lucide-react";
-import { getUpstreamStatus } from "./status.action";
+import { getUpstreamLatency } from "./status.action";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export async function UpstreamStatus() {
-  const status = await getUpstreamStatus();
+  const latency = await getUpstreamLatency();
 
-  if (!status) {
+  if (latency === -1 || latency > 1000) {
     return (
       <div className="flex items-center gap-2">
         <Circle className="size-2.5 fill-red-500 text-red-500" />
@@ -16,12 +21,17 @@ export async function UpstreamStatus() {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Circle className="size-2.5 fill-green-500 text-green-500" />
-      <div className="text-sm">
-        <span>服務正常 🙌</span>
-      </div>
-    </div>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className="flex items-center gap-2">
+          <Circle className="size-2.5 fill-green-500 text-green-500" />
+          <div className="text-sm">
+            <span>服務正常 🙌</span>
+          </div>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>延遲：{latency}ms</TooltipContent>
+    </Tooltip>
   );
 }
 
