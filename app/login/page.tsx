@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import DoYouKnow from "./do-you-know";
 import { LoginForm } from "./form";
 import { UpstreamStatus, UpstreamStatusPlaceholder } from "./status";
+import type { Metadata } from "next";
 
 interface LoginPageProps {
   searchParams: Promise<{
@@ -14,6 +15,10 @@ interface LoginPageProps {
     redirect?: string;
   }>;
 }
+
+export const metadata: Metadata = {
+  title: "登入",
+};
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
