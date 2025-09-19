@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { getAuthToken } from "@/lib/auth";
 import { ApolloWrapper } from "@/providers/use-apollo";
 import { PreloadResources } from "./preload-resources";
+import { ProgressProvider } from "@/providers/use-progress-provider";
 
 export const metadata: Metadata = {
   title: "資料庫練功坊",
@@ -29,11 +30,9 @@ export default async function RootLayout({
           href="https://assets.dbplay.app/ibm-plex-sans-tc/css/ibm-plex-sans-tc-default-swap.min.css"
         />
       </head>
-      <body
-        className={`font-sans antialiased`}
-      >
+      <body className={`font-sans antialiased`}>
         <ApolloWrapper token={token}>
-          {children}
+          <ProgressProvider>{children}</ProgressProvider>
         </ApolloWrapper>
         <Toaster />
       </body>
