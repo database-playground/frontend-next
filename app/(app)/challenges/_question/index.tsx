@@ -1,20 +1,32 @@
 import { Badge } from "@/components/ui/badge";
 import { QuestionDifficulty } from "@/gql/graphql";
-import { PencilIcon, SwordIcon } from "lucide-react";
+import { SwordIcon } from "lucide-react";
 import Link from "next/link";
+import {
+  difficultyTranslation,
+  solvedStatusTranslation,
+  type SolvedStatus,
+} from "../model";
+import { graphql, readFragment, type FragmentType } from "@/gql";
+import { getQuestionSolvedStatus } from "./solved-status";
 
-export type SolveStatus = "solved" | "unsolved" | "not-tried";
+const QUESTION_CARD_FRAGMENT = graphql(`
+  fragment QuestionCard on Question {
+    id
+    title
+    description
+    difficulty
+    category
 
-export interface QuestionCardProps {
-  id: number;
-  title: string;
-  description: string;
+    ...QuestionSolvedStatus
+  }
+`);
 
-  // tags
-  difficulty: QuestionDifficulty;
-  category: string;
-  solveStatus: SolveStatus;
-}
+const solvedStatusColor: Record<SolvedStatus, string> = {
+  solved: "bg-green-800",
+  unsolved: "bg-yellow-800",
+  "not-tried": "bg-gray-800",
+};
 
 const badgeColor: Record<QuestionDifficulty, string> = {
   [QuestionDifficulty.Easy]: "bg-green-800",
@@ -23,60 +35,46 @@ const badgeColor: Record<QuestionDifficulty, string> = {
   [QuestionDifficulty.Unspecified]: "bg-gray-800",
 };
 
-const difficultyTranslation: Record<QuestionDifficulty, string> = {
-  [QuestionDifficulty.Easy]: "簡單",
-  [QuestionDifficulty.Medium]: "中等",
-  [QuestionDifficulty.Hard]: "困難",
-  [QuestionDifficulty.Unspecified]: "未指定",
-};
-
 export default function QuestionCard({
-  id,
-  title,
-  description,
-  difficulty,
-  category,
-  solveStatus,
-}: QuestionCardProps) {
-  const descriptionFirstLine = description.split("\n")[0];
+  fragment,
+}: {
+  fragment: FragmentType<typeof QUESTION_CARD_FRAGMENT>;
+}) {
+  const question = readFragment(QUESTION_CARD_FRAGMENT, fragment);
+  const descriptionFirstLine = question.description.split("\n")[0];
+  const solvedStatus = getQuestionSolvedStatus(question);
 
   return (
     <div className="flex rounded overflow-hidden">
       {/* Question Body */}
       <div className="space-y-3 bg-white p-4 flex-1">
         <div>
-          <h2 className="font-bold tracking-wider">{title}</h2>
+          <h2 className="font-bold tracking-wider">{question.title}</h2>
           <p className="tracking-wide">{descriptionFirstLine}</p>
         </div>
         <div className="flex flex-wrap gap-1">
-          <SolveStatusBadge solveStatus={solveStatus} />
-          <Badge className={badgeColor[difficulty]}>
-            {difficultyTranslation[difficulty]}
+          <Badge className={solvedStatusColor[solvedStatus]}>
+            {solvedStatusTranslation[solvedStatus]}
           </Badge>
-          <Badge>{category}</Badge>
+          <Badge className={badgeColor[question.difficulty]}>
+            {difficultyTranslation[question.difficulty]}
+          </Badge>
+          <Badge>{question.category}</Badge>
         </div>
       </div>
 
       {/* Operation Button */}
-      <OperationButton href={`/challenges/${id}`} />
+      <OperationButton href={`/challenges/${question.id}`} />
     </div>
   );
 }
 
-function SolveStatusBadge({ solveStatus }: { solveStatus: SolveStatus }) {
-  switch (solveStatus) {
-    case "solved":
-      return <Badge className="bg-green-800">✅ 已經攻克</Badge>;
-    case "unsolved":
-      return <Badge className="bg-yellow-800">尚未攻克</Badge>;
-    case "not-tried":
-      return <Badge className="bg-gray-800">還沒嘗試</Badge>;
-  }
-}
-
 function OperationButton({ href }: { href: string }) {
   return (
-    <Link href={href} className="bg-gray-100 hover:bg-primary hover:text-white transition-all duration-300 p-2 flex flex-col justify-center items-center gap-2.5">
+    <Link
+      href={href}
+      className="bg-gray-100 hover:bg-primary hover:text-white transition-all duration-300 p-2 flex flex-col justify-center items-center gap-2.5"
+    >
       <SwordIcon className="size-4" />
       練習
     </Link>

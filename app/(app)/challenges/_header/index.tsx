@@ -1,8 +1,20 @@
 "use client";
 
 import { useSuspenseQuery } from "@apollo/client/react";
-import { CHALLENGE_STATISTICS_QUERY } from "../query";
 import { GridProgress } from "@/components/ui/grid-progress";
+import { graphql } from "@/gql";
+
+const CHALLENGE_STATISTICS_QUERY = graphql(`
+  query ChallengeStatisticsQuery {
+    me {
+      submissionStatistics {
+        totalQuestions
+        solvedQuestions
+        attemptedQuestions
+      }
+    }
+  }
+`);
 
 export default function Header() {
   const { data } = useSuspenseQuery(CHALLENGE_STATISTICS_QUERY);
@@ -13,7 +25,7 @@ export default function Header() {
     data.me.submissionStatistics.attemptedQuestions;
 
   return (
-    <div className="flex items-center justify-between pb-6">
+    <header className="flex items-center justify-between pb-6">
       <div className="space-y-1 tracking-wide">
         <h1 className="text-xl font-bold">
           <HeaderTitle
@@ -28,16 +40,16 @@ export default function Header() {
           />
         </p>
       </div>
-      
+
       <div className="hidden md:block">
         <GridProgress
           variant="primary"
           cols={10}
           rows={4}
-          progress={totalSolvedQuestions / totalQuestions * 100}
+          progress={(totalSolvedQuestions / totalQuestions) * 100}
         />
       </div>
-    </div>
+    </header>
   );
 }
 
@@ -68,6 +80,10 @@ export function HeaderDescription({
   totalSolvedQuestions: number;
   totalAttemptedQuestions: number;
 }) {
+  if (totalSolvedQuestions === totalAttemptedQuestions) {
+    return <>你現在百戰百勝，繼續加油！</>;
+  }
+
   if (totalSolvedQuestions > 0) {
     return (
       <>

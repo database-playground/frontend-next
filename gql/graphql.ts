@@ -18,7 +18,7 @@ export type Scalars = {
    * Define a Relay Cursor type:
    * https://relay.dev/graphql/connections.htm#sec-Cursor
    */
-  Cursor: { input: any; output: any; }
+  Cursor: { input: string; output: string; }
   /** The builtin Map type */
   Map: { input: any; output: any; }
   /** The builtin Time type */
@@ -1457,11 +1457,31 @@ export type ChallengeStatisticsQueryQueryVariables = Exact<{ [key: string]: neve
 
 export type ChallengeStatisticsQueryQuery = { __typename?: 'Query', me: { __typename?: 'User', submissionStatistics: { __typename?: 'SubmissionStatistics', totalQuestions: number, solvedQuestions: number, attemptedQuestions: number } } };
 
+export type QuestionCardFragment = (
+  { __typename?: 'Question', id: string, title: string, description: string, difficulty: QuestionDifficulty, category: string }
+  & { ' $fragmentRefs'?: { 'QuestionSolvedStatusFragment': QuestionSolvedStatusFragment } }
+) & { ' $fragmentName'?: 'QuestionCardFragment' };
+
+export type QuestionSolvedStatusFragment = { __typename?: 'Question', solved: boolean, attempted: boolean } & { ' $fragmentName'?: 'QuestionSolvedStatusFragment' };
+
+export type ListQuestionsQueryVariables = Exact<{
+  where?: InputMaybe<QuestionWhereInput>;
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+}>;
+
+
+export type ListQuestionsQuery = { __typename?: 'Query', questions: { __typename?: 'QuestionConnection', edges?: Array<{ __typename?: 'QuestionEdge', node?: (
+        { __typename?: 'Question', id: string }
+        & { ' $fragmentRefs'?: { 'QuestionCardFragment': QuestionCardFragment;'QuestionSolvedStatusFragment': QuestionSolvedStatusFragment } }
+      ) | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } };
+
 export type BasicUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type BasicUserInfoQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, name: string, email: string, avatar?: string | null, group: { __typename?: 'Group', name: string } } };
 
-
+export const QuestionSolvedStatusFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionSolvedStatus"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"solved"}},{"kind":"Field","name":{"kind":"Name","value":"attempted"}}]}}]} as unknown as DocumentNode<QuestionSolvedStatusFragment, unknown>;
+export const QuestionCardFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionCard"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuestionSolvedStatus"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionSolvedStatus"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"solved"}},{"kind":"Field","name":{"kind":"Name","value":"attempted"}}]}}]} as unknown as DocumentNode<QuestionCardFragment, unknown>;
 export const ChallengeStatisticsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ChallengeStatisticsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"submissionStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalQuestions"}},{"kind":"Field","name":{"kind":"Name","value":"solvedQuestions"}},{"kind":"Field","name":{"kind":"Name","value":"attemptedQuestions"}}]}}]}}]}}]} as unknown as DocumentNode<ChallengeStatisticsQueryQuery, ChallengeStatisticsQueryQueryVariables>;
+export const ListQuestionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListQuestions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"QuestionWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"questions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"10"}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuestionCard"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuestionSolvedStatus"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionSolvedStatus"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"solved"}},{"kind":"Field","name":{"kind":"Name","value":"attempted"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionCard"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuestionSolvedStatus"}}]}}]} as unknown as DocumentNode<ListQuestionsQuery, ListQuestionsQueryVariables>;
 export const BasicUserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BasicUserInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}},{"kind":"Field","name":{"kind":"Name","value":"group"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<BasicUserInfoQuery, BasicUserInfoQueryVariables>;

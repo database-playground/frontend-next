@@ -7,10 +7,14 @@ const config: CodegenConfig = {
   generates: {
     "./gql/": {
       preset: "client",
+      presetConfig: {
+        fragmentMasking: { unmaskFunctionName: 'readFragment' }
+      },
       config: {
         useTypeImports: true,
         scalars: {
           Time: "string", // ISO8601
+          Cursor: "string",
         },
       },
     },
