@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import type { TagState } from "./_filter/tag";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { graphql } from "@/gql";
 import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
 import { useSuspenseQuery } from "@apollo/client/react";
@@ -12,7 +13,6 @@ import FilterSection from "./_filter";
 import QuestionCard from "./_question";
 import { getQuestionSolvedStatus } from "./_question/solved-status";
 import type { SolvedStatus } from "./model";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export const LIST_QUESTIONS = graphql(`
   query ListQuestions($where: QuestionWhereInput, $after: Cursor) {
@@ -70,7 +70,7 @@ export default function ChallengePageContent() {
         setTags={setTags}
       />
       <div className="flex-1">
-        <Suspense fallback={<Skeleton className="w-full h-48" />}>
+        <Suspense fallback={<Skeleton className="h-48 w-full" />}>
           <ChallengeQuestionsList
             where={where}
             solvedStatusContains={tags.solvedStatus}
