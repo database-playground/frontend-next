@@ -41,7 +41,7 @@ export default function QuestionCard({
   const solvedStatus = getQuestionSolvedStatus(question);
 
   return (
-    <div className="flex overflow-hidden rounded">
+    <article className="flex overflow-hidden rounded">
       {/* Question Body */}
       <div className="flex-1 space-y-3 bg-white p-4">
         <div>
@@ -61,7 +61,7 @@ export default function QuestionCard({
 
       {/* Operation Button */}
       <OperationButton href={`/challenges/${question.id}`} />
-    </div>
+    </article>
   );
 }
 
