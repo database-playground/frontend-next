@@ -1,4 +1,4 @@
-import { graphql, readFragment, type FragmentType } from "@/gql";
+import { type FragmentType, graphql, readFragment } from "@/gql";
 import type { SolvedStatus } from "../model";
 
 export const QUESTION_SOLVED_STATUS_FRAGMENT = graphql(`
@@ -9,17 +9,17 @@ export const QUESTION_SOLVED_STATUS_FRAGMENT = graphql(`
 `);
 
 export function getQuestionSolvedStatus(
-    fragment: FragmentType<typeof QUESTION_SOLVED_STATUS_FRAGMENT>
+  fragment: FragmentType<typeof QUESTION_SOLVED_STATUS_FRAGMENT>,
 ): SolvedStatus {
-    const question = readFragment(QUESTION_SOLVED_STATUS_FRAGMENT, fragment);
+  const question = readFragment(QUESTION_SOLVED_STATUS_FRAGMENT, fragment);
 
-    if (question.solved) {
-        return "solved";
-    }
+  if (question.solved) {
+    return "solved";
+  }
 
-    if (question.attempted && !question.solved) {
-        return "unsolved";
-    }
+  if (question.attempted && !question.solved) {
+    return "unsolved";
+  }
 
-    return "not-tried";
+  return "not-tried";
 }

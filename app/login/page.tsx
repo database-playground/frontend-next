@@ -1,11 +1,11 @@
 import { Logo } from "@/components/logo";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import DoYouKnow from "./do-you-know";
 import { LoginForm } from "./form";
 import { UpstreamStatus, UpstreamStatusPlaceholder } from "./status";
-import type { Metadata } from "next";
 
 interface LoginPageProps {
   searchParams: Promise<{

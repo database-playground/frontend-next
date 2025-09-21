@@ -17,7 +17,11 @@ export default function FilterSection({
   setTags,
 }: FilterSectionProps) {
   return (
-    <aside className="flex flex-col gap-8 p-6 bg-gray-100 min-h-[50dvh] w-[25%] rounded">
+    <aside
+      className={`
+        flex min-h-[50dvh] w-[25%] flex-col gap-8 rounded bg-gray-100 p-6
+      `}
+    >
       <SearchFilterSection value={search} onChange={setSearch} />
       <TagFilterSection value={tags} onChange={setTags} />
     </aside>

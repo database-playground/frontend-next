@@ -7,8 +7,13 @@ export default function HeaderSkeleton() {
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-4 w-86" />
       </div>
-      
-      <Skeleton className="hidden md:block h-16 w-40" />
+
+      <Skeleton
+        className={`
+          hidden h-16 w-40
+          md:block
+        `}
+      />
     </div>
   );
 }

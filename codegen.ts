@@ -8,7 +8,7 @@ const config: CodegenConfig = {
     "./gql/": {
       preset: "client",
       presetConfig: {
-        fragmentMasking: { unmaskFunctionName: 'readFragment' }
+        fragmentMasking: { unmaskFunctionName: "readFragment" },
       },
       config: {
         useTypeImports: true,

@@ -1,17 +1,17 @@
 "use client";
 
+import { useDebouncedValue } from "foxact/use-debounced-value";
 import { useState } from "react";
 import type { TagState } from "./_filter/tag";
-import { useDebouncedValue } from 'foxact/use-debounced-value';
 
-import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
-import FilterSection from "./_filter";
-import QuestionCard from "./_question";
-import { useSuspenseQuery } from "@apollo/client/react";
-import type { SolvedStatus } from "./model";
 import { Button } from "@/components/ui/button";
 import { graphql } from "@/gql";
+import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
+import { useSuspenseQuery } from "@apollo/client/react";
+import FilterSection from "./_filter";
+import QuestionCard from "./_question";
 import { getQuestionSolvedStatus } from "./_question/solved-status";
+import type { SolvedStatus } from "./model";
 
 export const LIST_QUESTIONS = graphql(`
   query ListQuestions($where: QuestionWhereInput, $after: Cursor) {
@@ -61,7 +61,7 @@ export default function ChallengePageContent() {
   };
 
   return (
-    <div className="flex gap-4 w-full">
+    <div className="flex w-full gap-4">
       <FilterSection
         search={search}
         setSearch={setSearch}
@@ -94,17 +94,15 @@ export function ChallengeQuestionsList({
       {data?.questions.edges
         ?.filter(
           (question) =>
-            question &&
-            question.node &&
-            solvedStatusContains.includes(
-              getQuestionSolvedStatus(question.node)
-            )
+            question
+            && question.node
+            && solvedStatusContains.includes(
+              getQuestionSolvedStatus(question.node),
+            ),
         )
         .map((question) => {
           if (!question || !question.node) return null;
-          return (
-            <QuestionCard key={question.node.id} fragment={question.node} />
-          );
+          return <QuestionCard key={question.node.id} fragment={question.node} />;
         })}
 
       {data?.questions.pageInfo.hasNextPage && (
@@ -125,8 +123,7 @@ export function ChallengeQuestionsList({
                   },
                 };
               },
-            })
-          }
+            })}
         >
           載入更多
         </Button>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Header from "./_header";
 import HeaderSkeleton from "./_header/skeleton";
 import ChallengePageContent from "./content";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "挑戰題目",

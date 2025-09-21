@@ -1,13 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import { type FragmentType, graphql, readFragment } from "@/gql";
 import { QuestionDifficulty } from "@/gql/graphql";
 import { SwordIcon } from "lucide-react";
 import Link from "next/link";
-import {
-  difficultyTranslation,
-  solvedStatusTranslation,
-  type SolvedStatus,
-} from "../model";
-import { graphql, readFragment, type FragmentType } from "@/gql";
+import { difficultyTranslation, type SolvedStatus, solvedStatusTranslation } from "../model";
 import { getQuestionSolvedStatus } from "./solved-status";
 
 const QUESTION_CARD_FRAGMENT = graphql(`
@@ -45,9 +41,9 @@ export default function QuestionCard({
   const solvedStatus = getQuestionSolvedStatus(question);
 
   return (
-    <div className="flex rounded overflow-hidden">
+    <div className="flex overflow-hidden rounded">
       {/* Question Body */}
-      <div className="space-y-3 bg-white p-4 flex-1">
+      <div className="flex-1 space-y-3 bg-white p-4">
         <div>
           <h2 className="font-bold tracking-wider">{question.title}</h2>
           <p className="tracking-wide">{descriptionFirstLine}</p>
@@ -73,7 +69,11 @@ function OperationButton({ href }: { href: string }) {
   return (
     <Link
       href={href}
-      className="bg-gray-100 hover:bg-primary hover:text-white transition-all duration-300 p-2 flex flex-col justify-center items-center gap-2.5"
+      className={`
+        flex flex-col items-center justify-center gap-2.5 bg-gray-100 p-2
+        transition-all duration-300
+        hover:bg-primary hover:text-white
+      `}
     >
       <SwordIcon className="size-4" />
       練習

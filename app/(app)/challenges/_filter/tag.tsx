@@ -1,13 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FilterIcon } from "lucide-react";
-import {
-  difficultyTranslation,
-  solvedStatusTranslation,
-  type Difficulty,
-  type SolvedStatus,
-} from "../model";
 import { QuestionDifficulty } from "@/gql/graphql";
+import { FilterIcon } from "lucide-react";
+import { type Difficulty, difficultyTranslation, type SolvedStatus, solvedStatusTranslation } from "../model";
 
 export interface TagState {
   solvedStatus: SolvedStatus[];
@@ -60,7 +55,7 @@ export default function TagFilterSection({
         標籤
       </label>
 
-      <div className="space-y-2 text-sm text-muted-foreground mb-4">
+      <div className="mb-4 space-y-2 text-sm text-muted-foreground">
         解題狀態
         <div className="mt-2 space-y-2">
           <TagCheckbox

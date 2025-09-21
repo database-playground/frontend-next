@@ -20,13 +20,13 @@ const gridProgressVariants = cva(
 );
 
 const gridItemVariants = cva(
-  "transition-all duration-200 ease-in-out rounded-sm",
+  "rounded-sm transition-all duration-200 ease-in-out",
   {
     variants: {
       size: {
-        sm: "w-2 h-2",
-        default: "w-3 h-3",
-        lg: "w-4 h-4",
+        sm: "h-2 w-2",
+        default: "h-3 w-3",
+        lg: "h-4 w-4",
       },
       variant: {
         default: "bg-muted",
@@ -80,10 +80,12 @@ const gridItemVariants = cva(
   },
 );
 
-interface GridProgressProps 
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>
-  , VariantProps<typeof gridProgressVariants> 
-  , Pick<VariantProps<typeof gridItemVariants>, 'variant'> {
+interface GridProgressProps
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "children">,
+    VariantProps<typeof gridProgressVariants>,
+    Pick<VariantProps<typeof gridItemVariants>, "variant">
+{
   /**
    * 目前進度值，範圍 0-100
    */
@@ -115,7 +117,7 @@ interface GridProgressProps
 }
 
 const GridProgress = React.forwardRef<HTMLDivElement, GridProgressProps>(
-  ({ 
+  ({
     className,
     size,
     variant = "default",
@@ -125,21 +127,21 @@ const GridProgress = React.forwardRef<HTMLDivElement, GridProgressProps>(
     showProgress = false,
     progressFormatter,
     enableHover = true,
-    ...props 
+    ...props
   }, ref) => {
     const totalSteps = rows * cols;
 
     // 確保 progress 在有效範圍內
     const clampedProgress = Math.max(0, Math.min(100, progress));
-    
+
     // 計算需要填充的格子數
     const filledSteps = Math.round((clampedProgress / 100) * totalSteps);
-    
+
     // 預設的進度文字格式化函式
-    const defaultFormatter = (progress: number, filled: number, total: number) => 
+    const defaultFormatter = (progress: number, filled: number, total: number) =>
       `${Math.round(progress)}% (${filled}/${total})`;
-    
-    const progressText = progressFormatter 
+
+    const progressText = progressFormatter
       ? progressFormatter(clampedProgress, filledSteps, totalSteps)
       : defaultFormatter(clampedProgress, filledSteps, totalSteps);
 
@@ -148,7 +150,7 @@ const GridProgress = React.forwardRef<HTMLDivElement, GridProgressProps>(
         <div
           ref={ref}
           className={cn(
-            gridProgressVariants({ size, className })
+            gridProgressVariants({ size, className }),
           )}
           style={{
             gridTemplateRows: `repeat(${rows}, 1fr)`,
@@ -165,34 +167,34 @@ const GridProgress = React.forwardRef<HTMLDivElement, GridProgressProps>(
             const isFilled = index < filledSteps;
             const row = Math.floor(index / cols) + 1;
             const col = (index % cols) + 1;
-            
+
             return (
               <div
                 key={index}
                 className={cn(
-                  gridItemVariants({ 
-                    size, 
-                    variant, 
-                    filled: isFilled 
+                  gridItemVariants({
+                    size,
+                    variant,
+                    filled: isFilled,
                   }),
                   enableHover && "hover:scale-110 hover:shadow-md",
                 )}
-                title={`位置 (${row}, ${col})${isFilled ? ' - 已完成' : ' - 未完成'}`}
+                title={`位置 (${row}, ${col})${isFilled ? " - 已完成" : " - 未完成"}`}
               />
             );
           })}
         </div>
-        
+
         {showProgress && (
-          <div className="text-sm text-muted-foreground text-center">
+          <div className="text-center text-sm text-muted-foreground">
             {progressText}
           </div>
         )}
       </div>
     );
-  }
+  },
 );
 
 GridProgress.displayName = "GridProgress";
 
-export { GridProgress, gridProgressVariants, gridItemVariants, type GridProgressProps };
+export { gridItemVariants, GridProgress, type GridProgressProps, gridProgressVariants };
