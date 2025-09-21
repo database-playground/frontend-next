@@ -7,7 +7,7 @@ import { ProgressProvider } from "@/providers/use-progress-provider";
 import { PreloadResources } from "./preload-resources";
 
 export const metadata: Metadata = {
-  title: { template: "%s | 資料庫練功坊", default: "首頁" },
+  title: { template: "%s | 資料庫練功坊", default: "資料庫練功坊" },
   description: "AI 賦能的資料庫練習平台",
 };
 
@@ -32,7 +32,7 @@ export default async function RootLayout({
       </head>
       <body className={`font-sans antialiased`}>
         <ApolloWrapper token={token}>
-          <ProgressProvider>{children}</ProgressProvider>
+          <ProgressProvider delay={500}>{children}</ProgressProvider>
         </ApolloWrapper>
         <Toaster />
       </body>
