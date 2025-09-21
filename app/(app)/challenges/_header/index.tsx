@@ -80,7 +80,7 @@ export function HeaderDescription({
   totalSolvedQuestions: number;
   totalAttemptedQuestions: number;
 }) {
-  if (totalSolvedQuestions === totalAttemptedQuestions) {
+  if (totalAttemptedQuestions > 0 && totalSolvedQuestions === totalAttemptedQuestions) {
     return <>你現在百戰百勝，繼續加油！</>;
   }
 
