@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { TagState } from "./_filter/tag";
+import { useDebouncedValue } from 'foxact/use-debounced-value';
 
 import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
 import FilterSection from "./_filter";
@@ -42,8 +43,20 @@ export default function ChallengePageContent() {
     ],
   });
 
+  const deferredSearch = useDebouncedValue(search, 200);
+
   const where: QuestionWhereInput = {
-    titleContainsFold: search,
+    or: [
+      {
+        titleContainsFold: deferredSearch,
+      },
+      {
+        descriptionContainsFold: deferredSearch,
+      },
+      {
+        categoryContainsFold: deferredSearch,
+      },
+    ],
     difficultyIn: tags.difficulty,
   };
 
