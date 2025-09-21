@@ -6,7 +6,7 @@ export default function Board() {
     <section
       className={`
         relative mb-6 flex h-42 w-full items-end justify-between rounded
-        bg-emerald-200 px-6 py-4
+        bg-primary/20 px-6 py-4
       `}
     >
       <div className="flex flex-col gap-2">
