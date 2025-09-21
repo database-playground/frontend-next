@@ -19,7 +19,8 @@ export default function FilterSection({
   return (
     <aside
       className={`
-        flex min-h-[50dvh] w-[25%] flex-col gap-8 rounded bg-gray-100 p-6
+        flex flex-col gap-8 rounded bg-gray-100 p-6
+        lg:min-h-[50dvh] lg:w-[25%]
       `}
     >
       <SearchFilterSection value={search} onChange={setSearch} />
