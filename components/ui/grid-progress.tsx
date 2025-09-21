@@ -180,6 +180,7 @@ const GridProgress = React.forwardRef<HTMLDivElement, GridProgressProps>(
                   enableHover && "hover:scale-110 hover:shadow-md",
                 )}
                 title={`位置 (${row}, ${col})${isFilled ? " - 已完成" : " - 未完成"}`}
+                aria-label={`Position (${row}, ${col})${isFilled ? ' - Completed' : ' - Not completed'}`}
               />
             );
           })}
