@@ -1,5 +1,6 @@
 import { Logo } from "@/components/logo";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import DoYouKnow from "./do-you-know";
@@ -14,6 +15,10 @@ interface LoginPageProps {
     redirect?: string;
   }>;
 }
+
+export const metadata: Metadata = {
+  title: "登入",
+};
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;

@@ -1,10 +1,12 @@
 "use server";
 
+import buildUri from "@/lib/build-uri";
+
 export async function getUpstreamLatency(): Promise<number> {
   try {
     const start = Date.now();
 
-    const response = await fetch("https://api.dbplay.app", { method: "HEAD" });
+    const response = await fetch(buildUri("/"));
     if (!response.ok) {
       return -1;
     }

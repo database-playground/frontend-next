@@ -7,7 +7,7 @@ import { ProgressProvider } from "@/providers/use-progress-provider";
 import { PreloadResources } from "./preload-resources";
 
 export const metadata: Metadata = {
-  title: "資料庫練功坊",
+  title: { template: "%s | 資料庫練功坊", default: "首頁" },
   description: "AI 賦能的資料庫練習平台",
 };
 
