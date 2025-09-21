@@ -32,7 +32,7 @@ export default async function RootLayout({
       </head>
       <body className={`font-sans antialiased`}>
         <ApolloWrapper token={token}>
-          <ProgressProvider>{children}</ProgressProvider>
+          <ProgressProvider delay={500}>{children}</ProgressProvider>
         </ApolloWrapper>
         <Toaster />
       </body>
