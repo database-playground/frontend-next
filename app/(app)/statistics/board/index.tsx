@@ -5,7 +5,7 @@ export default function Board() {
   return (
     <section
       className={`
-        relative mb-6 flex h-42 w-full items-end justify-between rounded
+        relative mb-6 flex min-h-42 w-full items-end justify-between rounded
         bg-primary/20 px-6 py-4
       `}
     >
@@ -21,7 +21,12 @@ export default function Board() {
       </div>
 
       <Suspense>
-        <div className="flex flex-col items-end leading-none">
+        <div
+          className={`
+            hidden flex-col items-end leading-none
+            lg:flex
+          `}
+        >
           <p className="text-sm text-muted-foreground">完成題數</p>
           <p className="text-xl font-bold">
             <CompletedQuestionsPercentage />

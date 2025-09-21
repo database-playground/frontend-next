@@ -3,9 +3,10 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import useUser from "@/hooks/use-user";
 import { cn } from "@/lib/utils";
-import { BarChart3, BookOpen, ChevronDown, MessageSquare, Swords } from "lucide-react";
+import { BarChart3, BookOpen, ChevronDown, Menu, MessageSquare, Swords, X } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 interface NavItemProps {
@@ -19,7 +20,11 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
     <Button
       variant="ghost"
       className={cn(
-        "flex h-auto items-center gap-3 rounded px-3 py-2 text-sm",
+        `
+          flex h-auto w-full items-center justify-start gap-3 rounded px-3 py-2
+          text-sm
+          md:w-auto md:justify-center
+        `,
         active && "bg-primary text-primary-foreground",
       )}
     >
@@ -56,45 +61,107 @@ function UserMenu() {
 
 export default function AppNavbar({ path }: { path: string }) {
   const navItemLabel = getActiveNavItemLabel(path);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="border-b border-stone-200 bg-stone-50">
-      <div className="flex items-center justify-between px-6 py-0">
-        {/* Left Section */}
-        <div className="flex items-center gap-4">
-          {/* Logo and Title */}
-          <Link href="/">
-            <div className="flex items-center gap-3 px-3 py-4">
-              <Logo className="h-4 w-4" />
-              <span className="whitespace-nowrap text-stone-900">
-                資料庫練功房
-              </span>
-            </div>
-          </Link>
+    <Collapsible open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+      <nav className="border-b border-stone-200 bg-stone-50">
+        <div className="flex items-center justify-between px-6 py-0">
+          {/* Left Section */}
+          <div className="flex items-center gap-4">
+            {/* Logo and Title */}
+            <Link href="/">
+              <div className="flex items-center gap-3 px-3 py-4">
+                <Logo className="h-4 w-4" />
+                <span className="whitespace-nowrap text-stone-900">
+                  資料庫練功房
+                </span>
+              </div>
+            </Link>
 
-          {/* Navigation Items */}
-          <div className="flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link href={item.pathPrefix} key={item.label}>
-                <NavItem
-                  key={item.label}
-                  icon={item.icon}
-                  label={item.label}
-                  active={navItemLabel === item.label}
-                />
-              </Link>
-            ))}
+            {/* Desktop Navigation Items - Hidden on mobile */}
+            <div
+              className={`
+                hidden items-center gap-1
+                md:flex
+              `}
+            >
+              {navItems.map((item) => (
+                <Link href={item.pathPrefix} key={item.label}>
+                  <NavItem
+                    key={item.label}
+                    icon={item.icon}
+                    label={item.label}
+                    active={navItemLabel === item.label}
+                  />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center gap-2">
+            {/* Desktop User Menu - Hidden on mobile */}
+            <div
+              className={`
+                hidden
+                md:block
+              `}
+            >
+              <Suspense>
+                <UserMenu />
+              </Suspense>
+            </div>
+
+            {/* Mobile Menu Button - Only visible on mobile */}
+            <CollapsibleTrigger asChild className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-10 w-10"
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : (
+                  <Menu
+                    className={`h-5 w-5`}
+                  />
+                )}
+              </Button>
+            </CollapsibleTrigger>
           </div>
         </div>
 
-        {/* Right Section - User Menu */}
-        <div className="flex items-center">
-          <Suspense>
-            <UserMenu />
-          </Suspense>
-        </div>
-      </div>
-    </nav>
+        {/* Mobile Navigation Menu */}
+        <CollapsibleContent className="md:hidden">
+          <div className="border-t border-stone-200 bg-stone-50">
+            <div className="flex flex-col space-y-1 px-6 py-4">
+              {/* Mobile Navigation Items */}
+              {navItems.map((item) => (
+                <Link
+                  href={item.pathPrefix}
+                  key={item.label}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <NavItem
+                    key={item.label}
+                    icon={item.icon}
+                    label={item.label}
+                    active={navItemLabel === item.label}
+                  />
+                </Link>
+              ))}
+
+              {/* Mobile User Menu */}
+              <div className="mt-4 border-t border-stone-200 pt-4">
+                <Suspense>
+                  <UserMenu />
+                </Suspense>
+              </div>
+            </div>
+          </div>
+        </CollapsibleContent>
+      </nav>
+    </Collapsible>
   );
 }
 

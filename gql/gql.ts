@@ -18,9 +18,10 @@ type Documents = {
     "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n": typeof types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        solved\n        attempted\n    }\n": typeof types.QuestionSolvedStatusFragmentDoc,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
-    "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n": typeof types.CompletedQuestionsDocument,
+    "\n  query CompletedQuestions {\n    me {\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.CompletedQuestionsDocument,
     "\n    query Points {\n        me {\n            totalPoints\n\n            points(first: 5) {\n                edges {\n                    node {\n                        id\n                        ...PointFragment\n                    }\n                }\n            }\n        }\n    }\n": typeof types.PointsDocument,
     "\n    fragment PointFragment on Point {\n        description\n        points\n    }\n": typeof types.PointFragmentFragmentDoc,
+    "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n": typeof types.CompletedQuestionsDocument,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
 };
 const documents: Documents = {
@@ -28,9 +29,10 @@ const documents: Documents = {
     "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n": types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        solved\n        attempted\n    }\n": types.QuestionSolvedStatusFragmentDoc,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
-    "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n": types.CompletedQuestionsDocument,
+    "\n  query CompletedQuestions {\n    me {\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.CompletedQuestionsDocument,
     "\n    query Points {\n        me {\n            totalPoints\n\n            points(first: 5) {\n                edges {\n                    node {\n                        id\n                        ...PointFragment\n                    }\n                }\n            }\n        }\n    }\n": types.PointsDocument,
     "\n    fragment PointFragment on Point {\n        description\n        points\n    }\n": types.PointFragmentFragmentDoc,
+    "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n": types.CompletedQuestionsDocument,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": types.BasicUserInfoDocument,
 };
 
@@ -67,7 +69,7 @@ export function graphql(source: "\n  query ListQuestions($where: QuestionWhereIn
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n"): (typeof documents)["\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n"];
+export function graphql(source: "\n  query CompletedQuestions {\n    me {\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n"): (typeof documents)["\n  query CompletedQuestions {\n    me {\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -76,6 +78,10 @@ export function graphql(source: "\n    query Points {\n        me {\n           
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    fragment PointFragment on Point {\n        description\n        points\n    }\n"): (typeof documents)["\n    fragment PointFragment on Point {\n        description\n        points\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n"): (typeof documents)["\n    query CompletedQuestions {\n        me {\n            submissionStatistics {\n                totalQuestions\n                solvedQuestions\n            }\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -62,7 +62,12 @@ export default function ChallengePageContent() {
   };
 
   return (
-    <div className="flex w-full gap-4">
+    <div
+      className={`
+        flex w-full flex-col-reverse gap-4
+        lg:flex-row
+      `}
+    >
       <FilterSection
         search={search}
         setSearch={setSearch}
