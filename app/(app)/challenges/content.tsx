@@ -1,7 +1,7 @@
 "use client";
 
 import { useDebouncedValue } from "foxact/use-debounced-value";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import type { TagState } from "./_filter/tag";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import FilterSection from "./_filter";
 import QuestionCard from "./_question";
 import { getQuestionSolvedStatus } from "./_question/solved-status";
 import type { SolvedStatus } from "./model";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const LIST_QUESTIONS = graphql(`
   query ListQuestions($where: QuestionWhereInput, $after: Cursor) {
@@ -69,10 +70,12 @@ export default function ChallengePageContent() {
         setTags={setTags}
       />
       <div className="flex-1">
-        <ChallengeQuestionsList
-          where={where}
-          solvedStatusContains={tags.solvedStatus}
-        />
+        <Suspense fallback={<Skeleton className="w-full h-48" />}>
+          <ChallengeQuestionsList
+            where={where}
+            solvedStatusContains={tags.solvedStatus}
+          />
+        </Suspense>
       </div>
     </div>
   );
