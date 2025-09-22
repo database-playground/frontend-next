@@ -5,14 +5,15 @@ import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client/react";
 
 const RESOLVED_QUESTIONS = graphql(`
-    query CompletedQuestions {
-        me {
-            submissionStatistics {
-                totalQuestions
-                solvedQuestions
-            }
-        }
+  query ResolvedQuestions {
+    me {
+      id
+      submissionStatistics {
+        totalQuestions
+        solvedQuestions
+      }
     }
+  }
 `);
 
 export default function ResolvedQuestions() {

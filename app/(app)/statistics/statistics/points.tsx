@@ -4,27 +4,28 @@ import { type FragmentType, graphql, readFragment } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client/react";
 
 const POINTS = graphql(`
-    query Points {
-        me {
-            totalPoints
+  query Points {
+    me {
+      id
+      totalPoints
 
-            points(first: 5) {
-                edges {
-                    node {
-                        id
-                        ...PointFragment
-                    }
-                }
-            }
+      points(first: 5) {
+        edges {
+          node {
+            id
+            ...PointFragment
+          }
         }
+      }
     }
+  }
 `);
 
 const POINT_FRAGMENT = graphql(`
-    fragment PointFragment on Point {
-        description
-        points
-    }
+  fragment PointFragment on Point {
+    description
+    points
+  }
 `);
 
 export default function Points() {
@@ -37,17 +38,29 @@ export default function Points() {
         {totalPoints} 點
       </div>
       <ul className="flex list-inside list-disc flex-col gap-1">
-        {data.me.points.edges?.map((edge) => (
-          edge?.node && <PointHistoryLine key={edge.node.id} fragment={edge.node} />
-        ))}
+        {data.me.points.edges?.map(
+          (edge) =>
+            edge?.node && (
+              <PointHistoryLine key={edge.node.id} fragment={edge.node} />
+            )
+        )}
       </ul>
     </section>
   );
 }
 
-function PointHistoryLine({ fragment }: { fragment: FragmentType<typeof POINT_FRAGMENT> }) {
+function PointHistoryLine({
+  fragment,
+}: {
+  fragment: FragmentType<typeof POINT_FRAGMENT>;
+}) {
   const point = readFragment(POINT_FRAGMENT, fragment);
   const symbol = point.points > 0 ? "+" : "-";
 
-  return <li>{point.description} ({symbol}{Math.abs(point.points)})</li>;
+  return (
+    <li>
+      {point.description} ({symbol}
+      {Math.abs(point.points)})
+    </li>
+  );
 }

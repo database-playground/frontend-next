@@ -7,6 +7,7 @@ import { useSuspenseQuery } from "@apollo/client/react";
 const CHALLENGE_STATISTICS_QUERY = graphql(`
   query ChallengeStatisticsQuery {
     me {
+      id
       submissionStatistics {
         totalQuestions
         solvedQuestions
