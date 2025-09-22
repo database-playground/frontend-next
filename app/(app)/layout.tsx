@@ -5,7 +5,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <AppShell>
       <div className="mx-auto w-full max-w-7xl flex-1 p-3">
-        <ViewTransition name="app-content">{children}</ViewTransition>
+        <ViewTransition name="app-content">
+          <div suppressHydrationWarning>
+            {children}
+          </div>
+        </ViewTransition>
       </div>
     </AppShell>
   );
