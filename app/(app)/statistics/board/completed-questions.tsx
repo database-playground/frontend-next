@@ -7,6 +7,7 @@ import { skipToken, useSuspenseQuery } from "@apollo/client/react";
 const COMPLETED_QUESTIONS = graphql(`
   query CompletedQuestions {
     me {
+      id
       submissionStatistics {
         totalQuestions
         solvedQuestions
