@@ -4,8 +4,8 @@ import { GridProgress } from "@/components/ui/grid-progress";
 import { graphql } from "@/gql";
 import { useSuspenseQuery } from "@apollo/client/react";
 
-const CHALLENGE_STATISTICS_QUERY = graphql(`
-  query ChallengeStatisticsQuery {
+const CHALLENGE_STATISTICS = graphql(`
+  query ChallengeStatistics {
     me {
       id
       submissionStatistics {
@@ -18,7 +18,7 @@ const CHALLENGE_STATISTICS_QUERY = graphql(`
 `);
 
 export default function Header() {
-  const { data } = useSuspenseQuery(CHALLENGE_STATISTICS_QUERY);
+  const { data } = useSuspenseQuery(CHALLENGE_STATISTICS);
 
   const totalQuestions = data.me.submissionStatistics.totalQuestions;
   const totalSolvedQuestions = data.me.submissionStatistics.solvedQuestions;

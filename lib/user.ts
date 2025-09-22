@@ -3,7 +3,7 @@ import type { BasicUserInfoQuery } from "@/gql/graphql";
 
 export type BasicUserInfo = BasicUserInfoQuery["me"];
 
-export const BASIC_USER_INFO_QUERY = graphql(`
+export const BASIC_USER_INFO = graphql(`
   query BasicUserInfo {
     me {
       id
