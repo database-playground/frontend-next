@@ -39,10 +39,7 @@ export default function Points() {
       </div>
       <ul className="flex list-inside list-disc flex-col gap-1">
         {data.me.points.edges?.map(
-          (edge) =>
-            edge?.node && (
-              <PointHistoryLine key={edge.node.id} fragment={edge.node} />
-            )
+          (edge) => edge?.node && <PointHistoryLine key={edge.node.id} fragment={edge.node} />,
         )}
       </ul>
     </section>
