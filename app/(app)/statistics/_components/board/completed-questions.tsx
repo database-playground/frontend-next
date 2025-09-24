@@ -28,7 +28,7 @@ export default function CompletedQuestionsPercentage() {
 
   const totalQuestions = data.me.submissionStatistics.totalQuestions;
   const solvedQuestions = data.me.submissionStatistics.solvedQuestions;
-  const completedPercentage = (solvedQuestions / totalQuestions) * 100;
+  const completedPercentage = totalQuestions > 0 ? (solvedQuestions / totalQuestions) * 100 : 0;
 
   return (
     <>

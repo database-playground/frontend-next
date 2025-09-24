@@ -24,6 +24,8 @@ export default function Header() {
   const totalSolvedQuestions = data.me.submissionStatistics.solvedQuestions;
   const totalAttemptedQuestions = data.me.submissionStatistics.attemptedQuestions;
 
+  const completedPercentage = totalQuestions > 0 ? (totalSolvedQuestions / totalQuestions) * 100 : 0;
+
   return (
     <header className="flex items-center justify-between pb-6">
       <div className="space-y-1 tracking-wide">
@@ -51,7 +53,7 @@ export default function Header() {
           variant="primary"
           cols={10}
           rows={4}
-          progress={(totalSolvedQuestions / totalQuestions) * 100}
+          progress={completedPercentage}
         />
       </div>
     </header>
