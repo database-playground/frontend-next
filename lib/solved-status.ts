@@ -1,5 +1,6 @@
 import { type FragmentType, graphql, readFragment } from "@/gql";
-import type { SolvedStatus } from "../model";
+
+export type SolvedStatus = "solved" | "unsolved" | "not-tried";
 
 export const QUESTION_SOLVED_STATUS_FRAGMENT = graphql(`
     fragment QuestionSolvedStatus on Question {

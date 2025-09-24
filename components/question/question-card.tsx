@@ -1,10 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { type FragmentType, graphql, readFragment } from "@/gql";
 import { QuestionDifficulty } from "@/gql/graphql";
+import { getQuestionSolvedStatus } from "@/lib/solved-status";
 import { SwordIcon } from "lucide-react";
 import Link from "next/link";
-import { difficultyTranslation, type SolvedStatus, solvedStatusTranslation } from "../model";
-import { getQuestionSolvedStatus } from "./solved-status";
+import DifficultyBadge from "./difficulty-badge";
+import SolvedStatusBadge from "./solved-status-badge";
 
 const QUESTION_CARD_FRAGMENT = graphql(`
   fragment QuestionCard on Question {
@@ -17,19 +18,6 @@ const QUESTION_CARD_FRAGMENT = graphql(`
     ...QuestionSolvedStatus
   }
 `);
-
-const solvedStatusColor: Record<SolvedStatus, string> = {
-  solved: "bg-green-800",
-  unsolved: "bg-yellow-800",
-  "not-tried": "bg-gray-800",
-};
-
-const badgeColor: Record<QuestionDifficulty, string> = {
-  [QuestionDifficulty.Easy]: "bg-green-800",
-  [QuestionDifficulty.Medium]: "bg-yellow-800",
-  [QuestionDifficulty.Hard]: "bg-red-800",
-  [QuestionDifficulty.Unspecified]: "bg-gray-800",
-};
 
 export default function QuestionCard({
   fragment,
@@ -49,12 +37,8 @@ export default function QuestionCard({
           <p className="tracking-wide">{descriptionFirstLine}</p>
         </div>
         <div className="flex flex-wrap gap-1">
-          <Badge className={solvedStatusColor[solvedStatus]}>
-            {solvedStatusTranslation[solvedStatus]}
-          </Badge>
-          <Badge className={badgeColor[question.difficulty]}>
-            {difficultyTranslation[question.difficulty]}
-          </Badge>
+          <SolvedStatusBadge solvedStatus={solvedStatus} />
+          <DifficultyBadge difficulty={question.difficulty} />
           <Badge>{question.category}</Badge>
         </div>
       </div>

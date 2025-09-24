@@ -1,12 +1,14 @@
+import { difficultyTranslation } from "@/components/question/difficulty-badge";
+import { solvedStatusTranslation } from "@/components/question/solved-status-badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { QuestionDifficulty } from "@/gql/graphql";
+import type { SolvedStatus } from "@/lib/solved-status";
 import { FilterIcon } from "lucide-react";
-import { type Difficulty, difficultyTranslation, type SolvedStatus, solvedStatusTranslation } from "../model";
 
 export interface TagState {
   solvedStatus: SolvedStatus[];
-  difficulty: Difficulty[];
+  difficulty: QuestionDifficulty[];
 }
 
 export interface TagFilterSectionProps {
@@ -22,11 +24,11 @@ export default function TagFilterSection({
     return value.solvedStatus.includes(solvedStatus);
   };
 
-  const getDifficulty = (difficulty: Difficulty) => {
+  const getDifficulty = (difficulty: QuestionDifficulty) => {
     return value.difficulty.includes(difficulty);
   };
 
-  const handleDifficultyChange = (difficulty: Difficulty) => {
+  const handleDifficultyChange = (difficulty: QuestionDifficulty) => {
     return (checked: boolean) => {
       onChange({
         ...value,
