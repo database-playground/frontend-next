@@ -136,5 +136,7 @@ function getRefetchQueries(activeTab: string) {
       return [COMPARE_ANSWER_QUERY, ...baseQueries];
     case "submission-history":
       return [SUBMISSION_HISTORY, ...baseQueries];
+    default:
+      return baseQueries;
   }
 }
