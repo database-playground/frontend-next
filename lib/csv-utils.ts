@@ -4,8 +4,8 @@
 export function tableToCSV(columns: string[], rows: string[][]): string {
   // 轉義 CSV 欄位中的特殊字符
   const escapeCSVField = (field: string): string => {
-    // 如果欄位包含逗號、雙引號或換行符，需要用雙引號包圍
-    if (field.includes(",") || field.includes("\"") || field.includes("\n")) {
+    // 如果欄位包含逗號、雙引號、換行符或回車符，需要用雙引號包圍
+    if (field.includes(",") || field.includes("\"") || field.includes("\n") || field.includes("\r")) {
       // 將雙引號轉義為兩個雙引號
       return `"${field.replace(/"/g, "\"\"")}"`;
     }
