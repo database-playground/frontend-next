@@ -6,14 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { graphql } from "@/gql";
 import { getQuestionSolvedStatus } from "@/lib/solved-status";
 import { useSuspenseQuery } from "@apollo/client/react";
-import { Remark } from "react-remark";
 
-const QUESTION_HEADER = graphql(`
+export const QUESTION_HEADER = graphql(`
   query QuestionHeader($id: ID!) {
     question(id: $id) {
       id
       title
-      description
       difficulty
       category
 

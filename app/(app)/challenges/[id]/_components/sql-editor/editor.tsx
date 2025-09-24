@@ -1,8 +1,9 @@
 import CodeMirror, { type ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { sql, SQLite } from "@codemirror/lang-sql";
-import { Lightbulb, Play } from "lucide-react";
+import { Code, Lightbulb, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import { toast } from "sonner";
 
 export interface SQLEditorProps {
   disabled?: boolean;
@@ -12,15 +13,38 @@ export interface SQLEditorProps {
   defaultValue?: string;
 }
 
-export default function SQLEditor({ onSubmit, onHint, schema, disabled, defaultValue }: SQLEditorProps) {
+export default function SQLEditor({
+  onSubmit,
+  onHint,
+  schema,
+  disabled,
+  defaultValue,
+}: SQLEditorProps) {
   const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
 
   const handleSubmit = () => {
-    onSubmit?.(codeMirrorRef.current?.view?.state.doc.toString() ?? "");
+    onSubmit?.(codeMirrorRef.current?.view?.state?.doc.toString() ?? "");
   };
 
   const handleHint = () => {
-    onHint?.(codeMirrorRef.current?.view?.state.doc.toString() ?? "");
+    onHint?.(codeMirrorRef.current?.view?.state?.doc.toString() ?? "");
+  };
+
+  const handleFormat = async () => {
+    const { formatDialect, sqlite: formatterSqlite } = await import(
+      "sql-formatter"
+    );
+
+    const currentCode = codeMirrorRef.current?.view?.state.doc.toString() ?? "";
+    const formattedCode = formatDialect(currentCode, {
+      dialect: formatterSqlite,
+    });
+
+    codeMirrorRef.current?.view?.dispatch({
+      changes: { from: 0, to: currentCode.length, insert: formattedCode },
+    });
+
+    toast.success("成功格式化 SQL 程式碼");
   };
 
   return (
@@ -39,10 +63,27 @@ export default function SQLEditor({ onSubmit, onHint, schema, disabled, defaultV
       />
 
       <div className="flex justify-between">
-        <Button variant="outline" size="sm" onClick={handleHint} disabled={disabled}>
-          <Lightbulb />
-          提示
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleHint}
+            disabled={disabled}
+          >
+            <Lightbulb />
+            提示
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleFormat}
+            disabled={disabled}
+          >
+            <Code />
+            格式化
+          </Button>
+        </div>
 
         <Button size="sm" onClick={handleSubmit} disabled={disabled}>
           <Play />

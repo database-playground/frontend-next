@@ -1,7 +1,5 @@
 "use client";
 
-import { graphql } from "@/gql";
-import { useSuspenseQuery } from "@apollo/client/react";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { SQLEditor } from "./sql-editor";
@@ -9,13 +7,51 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import CorrectAnswer from "./correct-answer";
 import QuestionDescription from "./description";
+import MyAnswer, { MY_ANSWER } from "./my-answer";
+import SubmissionHistory, { SUBMISSION_HISTORY } from "./submission-history";
+import { graphql } from "@/gql";
+import { useMutation } from "@apollo/client/react";
+import { QUESTION_HEADER } from "../header";
 
 export interface PracticeIDEProps {
   id: string;
 }
 
+const SUBMIT_ANSWER = graphql(`
+  mutation SubmitAnswer($id: ID!, $answer: String!) {
+    submitAnswer(id: $id, answer: $answer) {
+      error
+    }
+  }
+`);
+
 export default function PracticeIDE({ id }: PracticeIDEProps) {
+  const [activeTab, setActiveTab] = useState("my-answer");
   const [disabled, setDisabled] = useState(false);
+  const [submitAnswer] = useMutation(SUBMIT_ANSWER, {
+    refetchQueries: getRefetchQueries(activeTab),
+    onCompleted(data) {
+      toast.success("答案送出成功", {
+        description: data.submitAnswer.error ? "不過答案可能有語法錯誤，請到「我的答案」查看。" : undefined,
+      });
+    },
+    onError(error) {
+      toast.error("無法送出答案", {
+        description: error.message,
+      });
+    },
+  });
+
+  const handleSubmit = async (answer: string) => {
+    const loading = toast.loading("正在送出答案");
+    await submitAnswer({
+      variables: {
+        id,
+        answer,
+      },
+    });
+    toast.dismiss(loading);
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -29,16 +65,7 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
           <SQLEditor
             id={id}
             disabled={disabled}
-            onSubmit={(answer) => {
-              toast.info("question submitted", {
-                description: answer,
-              });
-
-              setDisabled(true);
-              setTimeout(() => {
-                setDisabled(false);
-              }, 1000);
-            }}
+            onSubmit={handleSubmit}
             onHint={(hint) => {
               toast.info("hint", {
                 description: hint,
@@ -54,20 +81,43 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
       </div>
 
       {/* Answer Tabs */}
-      <Tabs defaultValue="correct-answer">
+      <Tabs value={activeTab} onValueChange={(value) => {
+        setActiveTab(value);
+      }}>
         <TabsList>
+          <TabsTrigger value="my-answer">我的答案</TabsTrigger>
           <TabsTrigger value="correct-answer">正確答案</TabsTrigger>
-          <TabsTrigger value="your-answer">你的答案</TabsTrigger>
+          <TabsTrigger value="submission-history">提交記錄</TabsTrigger>
         </TabsList>
+        <TabsContent value="my-answer">
+          <Suspense fallback={<Skeleton className="h-48" />}>
+            <MyAnswer id={id} />
+          </Suspense>
+        </TabsContent>
         <TabsContent value="correct-answer">
           <Suspense fallback={<Skeleton className="h-48" />}>
             <CorrectAnswer id={id} />
           </Suspense>
         </TabsContent>
-        <TabsContent value="your-answer">
-          <p>WIP</p>
+        <TabsContent value="submission-history">
+          <Suspense fallback={<Skeleton className="h-48" />}>
+            <SubmissionHistory id={id} />
+          </Suspense>
         </TabsContent>
       </Tabs>
     </div>
   );
+}
+
+function getRefetchQueries(activeTab: string) {
+  const baseQueries = [QUESTION_HEADER];
+
+  switch (activeTab) {
+    case "my-answer":
+      return [MY_ANSWER, ...baseQueries];
+    case "correct-answer":
+      return baseQueries;
+    case "submission-history":
+      return [SUBMISSION_HISTORY, ...baseQueries];
+  }
 }

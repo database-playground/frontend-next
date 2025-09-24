@@ -14,10 +14,13 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
     "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": typeof types.QuestionDescriptionDocument,
+    "\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n": typeof types.SubmitAnswerDocument,
+    "\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": typeof types.MyAnswerDocument,
     "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": typeof types.SqlEditorContextDocument,
+    "\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n": typeof types.SubmissionHistoryDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": typeof types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": typeof types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
@@ -30,10 +33,13 @@ type Documents = {
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
 };
 const documents: Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
     "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": types.QuestionDescriptionDocument,
+    "\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n": types.SubmitAnswerDocument,
+    "\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": types.MyAnswerDocument,
     "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": types.SqlEditorContextDocument,
+    "\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n": types.SubmissionHistoryDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
@@ -63,7 +69,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
+export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -75,7 +81,19 @@ export function graphql(source: "\n  query QuestionDescription($id: ID!) {\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n"): (typeof documents)["\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n"): (typeof documents)["\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n"): (typeof documents)["\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
