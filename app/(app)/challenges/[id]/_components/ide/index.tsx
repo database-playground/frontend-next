@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client/react";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { QUESTION_HEADER } from "../header";
+import CompareAnswer, { COMPARE_ANSWER_QUERY } from "./compare-answer";
 import CorrectAnswer from "./correct-answer";
 import QuestionDescription from "./description";
 import MyAnswer, { MY_ANSWER } from "./my-answer";
@@ -95,6 +96,7 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
         <TabsList>
           <TabsTrigger value="my-answer">我的答案</TabsTrigger>
           <TabsTrigger value="correct-answer">正確答案</TabsTrigger>
+          <TabsTrigger value="compare-answer">比較答案</TabsTrigger>
           <TabsTrigger value="submission-history">提交記錄</TabsTrigger>
         </TabsList>
         <TabsContent value="my-answer">
@@ -105,6 +107,11 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
         <TabsContent value="correct-answer">
           <Suspense fallback={<Skeleton className="h-48" />}>
             <CorrectAnswer id={id} />
+          </Suspense>
+        </TabsContent>
+        <TabsContent value="compare-answer">
+          <Suspense fallback={<Skeleton className="h-48" />}>
+            <CompareAnswer id={id} />
           </Suspense>
         </TabsContent>
         <TabsContent value="submission-history">
@@ -125,6 +132,8 @@ function getRefetchQueries(activeTab: string) {
       return [MY_ANSWER, ...baseQueries];
     case "correct-answer":
       return baseQueries;
+    case "compare-answer":
+      return [COMPARE_ANSWER_QUERY, ...baseQueries];
     case "submission-history":
       return [SUBMISSION_HISTORY, ...baseQueries];
   }
