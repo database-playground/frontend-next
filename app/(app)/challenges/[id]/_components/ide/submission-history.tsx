@@ -105,7 +105,6 @@ export default function SubmissionHistory({ id }: SubmissionHistoryProps) {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">提交記錄</h3>
       <Table>
         <TableHeader>
           <TableRow>
