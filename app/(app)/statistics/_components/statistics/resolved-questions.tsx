@@ -20,7 +20,7 @@ export default function ResolvedQuestions() {
   const { data } = useSuspenseQuery(RESOLVED_QUESTIONS);
   const totalQuestions = data.me.submissionStatistics.totalQuestions;
   const solvedQuestions = data.me.submissionStatistics.solvedQuestions;
-  const resolvedQuestions = solvedQuestions / totalQuestions;
+  const resolvedQuestions = solvedQuestions / totalQuestions * 100;
 
   return (
     <div className="flex flex-col gap-1">

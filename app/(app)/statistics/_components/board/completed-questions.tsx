@@ -32,7 +32,7 @@ export default function CompletedQuestionsPercentage() {
 
   return (
     <>
-      {solvedQuestions}/{totalQuestions} ({completedPercentage.toFixed(2)}%)
+      {solvedQuestions}/{totalQuestions} ({completedPercentage.toFixed(0)}%)
     </>
   );
 }
