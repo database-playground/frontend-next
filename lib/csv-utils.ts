@@ -5,23 +5,21 @@ export function tableToCSV(columns: string[], rows: string[][]): string {
   // 轉義 CSV 欄位中的特殊字符
   const escapeCSVField = (field: string): string => {
     // 如果欄位包含逗號、雙引號或換行符，需要用雙引號包圍
-    if (field.includes(',') || field.includes('"') || field.includes('\n')) {
+    if (field.includes(",") || field.includes("\"") || field.includes("\n")) {
       // 將雙引號轉義為兩個雙引號
-      return `"${field.replace(/"/g, '""')}"`;
+      return `"${field.replace(/"/g, "\"\"")}"`;
     }
     return field;
   };
 
   // 處理標題行
-  const headerRow = columns.map(escapeCSVField).join(',');
-  
+  const headerRow = columns.map(escapeCSVField).join(",");
+
   // 處理數據行
-  const dataRows = rows.map(row => 
-    row.map(escapeCSVField).join(',')
-  );
+  const dataRows = rows.map(row => row.map(escapeCSVField).join(","));
 
   // 組合所有行
-  return [headerRow, ...dataRows].join('\n');
+  return [headerRow, ...dataRows].join("\n");
 }
 
 /**
@@ -29,8 +27,8 @@ export function tableToCSV(columns: string[], rows: string[][]): string {
  */
 export function compareCSV(csv1: string, csv2: string): boolean {
   // 分割成行並排序（除了標題行）
-  const lines1 = csv1.trim().split('\n');
-  const lines2 = csv2.trim().split('\n');
+  const lines1 = csv1.trim().split("\n");
+  const lines2 = csv2.trim().split("\n");
 
   // 如果行數不同，直接返回 false
   if (lines1.length !== lines2.length) {

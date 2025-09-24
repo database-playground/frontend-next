@@ -86,18 +86,18 @@ export default function CompareAnswer({ id }: CompareAnswerProps) {
   // 轉換為 CSV 格式
   const correctAnswerCSV = tableToCSV(
     referenceAnswerResult.columns,
-    referenceAnswerResult.rows
+    referenceAnswerResult.rows,
   );
 
   const myAnswerCSV = tableToCSV(
     lastSubmission.queryResult.columns,
-    lastSubmission.queryResult.rows
+    lastSubmission.queryResult.rows,
   );
 
   // 如果答案正確，顯示成功訊息
   if (
-    lastSubmission.status === SubmissionStatus.Success ||
-    compareCSV(correctAnswerCSV, myAnswerCSV)
+    lastSubmission.status === SubmissionStatus.Success
+    || compareCSV(correctAnswerCSV, myAnswerCSV)
   ) {
     return (
       <Alert className="border-green-200 bg-green-50 text-green-800">
@@ -125,7 +125,7 @@ export default function CompareAnswer({ id }: CompareAnswerProps) {
         <h3 className="text-sm font-medium text-muted-foreground">
           答案比較 (左側：正確答案，右側：您的答案)
         </h3>
-        <div className="border rounded-md overflow-hidden">
+        <div className="overflow-hidden rounded-md border">
           <CodeMirrorMerge>
             <Original
               value={correctAnswerCSV}
