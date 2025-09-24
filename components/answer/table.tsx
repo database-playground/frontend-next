@@ -16,10 +16,10 @@ export default function AnswerTable({ columns, rows }: AnswerTableProps) {
 
       <TableBody>
         {rows.length > 0
-          ? rows.map((row) => (
-            <TableRow key={row.join(",")}>
-              {row.map((cell) => (
-                <TableCell key={cell}>
+          ? rows.map((row, rowIndex) => (
+            <TableRow key={rowIndex}>
+              {row.map((cell, cellIndex) => (
+                <TableCell key={cellIndex}>
                   <code>{cell}</code>
                 </TableCell>
               ))}
