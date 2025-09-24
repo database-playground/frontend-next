@@ -58,6 +58,7 @@ export default function SQLEditor({
           sql({
             dialect: SQLite,
             schema,
+            upperCaseKeywords: true,
           }),
         ]}
       />
