@@ -102,6 +102,16 @@ type Database implements Node {
   """SQL schema"""
   schema: String!
   slug: String!
+  structure: DatabaseStructure!
+}
+
+type DatabaseStructure {
+  tables: [DatabaseTable!]!
+}
+
+type DatabaseTable {
+  columns: [String!]!
+  name: String!
 }
 
 """

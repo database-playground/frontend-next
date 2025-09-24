@@ -14,7 +14,9 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
+    "\n  query QuestionDatabase($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n      }\n    }\n  }\n": typeof types.QuestionDatabaseDocument,
+    "\n    query DatabaseStructure($id: ID!) {\n        database(id: $id) {\n            id\n            structure {\n                tables {\n                    columns\n                    name\n                }\n            }\n        }\n    }\n": typeof types.DatabaseStructureDocument,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": typeof types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.CompletedQuestionsDocument,
@@ -26,7 +28,9 @@ type Documents = {
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
 };
 const documents: Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
+    "\n  query QuestionDatabase($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n      }\n    }\n  }\n": types.QuestionDatabaseDocument,
+    "\n    query DatabaseStructure($id: ID!) {\n        database(id: $id) {\n            id\n            structure {\n                tables {\n                    columns\n                    name\n                }\n            }\n        }\n    }\n": types.DatabaseStructureDocument,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.CompletedQuestionsDocument,
@@ -55,7 +59,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
+export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query QuestionDatabase($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query QuestionDatabase($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query DatabaseStructure($id: ID!) {\n        database(id: $id) {\n            id\n            structure {\n                tables {\n                    columns\n                    name\n                }\n            }\n        }\n    }\n"): (typeof documents)["\n    query DatabaseStructure($id: ID!) {\n        database(id: $id) {\n            id\n            structure {\n                tables {\n                    columns\n                    name\n                }\n            }\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
