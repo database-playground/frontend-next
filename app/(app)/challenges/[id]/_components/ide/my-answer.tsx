@@ -29,6 +29,7 @@ export const MY_ANSWER = graphql(`
 export default function MyAnswer({ id }: MyAnswerProps) {
   const { data } = useSuspenseQuery(MY_ANSWER, {
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   if (!data.question.lastSubmission) {

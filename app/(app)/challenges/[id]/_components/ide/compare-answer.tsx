@@ -40,6 +40,7 @@ const Modified = CodeMirrorMerge.Modified;
 export default function CompareAnswer({ id }: CompareAnswerProps) {
   const { data } = useSuspenseQuery(COMPARE_ANSWER_QUERY, {
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   const { referenceAnswerResult, lastSubmission } = data.question;

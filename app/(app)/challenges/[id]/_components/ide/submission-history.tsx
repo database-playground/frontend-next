@@ -87,6 +87,7 @@ function CodePreview({
 export default function SubmissionHistory({ id }: SubmissionHistoryProps) {
   const { data } = useSuspenseQuery(SUBMISSION_HISTORY, {
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   const submissions = data?.question?.userSubmissions || [];
