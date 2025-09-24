@@ -1,6 +1,6 @@
 import { graphql } from "@/gql";
-import { AutocompletedSQLEditor } from "../sql-editor";
 import { useSuspenseQuery } from "@apollo/client/react";
+import { AutocompletedSQLEditor } from "../sql-editor";
 
 const SQL_EDITOR_CONTEXT = graphql(`
   query SqlEditorContext($id: ID!) {

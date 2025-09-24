@@ -1,8 +1,7 @@
-import { graphql, readFragment, type FragmentType } from "@/gql";
+import { type FragmentType, graphql, readFragment } from "@/gql";
 import SQLEditor, { type SQLEditorProps } from "./editor";
 
-export interface AutocompletedSQLEditorProps
-  extends Omit<SQLEditorProps, "schema"> {
+export interface AutocompletedSQLEditorProps extends Omit<SQLEditorProps, "schema"> {
   structureFragment: FragmentType<typeof DATABASE_STRUCTURE>;
 }
 

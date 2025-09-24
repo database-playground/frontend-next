@@ -1,19 +1,12 @@
-import { graphql } from "@/gql";
-import { useSuspenseQuery } from "@apollo/client/react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronRight, Pencil } from "lucide-react";
-import { SubmissionStatus } from "@/gql/graphql";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { graphql } from "@/gql";
+import { SubmissionStatus } from "@/gql/graphql";
+import { useSuspenseQuery } from "@apollo/client/react";
+import { ChevronDown, ChevronRight, Pencil } from "lucide-react";
+import { useState } from "react";
 
 export const SUBMISSION_HISTORY = graphql(`
   query SubmissionHistory($id: ID!) {
@@ -54,12 +47,15 @@ function CodePreview({
 }) {
   const [expanded, setExpanded] = useState(false);
   const shouldTruncate = code.length > maxLength;
-  const displayCode =
-    expanded || !shouldTruncate ? code : code.slice(0, maxLength) + "...";
+  const displayCode = expanded || !shouldTruncate ? code : code.slice(0, maxLength) + "...";
 
   return (
     <div className="space-y-2">
-      <pre className="text-xs bg-muted p-2 rounded overflow-x-auto whitespace-pre-wrap">
+      <pre
+        className={`
+          overflow-x-auto rounded bg-muted p-2 text-xs whitespace-pre-wrap
+        `}
+      >
         <code>{displayCode}</code>
       </pre>
       {shouldTruncate && (
@@ -69,17 +65,19 @@ function CodePreview({
           onClick={() => setExpanded(!expanded)}
           className="h-6 px-2 text-xs"
         >
-          {expanded ? (
-            <>
-              <ChevronDown className="w-3 h-3 mr-1" />
-              收起
-            </>
-          ) : (
-            <>
-              <ChevronRight className="w-3 h-3 mr-1" />
-              展開
-            </>
-          )}
+          {expanded
+            ? (
+              <>
+                <ChevronDown className="mr-1 h-3 w-3" />
+                收起
+              </>
+            )
+            : (
+              <>
+                <ChevronRight className="mr-1 h-3 w-3" />
+                展開
+              </>
+            )}
         </Button>
       )}
     </div>
@@ -140,7 +138,13 @@ function StatusBadge({ status }: { status: SubmissionStatus }) {
   switch (status) {
     case SubmissionStatus.Success:
       return (
-        <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+        <Badge
+          variant="default"
+          className={`
+            bg-green-500
+            hover:bg-green-600
+          `}
+        >
           通過
         </Badge>
       );

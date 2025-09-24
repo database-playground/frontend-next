@@ -24,7 +24,5 @@ export default function CorrectAnswer({ id }: CorrectAnswerProps) {
   });
   const { columns, rows } = data.question.referenceAnswerResult;
 
-  return (
-    <AnswerTable columns={columns} rows={rows} />
-  )
+  return <AnswerTable columns={columns} rows={rows} />;
 }

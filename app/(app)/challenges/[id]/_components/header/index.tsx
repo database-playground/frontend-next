@@ -30,7 +30,7 @@ export default function Header({ id }: { id: string }) {
     <div>
       {/* Header */}
       <header className="mb-6 flex items-center gap-6">
-        <div className="text-xl font-bold leading-none tracking-wide">{title}</div>
+        <div className="text-xl leading-none font-bold tracking-wide">{title}</div>
         <div className="h-4 w-px bg-border" />
         <div className="flex items-center gap-2">
           <Badge>{category}</Badge>

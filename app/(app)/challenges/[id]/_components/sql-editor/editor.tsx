@@ -1,7 +1,7 @@
-import CodeMirror, { type ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import { sql, SQLite } from "@codemirror/lang-sql";
-import { Code, Lightbulb, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { sql, SQLite } from "@codemirror/lang-sql";
+import CodeMirror, { type ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { Code, Lightbulb, Play } from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";
 

@@ -56,30 +56,34 @@ export default function MyAnswer({ id }: MyAnswerProps) {
 
   return (
     <div className="space-y-4">
-      {data.question.lastSubmission.status === SubmissionStatus.Success ? (
-        <Alert className="border-green-200 bg-green-50 text-green-800">
-          <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertTitle>答案正確</AlertTitle>
-          <AlertDescription>
-            恭喜！您的 SQL 查詢已成功執行並返回正確結果。
-          </AlertDescription>
-        </Alert>
-      ) : (
-        <Alert variant="destructive">
-          <XCircle className="h-4 w-4" />
-          <AlertTitle>答案錯誤</AlertTitle>
-          <AlertDescription>
-            您的查詢結果與預期答案不符，請檢查您的 SQL 語句。
-          </AlertDescription>
-        </Alert>
-      )}
+      {data.question.lastSubmission.status === SubmissionStatus.Success
+        ? (
+          <Alert className="border-green-200 bg-green-50 text-green-800">
+            <CheckCircle className="h-4 w-4 text-green-600" />
+            <AlertTitle>答案正確</AlertTitle>
+            <AlertDescription>
+              恭喜！您的 SQL 查詢已成功執行並返回正確結果。
+            </AlertDescription>
+          </Alert>
+        )
+        : (
+          <Alert variant="destructive">
+            <XCircle className="h-4 w-4" />
+            <AlertTitle>答案錯誤</AlertTitle>
+            <AlertDescription>
+              您的查詢結果與預期答案不符，請檢查您的 SQL 語句。
+            </AlertDescription>
+          </Alert>
+        )}
 
-      {data.question.lastSubmission.queryResult ? (
-        <AnswerTable
-          columns={data.question.lastSubmission.queryResult.columns}
-          rows={data.question.lastSubmission.queryResult.rows}
-        />
-      ) : <p>無查詢結果</p>}
+      {data.question.lastSubmission.queryResult
+        ? (
+          <AnswerTable
+            columns={data.question.lastSubmission.queryResult.columns}
+            rows={data.question.lastSubmission.queryResult.rows}
+          />
+        )
+        : <p>無查詢結果</p>}
     </div>
   );
 }

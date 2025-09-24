@@ -1,17 +1,17 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { graphql } from "@/gql";
+import { useMutation } from "@apollo/client/react";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { SQLEditor } from "./sql-editor";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "@/components/ui/skeleton";
+import { QUESTION_HEADER } from "../header";
 import CorrectAnswer from "./correct-answer";
 import QuestionDescription from "./description";
 import MyAnswer, { MY_ANSWER } from "./my-answer";
+import { SQLEditor } from "./sql-editor";
 import SubmissionHistory, { SUBMISSION_HISTORY } from "./submission-history";
-import { graphql } from "@/gql";
-import { useMutation } from "@apollo/client/react";
-import { QUESTION_HEADER } from "../header";
 
 export interface PracticeIDEProps {
   id: string;
@@ -54,7 +54,12 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      className={`
+        grid grid-cols-1 gap-6
+        md:grid-cols-2
+      `}
+    >
       {/* Left */}
       <div className="space-y-6">
         <Suspense fallback={<Skeleton className="h-64" />}>
@@ -81,9 +86,12 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
       </div>
 
       {/* Answer Tabs */}
-      <Tabs value={activeTab} onValueChange={(value) => {
-        setActiveTab(value);
-      }}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => {
+          setActiveTab(value);
+        }}
+      >
         <TabsList>
           <TabsTrigger value="my-answer">我的答案</TabsTrigger>
           <TabsTrigger value="correct-answer">正確答案</TabsTrigger>
