@@ -26,7 +26,7 @@ export default function SQLEditor({ onSubmit, onHint, schema, disabled, defaultV
   return (
     <div className="flex flex-col gap-4">
       <CodeMirror
-        className="rounded"
+        className="rounded text-sm"
         ref={codeMirrorRef}
         readOnly={disabled}
         value={defaultValue}

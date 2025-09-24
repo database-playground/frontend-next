@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import { type FragmentType, graphql, readFragment } from "@/gql";
-import { QuestionDifficulty } from "@/gql/graphql";
 import { getQuestionSolvedStatus } from "@/lib/solved-status";
 import { SwordIcon } from "lucide-react";
 import Link from "next/link";

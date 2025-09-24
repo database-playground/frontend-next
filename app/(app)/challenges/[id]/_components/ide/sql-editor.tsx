@@ -1,8 +1,10 @@
-import { graphql, readFragment, type FragmentType } from "@/gql";
+import { graphql } from "@/gql";
 import { AutocompletedSQLEditor } from "../sql-editor";
+import { useSuspenseQuery } from "@apollo/client/react";
 
 const SQL_EDITOR_CONTEXT = graphql(`
-  fragment SqlEditorContext on Question {
+  query SqlEditorContext($id: ID!) {
+    question(id: $id) {
       id
       database {
         id
@@ -12,18 +14,27 @@ const SQL_EDITOR_CONTEXT = graphql(`
         id
         submittedCode
       }
+    }
   }
 `);
 
 interface SQLEditorProps {
-  contextFragment: FragmentType<typeof SQL_EDITOR_CONTEXT>;
+  id: string;
   disabled: boolean;
   onSubmit: (value: string) => void;
   onHint: (value: string) => void;
 }
 
-export function SQLEditor({ contextFragment, disabled, onSubmit, onHint }: SQLEditorProps) {
-  const { database, lastSubmission } = readFragment(SQL_EDITOR_CONTEXT, contextFragment);
+export function SQLEditor({
+  id,
+  disabled,
+  onSubmit,
+  onHint,
+}: SQLEditorProps) {
+  const { data } = useSuspenseQuery(SQL_EDITOR_CONTEXT, {
+    variables: { id },
+  });
+  const { database, lastSubmission } = data.question;
 
   return (
     <AutocompletedSQLEditor

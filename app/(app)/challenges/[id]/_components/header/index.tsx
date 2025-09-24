@@ -24,7 +24,7 @@ const QUESTION_HEADER = graphql(`
 
 export default function Header({ id }: { id: string }) {
   const { data } = useSuspenseQuery(QUESTION_HEADER, { variables: { id } });
-  const { title, difficulty, category, description } = data.question;
+  const { title, difficulty, category } = data.question;
 
   const solvedStatus = getQuestionSolvedStatus(data.question);
 
@@ -40,11 +40,6 @@ export default function Header({ id }: { id: string }) {
           <SolvedStatusBadge solvedStatus={solvedStatus} />
         </div>
       </header>
-
-      {/* Description */}
-      <div className="prose text-foreground leading-4 tracking-wide text-sm">
-        <Remark>{description}</Remark>
-      </div>
     </div>
   );
 }

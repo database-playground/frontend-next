@@ -22,7 +22,6 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
       className={cn(
         `
           flex h-auto w-full items-center justify-start gap-3 rounded px-3 py-2
-          text-sm
           md:w-auto md:justify-center
         `,
         active && "bg-primary text-primary-foreground",

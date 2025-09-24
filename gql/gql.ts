@@ -15,10 +15,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
-    "\n  query PracticeIdeContext($id: ID!) {\n    question(id: $id) {\n      id\n      ...SqlEditorContext\n    }\n  }\n": typeof types.PracticeIdeContextDocument,
-    "\n  fragment SqlEditorContext on Question {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n  }\n": typeof types.SqlEditorContextFragmentDoc,
+    "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
+    "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": typeof types.QuestionDescriptionDocument,
+    "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": typeof types.SqlEditorContextDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": typeof types.DatabaseStructureFragmentDoc,
-    "\n    fragment DatabaseStructure on Database {\n        id\n        structure {\n            tables {\n                columns\n                name\n            }\n        }\n    }\n": typeof types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": typeof types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.CompletedQuestionsDocument,
@@ -31,10 +31,10 @@ type Documents = {
 };
 const documents: Documents = {
     "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
-    "\n  query PracticeIdeContext($id: ID!) {\n    question(id: $id) {\n      id\n      ...SqlEditorContext\n    }\n  }\n": types.PracticeIdeContextDocument,
-    "\n  fragment SqlEditorContext on Question {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n  }\n": types.SqlEditorContextFragmentDoc,
+    "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
+    "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": types.QuestionDescriptionDocument,
+    "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": types.SqlEditorContextDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": types.DatabaseStructureFragmentDoc,
-    "\n    fragment DatabaseStructure on Database {\n        id\n        structure {\n            tables {\n                columns\n                name\n            }\n        }\n    }\n": types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.CompletedQuestionsDocument,
@@ -67,19 +67,19 @@ export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    quest
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query PracticeIdeContext($id: ID!) {\n    question(id: $id) {\n      id\n      ...SqlEditorContext\n    }\n  }\n"): (typeof documents)["\n  query PracticeIdeContext($id: ID!) {\n    question(id: $id) {\n      id\n      ...SqlEditorContext\n    }\n  }\n"];
+export function graphql(source: "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"): (typeof documents)["\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment SqlEditorContext on Question {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n  }\n"): (typeof documents)["\n  fragment SqlEditorContext on Question {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n  }\n"];
+export function graphql(source: "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n"): (typeof documents)["\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n"): (typeof documents)["\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n    fragment DatabaseStructure on Database {\n        id\n        structure {\n            tables {\n                columns\n                name\n            }\n        }\n    }\n"): (typeof documents)["\n    fragment DatabaseStructure on Database {\n        id\n        structure {\n            tables {\n                columns\n                name\n            }\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
