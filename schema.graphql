@@ -694,6 +694,8 @@ type Question implements Node {
   """Question difficulty, e.g. 'easy'"""
   difficulty: QuestionDifficulty!
   id: ID!
+  """Get the last submission for this question."""
+  lastSubmission: Submission
   """Reference answer"""
   referenceAnswer: String!
   referenceAnswerResult: SQLExecutionResult!
@@ -717,7 +719,9 @@ type Question implements Node {
   ): SubmissionConnection!
   """Question title"""
   title: String!
-  """List of your submissions for this question."""
+  """
+  List of your submissions for this question, ordered by submitted at descending.
+  """
   userSubmissions: [Submission!]!
 }
 

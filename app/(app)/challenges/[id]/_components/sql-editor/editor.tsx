@@ -9,9 +9,10 @@ export interface SQLEditorProps {
   onSubmit?: (value: string) => void;
   onHint?: (value: string) => void;
   schema?: Record<string, string[]>;
+  defaultValue?: string;
 }
 
-export default function SQLEditor({ onSubmit, onHint, schema, disabled }: SQLEditorProps) {
+export default function SQLEditor({ onSubmit, onHint, schema, disabled, defaultValue }: SQLEditorProps) {
   const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
 
   const handleSubmit = () => {
@@ -23,11 +24,12 @@ export default function SQLEditor({ onSubmit, onHint, schema, disabled }: SQLEdi
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <CodeMirror
         className="rounded"
         ref={codeMirrorRef}
         readOnly={disabled}
+        value={defaultValue}
         extensions={[
           sql({
             dialect: SQLite,

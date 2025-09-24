@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Header from "./_components/header";
 import HeaderSkeleton from "./_components/header/skeleton";
-import PracticeIDE from "./_components/practice-ide";
+import PracticeIDE from "./_components/ide";
 
 export const metadata: Metadata = {
   title: "挑戰題目",

@@ -42,7 +42,7 @@ export default function Header({ id }: { id: string }) {
       </header>
 
       {/* Description */}
-      <div className="prose text-foreground leading-5 tracking-wide">
+      <div className="prose text-foreground leading-4 tracking-wide text-sm">
         <Remark>{description}</Remark>
       </div>
     </div>
