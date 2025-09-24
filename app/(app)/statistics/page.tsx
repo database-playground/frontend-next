@@ -2,9 +2,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Pickaxe } from "lucide-react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Board from "./board";
-import Points from "./statistics/points";
-import ResolvedQuestions from "./statistics/resolved-questions";
+import Board from "./_components/board";
+import Points from "./_components/statistics/points";
+import ResolvedQuestions from "./_components/statistics/resolved-questions";
 
 export const metadata: Metadata = {
   title: "統計資料",
@@ -33,7 +33,14 @@ export default function StatisticsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-lg font-bold">攻克歷史</h2>
+          <h2 className="mb-2 text-lg font-bold">點數</h2>
+          <Suspense>
+            <Points />
+          </Suspense>
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-lg font-bold">排行榜</h2>
 
           <Alert>
             <Pickaxe />
@@ -42,13 +49,6 @@ export default function StatisticsPage() {
               功能正在實作，這裡先佔位！
             </AlertDescription>
           </Alert>
-        </section>
-
-        <section>
-          <h2 className="mb-2 text-lg font-bold">點數</h2>
-          <Suspense>
-            <Points />
-          </Suspense>
         </section>
       </div>
     </div>
