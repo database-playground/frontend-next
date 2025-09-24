@@ -20,12 +20,12 @@ export default function ResolvedQuestions() {
   const { data } = useSuspenseQuery(RESOLVED_QUESTIONS);
   const totalQuestions = data.me.submissionStatistics.totalQuestions;
   const solvedQuestions = data.me.submissionStatistics.solvedQuestions;
-  const resolvedQuestions = solvedQuestions / totalQuestions;
+  const resolvedQuestions = totalQuestions > 0 ? (solvedQuestions / totalQuestions) * 100 : 0;
 
   return (
     <div className="flex flex-col gap-1">
       你攻克了 {resolvedQuestions.toFixed(0)}% 的題目！
-      <Progress className="max-w-[50%]" value={resolvedQuestions * 100} />
+      <Progress className="max-w-[50%]" value={resolvedQuestions} />
     </div>
   );
 }
