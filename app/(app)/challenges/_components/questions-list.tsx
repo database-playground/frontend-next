@@ -2,17 +2,16 @@
 
 import { useDebouncedValue } from "foxact/use-debounced-value";
 import { Suspense, useState } from "react";
-import type { TagState } from "./_filter/tag";
+import type { TagState } from "./filter/tag";
 
+import QuestionCard from "@/components/question/question-card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { graphql } from "@/gql";
 import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
+import { getQuestionSolvedStatus, type SolvedStatus } from "@/lib/solved-status";
 import { useSuspenseQuery } from "@apollo/client/react";
-import FilterSection from "./_filter";
-import QuestionCard from "./_question";
-import { getQuestionSolvedStatus } from "./_question/solved-status";
-import type { SolvedStatus } from "./model";
+import FilterSection from "./filter";
 
 export const LIST_QUESTIONS = graphql(`
   query ListQuestions($where: QuestionWhereInput, $after: Cursor) {
@@ -32,7 +31,7 @@ export const LIST_QUESTIONS = graphql(`
   }
 `);
 
-export default function ChallengePageContent() {
+export default function QuestionsList() {
   const [search, setSearch] = useState<string>("");
   const [tags, setTags] = useState<TagState>({
     solvedStatus: ["solved", "unsolved", "not-tried"],
@@ -47,18 +46,20 @@ export default function ChallengePageContent() {
   const deferredSearch = useDebouncedValue(search, 200);
 
   const where: QuestionWhereInput = {
-    or: [
-      {
-        titleContainsFold: deferredSearch,
-      },
-      {
-        descriptionContainsFold: deferredSearch,
-      },
-      {
-        categoryContainsFold: deferredSearch,
-      },
-    ],
-    difficultyIn: tags.difficulty,
+    or: deferredSearch
+      ? [
+        {
+          titleContainsFold: deferredSearch,
+        },
+        {
+          descriptionContainsFold: deferredSearch,
+        },
+        {
+          categoryContainsFold: deferredSearch,
+        },
+      ]
+      : undefined,
+    difficultyIn: tags.difficulty.length > 0 ? tags.difficulty : undefined,
   };
 
   return (
