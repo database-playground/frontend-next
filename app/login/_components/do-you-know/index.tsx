@@ -1,3 +1,5 @@
+"use server";
+
 import { connection } from "next/server";
 
 export default async function DoYouKnow() {
@@ -26,5 +28,3 @@ export default async function DoYouKnow() {
     </div>
   );
 }
-
-export { DoYouKnowSkeleton } from "./skeleton";
