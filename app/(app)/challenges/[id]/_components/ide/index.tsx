@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { QUESTION_HEADER } from "../header";
 import CompareAnswer, { COMPARE_ANSWER_QUERY } from "./compare-answer";
 import CorrectAnswer from "./correct-answer";
+import DatabaseRelationship from "./database-relationship";
 import QuestionDescription from "./description";
 import MyAnswer, { MY_ANSWER } from "./my-answer";
 import { SQLEditor } from "./sql-editor";
@@ -63,7 +64,7 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
     >
       {/* Left */}
       <div className="space-y-6">
-        <Suspense fallback={<Skeleton className="h-64" />}>
+        <Suspense fallback={<Skeleton className="h-80" />}>
           {/* Description */}
           <QuestionDescription id={id} />
 
@@ -83,6 +84,9 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
               }, 1000);
             }}
           />
+
+          {/* Database Relationship */}
+          <DatabaseRelationship id={id} />
         </Suspense>
       </div>
 
