@@ -26,3 +26,5 @@ export default async function DoYouKnow() {
     </div>
   );
 }
+
+export { DoYouKnowSkeleton } from "./skeleton";
