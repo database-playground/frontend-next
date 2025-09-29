@@ -17,6 +17,7 @@ type Documents = {
     "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
     "\n  query CompareAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": typeof types.CompareAnswerDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
+    "\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n": typeof types.DatabaseRelationshipDocument,
     "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": typeof types.QuestionDescriptionDocument,
     "\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n": typeof types.SubmitAnswerDocument,
     "\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": typeof types.MyAnswerDocument,
@@ -37,6 +38,7 @@ const documents: Documents = {
     "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
     "\n  query CompareAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": types.CompareAnswerDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
+    "\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n": types.DatabaseRelationshipDocument,
     "\n  query QuestionDescription($id: ID!) {\n    question(id: $id) {\n      id\n      description\n    }\n  }\n": types.QuestionDescriptionDocument,
     "\n  mutation SubmitAnswer($id: ID!, $answer: String!) {\n    submitAnswer(id: $id, answer: $answer) {\n      error\n    }\n  }\n": types.SubmitAnswerDocument,
     "\n  query MyAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": types.MyAnswerDocument,
@@ -80,6 +82,10 @@ export function graphql(source: "\n  query CompareAnswer($id: ID!) {\n    questi
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"): (typeof documents)["\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n"): (typeof documents)["\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
