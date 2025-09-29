@@ -22,7 +22,7 @@ export default function DatabaseRelationship({ id }: { id: string }) {
 
   return (
     <figure className="relative space-y-2">
-      {/* fixme: width 和 height 目前是強制 4:3 */}
+      {/* fixme: width and height are currently forced to 4:3 */}
       <Image
         unoptimized
         src={relationFigure}
