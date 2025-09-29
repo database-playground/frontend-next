@@ -28,7 +28,7 @@ export default function DatabaseRelationship({ id }: { id: string }) {
         src={relationFigure}
         width={400}
         height={300}
-        alt="資料庫關聯圖"
+        alt={`Database relationship diagram for ${slug}`}
         className="w-full rounded"
       />
       <figcaption className="text-sm text-gray-500">
