@@ -9,7 +9,7 @@ const POINTS = graphql(`
       id
       totalPoints
 
-      points(first: 5) {
+      points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {
         edges {
           node {
             id

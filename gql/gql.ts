@@ -29,7 +29,7 @@ type Documents = {
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.CompletedQuestionsDocument,
     "\n  query MySolvedQuestionsCount {\n    me {\n      id\n      name\n      submissionStatistics {\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.MySolvedQuestionsCountDocument,
     "\n  query MyPoints {\n    me {\n      id\n      name\n      totalPoints\n    }\n  }\n": typeof types.MyPointsDocument,
-    "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n": typeof types.PointsDocument,
+    "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n": typeof types.PointsDocument,
     "\n  fragment PointFragment on Point {\n    description\n    points\n  }\n": typeof types.PointFragmentFragmentDoc,
     "\n  query ResolvedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.ResolvedQuestionsDocument,
     "\n  query QuestionInfo($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n    }\n  }\n": typeof types.QuestionInfoDocument,
@@ -55,7 +55,7 @@ const documents: Documents = {
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.CompletedQuestionsDocument,
     "\n  query MySolvedQuestionsCount {\n    me {\n      id\n      name\n      submissionStatistics {\n        solvedQuestions\n      }\n    }\n  }\n": types.MySolvedQuestionsCountDocument,
     "\n  query MyPoints {\n    me {\n      id\n      name\n      totalPoints\n    }\n  }\n": types.MyPointsDocument,
-    "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n": types.PointsDocument,
+    "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n": types.PointsDocument,
     "\n  fragment PointFragment on Point {\n    description\n    points\n  }\n": types.PointFragmentFragmentDoc,
     "\n  query ResolvedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.ResolvedQuestionsDocument,
     "\n  query QuestionInfo($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      description\n      difficulty\n      category\n    }\n  }\n": types.QuestionInfoDocument,
@@ -143,7 +143,7 @@ export function graphql(source: "\n  query MyPoints {\n    me {\n      id\n     
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Points {\n    me {\n      id\n      totalPoints\n\n      points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {\n        edges {\n          node {\n            id\n            ...PointFragment\n          }\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
