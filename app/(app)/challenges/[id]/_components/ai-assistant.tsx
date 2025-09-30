@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { Bot, Loader2, Send, Sparkles, User } from "lucide-react";
+import { Bot, ChevronDown, ChevronUp, Loader2, Send, Sparkles, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 
@@ -15,7 +16,15 @@ export interface AIAssistantProps {
 export function AIAssistant({ questionId }: AIAssistantProps) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [reasoningOpenMap, setReasoningOpenMap] = useState<Record<string, boolean>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const toggleReasoning = (messageId: string) => {
+    setReasoningOpenMap((prev) => ({
+      ...prev,
+      [messageId]: !prev[messageId],
+    }));
+  };
 
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
@@ -179,6 +188,61 @@ export function AIAssistant({ questionId }: AIAssistantProps) {
                           {part.text}
                         </Streamdown>
                       </div>
+                    );
+                  }
+
+                  if (part.type === "reasoning") {
+                    return (
+                      <Collapsible
+                        key={`${message.id}-reasoning-${index}`}
+                        open={reasoningOpenMap[`${message.id}-${index}`]}
+                        onOpenChange={() => toggleReasoning(`${message.id}-${index}`)}
+                        className="border-l-2 border-primary/30 pl-3"
+                      >
+                        <CollapsibleTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className={`
+                              flex w-full items-center justify-between p-0
+                              text-xs
+                              hover:bg-transparent
+                            `}
+                          >
+                            <span
+                              className={`
+                                flex items-center gap-1.5 text-muted-foreground
+                              `}
+                            >
+                              <Sparkles className="h-3 w-3" />
+                              思考過程
+                            </span>
+                            {reasoningOpenMap[`${message.id}-${index}`]
+                              ? (
+                                <ChevronUp
+                                  className={`h-3 w-3 text-muted-foreground`}
+                                />
+                              )
+                              : (
+                                <ChevronDown
+                                  className={`h-3 w-3 text-muted-foreground`}
+                                />
+                              )}
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="mt-2">
+                          <div
+                            className={`
+                              text-xs leading-relaxed whitespace-pre-wrap
+                              text-muted-foreground
+                            `}
+                          >
+                            <Streamdown>
+                              {part.text}
+                            </Streamdown>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
                     );
                   }
 

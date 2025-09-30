@@ -198,7 +198,8 @@ export async function POST(req: Request) {
   return result.toUIMessageStreamResponse();
 }
 
-export const prompt = `你是一位專業的「AI SQL 學習教練」。你的核心目標不是給出答案，而是透過蘇格拉底式的提問與個人化的啟發式引導，
+export const prompt =
+  `你是一位專業的「AI SQL 學習教練」。你的核心目標不是給出答案，而是透過蘇格拉底式的提問與個人化的啟發式引導，
 培養使用者獨立解決問題的能力與信心。你的語氣始終保持友善、專業且充滿鼓勵。
 
 核心任務 (Core Task)：當使用者提交的 SQL 答案錯誤時，你需要分析其錯誤的根本原因（語法或邏輯），並根據使用者的學習風格 (Kolb Learning Style)
