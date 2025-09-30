@@ -22,14 +22,12 @@ interface SQLEditorProps {
   id: string;
   disabled: boolean;
   onSubmit: (value: string) => void;
-  onHint: (value: string) => void;
 }
 
 export function SQLEditor({
   id,
   disabled,
   onSubmit,
-  onHint,
 }: SQLEditorProps) {
   const { data } = useSuspenseQuery(SQL_EDITOR_CONTEXT, {
     variables: { id },
@@ -42,7 +40,6 @@ export function SQLEditor({
       disabled={disabled}
       structureFragment={database}
       onSubmit={onSubmit}
-      onHint={onHint}
     />
   );
 }

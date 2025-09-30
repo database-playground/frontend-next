@@ -1,21 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { sql, SQLite } from "@codemirror/lang-sql";
 import CodeMirror, { type ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import { Code, Lightbulb, Play } from "lucide-react";
+import { Code, Play } from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";
 
 export interface SQLEditorProps {
   disabled?: boolean;
   onSubmit?: (value: string) => void;
-  onHint?: (value: string) => void;
   schema?: Record<string, string[]>;
   defaultValue?: string;
 }
 
 export default function SQLEditor({
   onSubmit,
-  onHint,
   schema,
   disabled,
   defaultValue,
@@ -24,10 +22,6 @@ export default function SQLEditor({
 
   const handleSubmit = () => {
     onSubmit?.(codeMirrorRef.current?.view?.state?.doc.toString() ?? "");
-  };
-
-  const handleHint = () => {
-    onHint?.(codeMirrorRef.current?.view?.state?.doc.toString() ?? "");
   };
 
   const handleFormat = async () => {
@@ -65,16 +59,6 @@ export default function SQLEditor({
 
       <div className="flex justify-between">
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleHint}
-            disabled={disabled}
-          >
-            <Lightbulb />
-            提示
-          </Button>
-
           <Button
             variant="outline"
             size="sm"

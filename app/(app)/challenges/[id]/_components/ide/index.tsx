@@ -46,13 +46,19 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
 
   const handleSubmit = async (answer: string) => {
     const loading = toast.loading("正在送出答案");
-    await submitAnswer({
-      variables: {
-        id,
-        answer,
-      },
-    });
-    toast.dismiss(loading);
+    setDisabled(true);
+
+    try {
+      await submitAnswer({
+        variables: {
+          id,
+          answer,
+        },
+      });
+    } finally {
+      toast.dismiss(loading);
+      setDisabled(false);
+    }
   };
 
   return (
@@ -73,16 +79,6 @@ export default function PracticeIDE({ id }: PracticeIDEProps) {
             id={id}
             disabled={disabled}
             onSubmit={handleSubmit}
-            onHint={(hint) => {
-              toast.info("hint", {
-                description: hint,
-              });
-
-              setDisabled(true);
-              setTimeout(() => {
-                setDisabled(false);
-              }, 1000);
-            }}
           />
 
           {/* Database Relationship */}
