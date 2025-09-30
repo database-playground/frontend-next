@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { AIAssistant } from "./_components/ai-assistant";
 import Header from "./_components/header";
 import HeaderSkeleton from "./_components/header/skeleton";
 import PracticeIDE from "./_components/ide";
@@ -24,6 +25,8 @@ export default async function ChallengePage({
       <Suspense>
         <PracticeIDE id={id} />
       </Suspense>
+
+      <AIAssistant questionId={id} />
     </div>
   );
 }
