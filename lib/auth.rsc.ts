@@ -16,3 +16,20 @@ export async function redirectIfAuthenticated(): Promise<void> {
 
   redirect("/");
 }
+
+export async function checkAuthorizedStatus(): Promise<boolean> {
+  const token = await getAuthToken();
+  if (!token) {
+    return false;
+  }
+
+  const loggedIn = await getAuthStatus(token)
+    .then(result => result.loggedIn)
+    .catch(() => false);
+
+  if (!loggedIn) {
+    return false;
+  }
+
+  return true;
+}
