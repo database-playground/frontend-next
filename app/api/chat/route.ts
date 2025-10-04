@@ -72,7 +72,7 @@ interface ChatRouteRequest {
 }
 
 export async function POST(req: Request) {
-  const authorized = await checkAuthorizedStatus();
+  const authorized = await checkAuthorizedStatus(["*", "ai"]);
   if (!authorized) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
