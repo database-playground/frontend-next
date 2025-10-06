@@ -1,12 +1,12 @@
-import { graphql, readFragment, type FragmentType } from "@/gql";
+import { type FragmentType, graphql, readFragment } from "@/gql";
 import { getClient } from "@/lib/apollo.rsc";
 import { getAuthorizedUserInfo } from "@/lib/auth.rsc";
+import { createPostHogClient } from "@/lib/posthog.rsc";
 import { anthropic, type AnthropicProviderOptions } from "@ai-sdk/anthropic";
+import { withTracing } from "@posthog/ai";
 import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
-import { withTracing } from "@posthog/ai"
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createPostHogClient } from "@/lib/posthog.rsc";
 
 export const maxDuration = 30;
 
@@ -123,19 +123,19 @@ export async function POST(req: Request) {
           providerOptions: {
             anthropic: {
               cacheControl: {
-                type: 'ephemeral',
+                type: "ephemeral",
               },
             } satisfies AnthropicProviderOptions,
-          }
+          },
         },
         {
           role: "system",
           content: contextSystemPrompt(data.question),
           providerOptions: {
             anthropic: {
-              cacheControl: { type: 'ephemeral' },
+              cacheControl: { type: "ephemeral" },
             } satisfies AnthropicProviderOptions,
-          }
+          },
         },
         ...convertToModelMessages(messages),
       ],
@@ -302,7 +302,8 @@ Step 5: 產生回應 (Generate Response)
 export const contextSystemPrompt = (fragment: FragmentType<typeof QUESTION_INFO_FRAGMENT>) => {
   const { title, description, difficulty, category } = readFragment(QUESTION_INFO_FRAGMENT, fragment);
 
-  const contextPrompt = `輸入資訊 (Input Information)：這個問題是「{{QUESTION_TITLE}}」，難度 {{QUESTION_DIFFICULTY}}，分類 {{QUESTION_CATEGORY}}
+  const contextPrompt =
+    `輸入資訊 (Input Information)：這個問題是「{{QUESTION_TITLE}}」，難度 {{QUESTION_DIFFICULTY}}，分類 {{QUESTION_CATEGORY}}
 
 題幹如下：
 
@@ -310,7 +311,7 @@ export const contextSystemPrompt = (fragment: FragmentType<typeof QUESTION_INFO_
 
 其他情境，您可以使用工具進行取回。`;
 
-    return contextPrompt.replace("{{QUESTION_TITLE}}", title)
+  return contextPrompt.replace("{{QUESTION_TITLE}}", title)
     .replace("{{QUESTION_DESCRIPTION}}", description)
     .replace("{{QUESTION_DIFFICULTY}}", difficulty)
     .replace("{{QUESTION_CATEGORY}}", category);

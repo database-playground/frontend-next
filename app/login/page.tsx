@@ -6,8 +6,8 @@ import DoYouKnow from "./_components/do-you-know";
 import DoYouKnowSkeleton from "./_components/do-you-know/skeleton";
 import GithubLink from "./_components/github-link";
 import { LoginForm } from "./_components/login-form";
-import { UpstreamStatus, UpstreamStatusPlaceholder } from "./_components/status";
 import PostHogResetter from "./_components/posthog-resetter";
+import { UpstreamStatus, UpstreamStatusPlaceholder } from "./_components/status";
 
 export const metadata: Metadata = {
   title: "登入",
