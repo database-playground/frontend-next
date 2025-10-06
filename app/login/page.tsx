@@ -22,9 +22,6 @@ export default async function LoginPage() {
         lg:px-14 lg:py-8
       `}
     >
-      {/* Reset the session on the login page */}
-      <PostHogResetter />
-
       <div className="flex max-w-sm flex-1 flex-col justify-center gap-6">
         <Link
           href="/"
@@ -66,6 +63,9 @@ export default async function LoginPage() {
           </div>
         </div>
       </div>
+
+      {/* Reset the session on the login page */}
+      <PostHogResetter />
     </div>
   );
 }

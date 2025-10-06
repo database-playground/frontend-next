@@ -8,7 +8,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ProtectedRoute>
       <AuthorizedApolloWrapper>
-        <PostHogIdentifier />
         <AppShell>
           <div className="mx-auto w-full max-w-7xl flex-1 p-3">
             <ViewTransition name="app-content">
@@ -16,6 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </ViewTransition>
           </div>
         </AppShell>
+        <PostHogIdentifier />
       </AuthorizedApolloWrapper>
     </ProtectedRoute>
   );
