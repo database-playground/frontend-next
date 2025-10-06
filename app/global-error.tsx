@@ -8,6 +8,7 @@ import { ERROR_NOT_FOUND, ERROR_NOT_IMPLEMENTED, ERROR_UNAUTHORIZED, ERROR_USER_
 import { CombinedGraphQLErrors, CombinedProtocolErrors } from "@apollo/client";
 import { AlertCircle, Code, Home, Lock, RefreshCw, Search, Shield, WifiOff } from "lucide-react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { useEffect } from "react";
 
 interface GlobalErrorProps {
@@ -111,8 +112,10 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const errorInfo = getErrorInfo(error);
 
   useEffect(() => {
-    // Log error to monitoring service
-    console.error("Global error:", error);
+    posthog.captureException(error, {
+      url: window.location.href,
+      digest: error.digest,
+    });
   }, [error]);
 
   return (
