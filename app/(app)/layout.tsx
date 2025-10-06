@@ -1,5 +1,5 @@
 import AppShell from "@/components/app-shell";
-import PostHogIdentifier from "@/providers/posthog-identifier";
+import DynamicPostHogIdentifier from "@/providers/posthog-identifier.dynamic";
 import AuthorizedApolloWrapper from "@/providers/use-apollo.rsc";
 import ProtectedRoute from "@/providers/use-protected-route";
 import { unstable_ViewTransition as ViewTransition } from "react";
@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </ViewTransition>
           </div>
         </AppShell>
-        <PostHogIdentifier />
+        <DynamicPostHogIdentifier />
       </AuthorizedApolloWrapper>
     </ProtectedRoute>
   );
