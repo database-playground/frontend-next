@@ -17,28 +17,28 @@ export async function redirectIfAuthenticated(): Promise<void> {
   redirect("/");
 }
 
-export async function checkAuthorizedStatus(requiredScopes?: string[]): Promise<boolean> {
+export async function getAuthorizedUserInfo(requiredScopes?: string[]) {
   const token = await getAuthToken();
   if (!token) {
-    return false;
+    return null;
   }
 
   const authStatus = await getAuthStatus(token);
 
   if (!authStatus.loggedIn || !authStatus.introspectResult?.active) {
-    return false;
+    return null;
   }
 
   // check if the token has the required scope
   if (requiredScopes) {
     for (const scope of requiredScopes) {
       if (authStatus.introspectResult?.scope.includes(scope)) {
-        return true;
+        return authStatus.introspectResult;
       }
     }
 
-    return false;
+    return null;
   }
 
-  return true;
+  return authStatus.introspectResult;
 }
