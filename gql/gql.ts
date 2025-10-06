@@ -26,6 +26,9 @@ type Documents = {
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": typeof types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": typeof types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
+    "\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n": typeof types.MaterialsSchemaCardFragmentDoc,
+    "\n  query MaterialsSchemaContent($id: ID!) {\n    database(id: $id) {\n      id\n      schema\n    }\n  }\n": typeof types.MaterialsSchemaContentDocument,
+    "\n  query MaterialsSchema {\n    databases {\n      id\n      ...MaterialsSchemaCard\n    }\n  }\n": typeof types.MaterialsSchemaDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.CompletedQuestionsDocument,
     "\n  query MySolvedQuestionsCount {\n    me {\n      id\n      name\n      submissionStatistics {\n        solvedQuestions\n      }\n    }\n  }\n": typeof types.MySolvedQuestionsCountDocument,
     "\n  query MyPoints {\n    me {\n      id\n      name\n      totalPoints\n    }\n  }\n": typeof types.MyPointsDocument,
@@ -53,6 +56,9 @@ const documents: Documents = {
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": types.DatabaseStructureFragmentDoc,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
+    "\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n": types.MaterialsSchemaCardFragmentDoc,
+    "\n  query MaterialsSchemaContent($id: ID!) {\n    database(id: $id) {\n      id\n      schema\n    }\n  }\n": types.MaterialsSchemaContentDocument,
+    "\n  query MaterialsSchema {\n    databases {\n      id\n      ...MaterialsSchemaCard\n    }\n  }\n": types.MaterialsSchemaDocument,
     "\n  query CompletedQuestions {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n      }\n    }\n  }\n": types.CompletedQuestionsDocument,
     "\n  query MySolvedQuestionsCount {\n    me {\n      id\n      name\n      submissionStatistics {\n        solvedQuestions\n      }\n    }\n  }\n": types.MySolvedQuestionsCountDocument,
     "\n  query MyPoints {\n    me {\n      id\n      name\n      totalPoints\n    }\n  }\n": types.MyPointsDocument,
@@ -130,6 +136,18 @@ export function graphql(source: "\n  query ChallengeStatistics {\n    me {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n"): (typeof documents)["\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n"): (typeof documents)["\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query MaterialsSchemaContent($id: ID!) {\n    database(id: $id) {\n      id\n      schema\n    }\n  }\n"): (typeof documents)["\n  query MaterialsSchemaContent($id: ID!) {\n    database(id: $id) {\n      id\n      schema\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query MaterialsSchema {\n    databases {\n      id\n      ...MaterialsSchemaCard\n    }\n  }\n"): (typeof documents)["\n  query MaterialsSchema {\n    databases {\n      id\n      ...MaterialsSchemaCard\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
