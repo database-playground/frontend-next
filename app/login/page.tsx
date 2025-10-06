@@ -7,6 +7,7 @@ import DoYouKnowSkeleton from "./_components/do-you-know/skeleton";
 import GithubLink from "./_components/github-link";
 import { LoginForm } from "./_components/login-form";
 import { UpstreamStatus, UpstreamStatusPlaceholder } from "./_components/status";
+import PostHogResetter from "./_components/posthog-resetter";
 
 export const metadata: Metadata = {
   title: "登入",
@@ -21,6 +22,9 @@ export default async function LoginPage() {
         lg:px-14 lg:py-8
       `}
     >
+      {/* Reset the session on the login page */}
+      <PostHogResetter />
+
       <div className="flex max-w-sm flex-1 flex-col justify-center gap-6">
         <Link
           href="/"
