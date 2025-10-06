@@ -20,5 +20,5 @@ export default function PostHogIdentifier() {
     }
   }, [user]);
 
-  return null;
+  return <></>;
 }

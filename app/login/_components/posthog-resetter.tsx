@@ -9,5 +9,5 @@ export default function PostHogResetter() {
     posthog.reset();
   }, []);
 
-  return null;
+  return <></>;
 }
