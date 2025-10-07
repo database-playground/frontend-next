@@ -99,7 +99,7 @@ export function ChallengeQuestionsList({
   });
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {data?.questions.edges
         ?.filter(
           (question) =>
@@ -115,27 +115,29 @@ export function ChallengeQuestionsList({
         })}
 
       {data?.questions.pageInfo.hasNextPage && (
-        <Button
-          onClick={() =>
-            fetchMore({
-              variables: {
-                after: data?.questions.pageInfo.endCursor,
-              },
-              updateQuery(previousQueryResult, options) {
-                return {
-                  questions: {
-                    edges: [
-                      ...(previousQueryResult.questions.edges || []),
-                      ...(options.fetchMoreResult.questions.edges || []),
-                    ],
-                    pageInfo: options.fetchMoreResult.questions.pageInfo,
-                  },
-                };
-              },
-            })}
-        >
-          載入更多
-        </Button>
+        <div className="flex w-full justify-center">
+          <Button
+            onClick={() =>
+              fetchMore({
+                variables: {
+                  after: data?.questions.pageInfo.endCursor,
+                },
+                updateQuery(previousQueryResult, options) {
+                  return {
+                    questions: {
+                      edges: [
+                        ...(previousQueryResult.questions.edges || []),
+                        ...(options.fetchMoreResult.questions.edges || []),
+                      ],
+                      pageInfo: options.fetchMoreResult.questions.pageInfo,
+                    },
+                  };
+                },
+              })}
+          >
+            載入更多
+          </Button>
+        </div>
       )}
     </div>
   );
