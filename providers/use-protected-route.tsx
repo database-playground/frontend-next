@@ -1,17 +1,22 @@
 "use server";
 
 import { getAuthStatus, getAuthToken } from "@/lib/auth";
-import { redirect, unauthorized } from "next/navigation";
+import { forbidden, unauthorized } from "next/navigation";
 
 export default async function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const token = await getAuthToken();
   if (!token) {
-    redirect("/login");
+    unauthorized();
   }
 
-  const { loggedIn } = await getAuthStatus(token);
-  if (!loggedIn) {
+  const { loggedIn, introspectResult } = await getAuthStatus(token);
+  if (!loggedIn || !introspectResult?.active) {
     unauthorized();
+  }
+
+  // requires for verification
+  if (introspectResult.scope.includes("unverified")) {
+    forbidden();
   }
 
   return children;

@@ -250,12 +250,5 @@ export async function getAuthStatus(token: string): Promise<AuthStatus> {
     };
   }
 
-  if (parsedData.data.scope.includes("*")) {
-    return {
-      loggedIn: true,
-      introspectResult: parsedData.data,
-    };
-  }
-
   return { loggedIn: true, introspectResult: parsedData.data };
 }

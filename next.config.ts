@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       ],
     ],
     ppr: "incremental",
+    authInterrupts: true,
   },
   async rewrites() {
     return [
