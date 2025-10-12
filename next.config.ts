@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     ],
     cacheComponents: true,
     authInterrupts: true,
+    turbopackFileSystemCacheForDev: true,
   },
   async rewrites() {
     return [
