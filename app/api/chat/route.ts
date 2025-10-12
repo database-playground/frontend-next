@@ -101,7 +101,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const model = anthropic("claude-sonnet-4-20250514");
+  const model = anthropic("claude-sonnet-4-5");
   const posthogClient = await createPostHogClient();
 
   try {
@@ -220,9 +220,11 @@ export async function POST(req: Request) {
                 : null,
             };
           },
-        }),
-        webSearch: anthropic.tools.webSearch_20250305({
-          maxUses: 5,
+          providerOptions: {
+            anthropic: {
+              cacheControl: { type: "ephemeral" },
+            },
+          },
         }),
       },
     });
