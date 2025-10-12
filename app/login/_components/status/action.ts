@@ -1,21 +1,21 @@
 "use server";
 
 import buildUri from "@/lib/build-uri";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 export async function getUpstreamLatency(): Promise<number> {
-  try {
-    const start = Date.now();
+  "use cache";
+  cacheLife("minutes");
 
-    const response = await fetch(buildUri("/"), {
-      next: {
-        revalidate: 120, // update latency every 2 minutes
-      },
-    });
+  try {
+    const start = performance.now();
+
+    const response = await fetch(buildUri("/"));
     if (!response.ok) {
       return -1;
     }
 
-    return Date.now() - start;
+    return Math.round(performance.now() - start);
   } catch (error) {
     console.error("Error getting upstream status:", error);
     return -1;
