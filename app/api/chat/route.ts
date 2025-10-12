@@ -104,135 +104,135 @@ export async function POST(req: Request) {
   const model = anthropic("claude-sonnet-4-5");
   const posthogClient = await createPostHogClient();
 
-  try {
-    const tracedModel = withTracing(model, posthogClient, {
-      posthogDistinctId: userInfo.sub,
-    });
+  const tracedModel = withTracing(model, posthogClient, {
+    posthogDistinctId: userInfo.sub,
+  });
 
-    const result = streamText({
-      model: tracedModel,
-      providerOptions: {
-        anthropic: {
-          thinking: { type: "enabled", budgetTokens: 12000 },
-        } satisfies AnthropicProviderOptions,
-      },
-      messages: [
-        {
-          role: "system",
-          content: basePrompt,
-          providerOptions: {
-            anthropic: {
-              cacheControl: {
-                type: "ephemeral",
-              },
-            } satisfies AnthropicProviderOptions,
-          },
-        },
-        {
-          role: "system",
-          content: contextSystemPrompt(data.question),
-          providerOptions: {
-            anthropic: {
-              cacheControl: { type: "ephemeral" },
-            } satisfies AnthropicProviderOptions,
-          },
-        },
-        ...convertToModelMessages(messages),
-      ],
-      stopWhen: stepCountIs(10),
-      tools: {
-        getMyAnswer: tool({
-          description:
-            "取得使用者最後提交的答案結果，包括查詢結果、錯誤訊息和狀態。如果使用者問關於他們的答案，使用這個工具。",
-          inputSchema: z.object({}),
-          execute: async () => {
-            const { data, error } = await apollo.query({
-              query: USER_ANSWER_RESULT,
-              variables: { id: questionId },
-              errorPolicy: "all",
-            });
-            if (!data?.question) {
-              return { error: "無法取得題目資料", details: error?.message };
-            }
-
-            const { lastSubmission } = data.question;
-            if (!lastSubmission) {
-              return { error: "使用者尚未提交答案" };
-            }
-
-            return {
-              status: lastSubmission.status,
-              submittedCode: lastSubmission.submittedCode,
-              queryResult: lastSubmission.queryResult
-                ? {
-                  columns: lastSubmission.queryResult.columns,
-                  rows: lastSubmission.queryResult.rows,
-                }
-                : null,
-              error: lastSubmission.error,
-            };
-          },
-        }),
-        getCorrectAnswer: tool({
-          description: "取得題目的正確答案結果，你可以對照和使用者的答案差異。",
-          inputSchema: z.object({}),
-          execute: async () => {
-            const { data, error } = await apollo.query({
-              query: CORRECT_ANSWER_RESULT,
-              variables: { id: questionId },
-              errorPolicy: "all",
-            });
-            if (!data?.question) {
-              return { error: "無法取得題目資料", details: error?.message };
-            }
-
-            return {
-              queryResult: data.question.referenceAnswerResult
-                ? {
-                  columns: data.question.referenceAnswerResult.columns,
-                  rows: data.question.referenceAnswerResult.rows,
-                }
-                : null,
-            };
-          },
-        }),
-        getQuestionSchema: tool({
-          description: "取得題目的資料庫結構，你可以用這個數據輔助了解 SQL 結構。",
-          inputSchema: z.object({}),
-          execute: async () => {
-            const { data, error } = await apollo.query({
-              query: QUESTION_SCHEMA,
-              variables: { id: questionId },
-              errorPolicy: "all",
-            });
-            if (!data?.question) {
-              return { error: "無法取得題目資料", details: error?.message };
-            }
-
-            return {
-              schema: data.question.database.structure
-                ? {
-                  tables: data.question.database.structure.tables.map((table) => ({
-                    name: table.name,
-                    columns: table.columns,
-                  })),
-                }
-                : null,
-            };
-          },
-          providerOptions: {
-            anthropic: {
-              cacheControl: { type: "ephemeral" },
+  const result = streamText({
+    model: tracedModel,
+    providerOptions: {
+      anthropic: {
+        thinking: { type: "enabled", budgetTokens: 12000 },
+      } satisfies AnthropicProviderOptions,
+    },
+    messages: [
+      {
+        role: "system",
+        content: basePrompt,
+        providerOptions: {
+          anthropic: {
+            cacheControl: {
+              type: "ephemeral",
             },
-          },
-        }),
+          } satisfies AnthropicProviderOptions,
+        },
       },
-    });
+      {
+        role: "system",
+        content: contextSystemPrompt(data.question),
+        providerOptions: {
+          anthropic: {
+            cacheControl: { type: "ephemeral" },
+          } satisfies AnthropicProviderOptions,
+        },
+      },
+      ...convertToModelMessages(messages),
+    ],
+    stopWhen: stepCountIs(10),
+    tools: {
+      getMyAnswer: tool({
+        description:
+          "取得使用者最後提交的答案結果，包括查詢結果、錯誤訊息和狀態。如果使用者問關於他們的答案，使用這個工具。",
+        inputSchema: z.object({}),
+        execute: async () => {
+          const { data, error } = await apollo.query({
+            query: USER_ANSWER_RESULT,
+            variables: { id: questionId },
+            errorPolicy: "all",
+          });
+          if (!data?.question) {
+            return { error: "無法取得題目資料", details: error?.message };
+          }
 
-    return result.toUIMessageStreamResponse();
-  } finally {
-    await posthogClient.shutdown();
-  }
+          const { lastSubmission } = data.question;
+          if (!lastSubmission) {
+            return { error: "使用者尚未提交答案" };
+          }
+
+          return {
+            status: lastSubmission.status,
+            submittedCode: lastSubmission.submittedCode,
+            queryResult: lastSubmission.queryResult
+              ? {
+                columns: lastSubmission.queryResult.columns,
+                rows: lastSubmission.queryResult.rows,
+              }
+              : null,
+            error: lastSubmission.error,
+          };
+        },
+      }),
+      getCorrectAnswer: tool({
+        description: "取得題目的正確答案結果，你可以對照和使用者的答案差異。",
+        inputSchema: z.object({}),
+        execute: async () => {
+          const { data, error } = await apollo.query({
+            query: CORRECT_ANSWER_RESULT,
+            variables: { id: questionId },
+            errorPolicy: "all",
+          });
+          if (!data?.question) {
+            return { error: "無法取得題目資料", details: error?.message };
+          }
+
+          return {
+            queryResult: data.question.referenceAnswerResult
+              ? {
+                columns: data.question.referenceAnswerResult.columns,
+                rows: data.question.referenceAnswerResult.rows,
+              }
+              : null,
+          };
+        },
+      }),
+      getQuestionSchema: tool({
+        description: "取得題目的資料庫結構，你可以用這個數據輔助了解 SQL 結構。",
+        inputSchema: z.object({}),
+        execute: async () => {
+          const { data, error } = await apollo.query({
+            query: QUESTION_SCHEMA,
+            variables: { id: questionId },
+            errorPolicy: "all",
+          });
+          if (!data?.question) {
+            return { error: "無法取得題目資料", details: error?.message };
+          }
+
+          return {
+            schema: data.question.database.structure
+              ? {
+                tables: data.question.database.structure.tables.map((table) => ({
+                  name: table.name,
+                  columns: table.columns,
+                })),
+              }
+              : null,
+          };
+        },
+        providerOptions: {
+          anthropic: {
+            cacheControl: { type: "ephemeral" },
+          },
+        },
+      }),
+    },
+  });
+
+  return result.toUIMessageStreamResponse({
+    async onFinish() {
+      await posthogClient.shutdown();
+    },
+  });
 }
 
 export const basePrompt =
