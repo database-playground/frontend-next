@@ -222,7 +222,7 @@ export async function POST(req: Request) {
           },
           providerOptions: {
             anthropic: {
-              cacheControl: { type: 'ephemeral' },
+              cacheControl: { type: "ephemeral" },
             },
           },
         }),
