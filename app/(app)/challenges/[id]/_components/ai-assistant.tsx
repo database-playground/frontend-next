@@ -303,14 +303,14 @@ export function AIAssistant({ questionId }: AIAssistantProps) {
           onSubmit={handleSubmit}
           className="border-t bg-background p-4"
         >
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="輸入你的問題……"
               className={`
-                flex-1 rounded-lg border bg-background px-4 py-2 text-sm
+                flex-1 rounded-lg border bg-background px-4 py-1 text-sm
                 transition-colors
                 placeholder:text-muted-foreground
                 focus:ring-2 focus:ring-ring focus:outline-hidden
@@ -323,9 +323,9 @@ export function AIAssistant({ questionId }: AIAssistantProps) {
               size="icon"
               disabled={!input.trim() || isLoading}
             >
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+              {isLoading ? <Loader2 className="size-4 animate-spin" /> : (
                 <Send
-                  className={`h-4 w-4`}
+                  className={`size-4`}
                 />
               )}
               <span className="sr-only">送出訊息</span>
