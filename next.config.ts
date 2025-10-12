@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
         { artifactDirectory: "./gql", gqlTagName: "graphql" },
       ],
     ],
-    ppr: "incremental",
+    cacheComponents: true,
     authInterrupts: true,
   },
   async rewrites() {
