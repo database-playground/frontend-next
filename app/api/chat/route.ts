@@ -220,6 +220,11 @@ export async function POST(req: Request) {
                 : null,
             };
           },
+          providerOptions: {
+            anthropic: {
+              cacheControl: { type: 'ephemeral' },
+            },
+          },
         }),
         webSearch: anthropic.tools.webSearch_20250305({
           maxUses: 5,
