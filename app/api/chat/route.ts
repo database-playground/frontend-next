@@ -226,9 +226,6 @@ export async function POST(req: Request) {
             },
           },
         }),
-        webSearch: anthropic.tools.webSearch_20250305({
-          maxUses: 5,
-        }),
       },
     });
 
