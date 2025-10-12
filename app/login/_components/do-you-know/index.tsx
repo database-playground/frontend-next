@@ -5,6 +5,17 @@ import { connection } from "next/server";
 export default async function DoYouKnow() {
   await connection();
 
+  const randomKnow = await getDoYouKnow();
+
+  return (
+    <div className="flex flex-col justify-center gap-2 text-center">
+      <div className="text-sm text-gray-500">你知道嗎？</div>
+      <div className="font-normal">{randomKnow}</div>
+    </div>
+  );
+}
+
+export async function getDoYouKnow() {
   const knowsList = [
     <p key="do-you-knows-daily-login">
       每天登入可以獲得 20 點點數，<br />連續 7 天登入可以獲得 50 點加成！
@@ -21,10 +32,6 @@ export default async function DoYouKnow() {
   ];
 
   const randomKnow = knowsList[Math.floor(Math.random() * knowsList.length)];
-  return (
-    <div className="flex flex-col justify-center gap-2 text-center">
-      <div className="text-sm text-gray-500">你知道嗎？</div>
-      <div className="font-normal">{randomKnow}</div>
-    </div>
-  );
+
+  return randomKnow;
 }
