@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RankingPeriod } from "@/gql/graphql";
 import { Suspense } from "react";
 import SolvedQuestionsRanking from "./completed-questions";
 import PointsRanking from "./points";
@@ -16,22 +17,22 @@ export default function Ranking() {
 
       <TabsContent value="daily-points">
         <Suspense fallback={<Skeleton className="h-48" />}>
-          <PointsRanking />
+          <PointsRanking period={RankingPeriod.Daily} />
         </Suspense>
       </TabsContent>
       <TabsContent value="weekly-points">
         <Suspense fallback={<Skeleton className="h-48" />}>
-          <PointsRanking />
+          <PointsRanking period={RankingPeriod.Weekly} />
         </Suspense>
       </TabsContent>
       <TabsContent value="daily-solved-questions">
         <Suspense fallback={<Skeleton className="h-48" />}>
-          <SolvedQuestionsRanking />
+          <SolvedQuestionsRanking period={RankingPeriod.Daily} />
         </Suspense>
       </TabsContent>
       <TabsContent value="weekly-solved-questions">
         <Suspense fallback={<Skeleton className="h-48" />}>
-          <SolvedQuestionsRanking />
+          <SolvedQuestionsRanking period={RankingPeriod.Weekly} />
         </Suspense>
       </TabsContent>
     </Tabs>

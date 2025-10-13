@@ -427,8 +427,6 @@ export type Mutation = {
   updateScopeSet?: Maybe<ScopeSet>;
   /** Update the information of a user. */
   updateUser?: Maybe<User>;
-  /** Verify the registration of this user. */
-  verifyRegistration: Scalars['Boolean']['output'];
 };
 
 
@@ -690,6 +688,8 @@ export type Query = {
   /** Get a question by ID. */
   question: Question;
   questions: QuestionConnection;
+  /** Get the ranking. */
+  ranking: RankingConnection;
   /** Get a scope set by ID or slug. */
   scopeSet: ScopeSet;
   scopeSets: Array<ScopeSet>;
@@ -769,6 +769,13 @@ export type QueryQuestionsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<QuestionOrder>;
   where?: InputMaybe<QuestionWhereInput>;
+};
+
+
+export type QueryRankingArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  filter: RankingFilter;
+  first?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -969,6 +976,40 @@ export type QuestionWhereInput = {
   titleNEQ?: InputMaybe<Scalars['String']['input']>;
   titleNotIn?: InputMaybe<Array<Scalars['String']['input']>>;
 };
+
+export enum RankingBy {
+  CompletedQuestions = 'COMPLETED_QUESTIONS',
+  Points = 'POINTS'
+}
+
+export type RankingConnection = {
+  __typename?: 'RankingConnection';
+  edges: Array<RankingEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type RankingEdge = {
+  __typename?: 'RankingEdge';
+  cursor: Scalars['Cursor']['output'];
+  node: User;
+};
+
+export type RankingFilter = {
+  by: RankingBy;
+  order: RankingOrder;
+  period: RankingPeriod;
+};
+
+export enum RankingOrder {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export enum RankingPeriod {
+  Daily = 'DAILY',
+  Weekly = 'WEEKLY'
+}
 
 export type SqlExecutionResult = {
   __typename?: 'SQLExecutionResult';
@@ -1225,6 +1266,8 @@ export type UpdateGroupInput = {
  */
 export type UpdateQuestionInput = {
   addSubmissionIDs?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Question category, e.g. 'query' */
+  category?: InputMaybe<Scalars['String']['input']>;
   clearSubmissions?: InputMaybe<Scalars['Boolean']['input']>;
   databaseID?: InputMaybe<Scalars['ID']['input']>;
   /** Question stem */
@@ -1576,15 +1619,19 @@ export type CompletedQuestionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CompletedQuestionsQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, submissionStatistics: { __typename?: 'SubmissionStatistics', totalQuestions: number, solvedQuestions: number } } };
 
-export type MySolvedQuestionsCountQueryVariables = Exact<{ [key: string]: never; }>;
+export type CompletedQuestionRankingQueryVariables = Exact<{
+  period: RankingPeriod;
+}>;
 
 
-export type MySolvedQuestionsCountQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, name: string, submissionStatistics: { __typename?: 'SubmissionStatistics', solvedQuestions: number } } };
+export type CompletedQuestionRankingQuery = { __typename?: 'Query', ranking: { __typename?: 'RankingConnection', edges: Array<{ __typename?: 'RankingEdge', node: { __typename?: 'User', id: string, name: string, submissionStatistics: { __typename?: 'SubmissionStatistics', solvedQuestions: number } } }> } };
 
-export type MyPointsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PointsRankingQueryVariables = Exact<{
+  period: RankingPeriod;
+}>;
 
 
-export type MyPointsQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, name: string, totalPoints: number } };
+export type PointsRankingQuery = { __typename?: 'Query', ranking: { __typename?: 'RankingConnection', edges: Array<{ __typename?: 'RankingEdge', node: { __typename?: 'User', id: string, name: string, totalPoints: number } }> } };
 
 export type PointsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1659,8 +1706,8 @@ export const ListQuestionsDocument = {"kind":"Document","definitions":[{"kind":"
 export const MaterialsSchemaContentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MaterialsSchemaContent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"database"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"schema"}}]}}]}}]} as unknown as DocumentNode<MaterialsSchemaContentQuery, MaterialsSchemaContentQueryVariables>;
 export const MaterialsSchemaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MaterialsSchema"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"databases"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MaterialsSchemaCard"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MaterialsSchemaCard"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Database"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<MaterialsSchemaQuery, MaterialsSchemaQueryVariables>;
 export const CompletedQuestionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CompletedQuestions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"submissionStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalQuestions"}},{"kind":"Field","name":{"kind":"Name","value":"solvedQuestions"}}]}}]}}]}}]} as unknown as DocumentNode<CompletedQuestionsQuery, CompletedQuestionsQueryVariables>;
-export const MySolvedQuestionsCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MySolvedQuestionsCount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"submissionStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"solvedQuestions"}}]}}]}}]}}]} as unknown as DocumentNode<MySolvedQuestionsCountQuery, MySolvedQuestionsCountQueryVariables>;
-export const MyPointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MyPoints"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"totalPoints"}}]}}]}}]} as unknown as DocumentNode<MyPointsQuery, MyPointsQueryVariables>;
+export const CompletedQuestionRankingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CompletedQuestionRanking"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"period"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RankingPeriod"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ranking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"10"}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"DESC"}},{"kind":"ObjectField","name":{"kind":"Name","value":"by"},"value":{"kind":"EnumValue","value":"COMPLETED_QUESTIONS"}},{"kind":"ObjectField","name":{"kind":"Name","value":"period"},"value":{"kind":"Variable","name":{"kind":"Name","value":"period"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"submissionStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"solvedQuestions"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CompletedQuestionRankingQuery, CompletedQuestionRankingQueryVariables>;
+export const PointsRankingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PointsRanking"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"period"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RankingPeriod"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ranking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"10"}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"DESC"}},{"kind":"ObjectField","name":{"kind":"Name","value":"by"},"value":{"kind":"EnumValue","value":"POINTS"}},{"kind":"ObjectField","name":{"kind":"Name","value":"period"},"value":{"kind":"Variable","name":{"kind":"Name","value":"period"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"totalPoints"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PointsRankingQuery, PointsRankingQueryVariables>;
 export const PointsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Points"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"5"}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"field"},"value":{"kind":"EnumValue","value":"GRANTED_AT"}},{"kind":"ObjectField","name":{"kind":"Name","value":"direction"},"value":{"kind":"EnumValue","value":"DESC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PointFragment"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PointFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Point"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}}]} as unknown as DocumentNode<PointsQuery, PointsQueryVariables>;
 export const ResolvedQuestionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ResolvedQuestions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"submissionStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalQuestions"}},{"kind":"Field","name":{"kind":"Name","value":"solvedQuestions"}}]}}]}}]}}]} as unknown as DocumentNode<ResolvedQuestionsQuery, ResolvedQuestionsQueryVariables>;
 export const QuestionInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QuestionInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"question"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"QuestionInfoFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"QuestionInfoFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Question"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"category"}}]}}]} as unknown as DocumentNode<QuestionInfoQuery, QuestionInfoQueryVariables>;
