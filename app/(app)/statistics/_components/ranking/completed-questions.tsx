@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { graphql } from "@/gql";
 import type { RankingPeriod } from "@/gql/graphql";
 import { useSuspenseQuery } from "@apollo/client/react";
+import { ScoreDiff } from "./score";
 
 const COMPLETED_QUESTIONS_RANKING = graphql(`
   query CompletedQuestionRanking($period: RankingPeriod!) {
@@ -19,6 +20,7 @@ const COMPLETED_QUESTIONS_RANKING = graphql(`
             solvedQuestions
           }
         }
+        score
       }
     }
   }
@@ -47,7 +49,9 @@ export default function SolvedQuestionsRanking({
           return (
             <TableRow key={edge.node.id}>
               <TableCell>{edge.node.name}</TableCell>
-              <TableCell>{edge.node.submissionStatistics.solvedQuestions}</TableCell>
+              <TableCell>
+                {edge.node.submissionStatistics.solvedQuestions} (<ScoreDiff score={edge.score} />)
+              </TableCell>
             </TableRow>
           );
         })}

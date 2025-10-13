@@ -865,6 +865,7 @@ type RankingConnection {
 type RankingEdge {
   cursor: Cursor!
   node: User!
+  score: Int!
 }
 
 input RankingFilter {
