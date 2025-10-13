@@ -2,22 +2,36 @@
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { graphql } from "@/gql";
+import type { RankingPeriod } from "@/gql/graphql";
 import { useSuspenseQuery } from "@apollo/client/react";
 
-const MY_SOLVED_QUESTIONS_COUNT = graphql(`
-  query MySolvedQuestionsCount {
-    me {
-      id
-      name
-      submissionStatistics {
-        solvedQuestions
+const COMPLETED_QUESTIONS_RANKING = graphql(`
+  query CompletedQuestionRanking($period: RankingPeriod!) {
+    ranking(
+      first: 10
+      filter: { order: DESC, by: COMPLETED_QUESTIONS, period: $period }
+    ) {
+      edges {
+        node {
+          id
+          name
+          submissionStatistics {
+            solvedQuestions
+          }
+        }
       }
     }
   }
 `);
 
-export default function SolvedQuestionsRanking() {
-  const { data } = useSuspenseQuery(MY_SOLVED_QUESTIONS_COUNT);
+export default function SolvedQuestionsRanking({
+  period,
+}: {
+  period: RankingPeriod;
+}) {
+  const { data } = useSuspenseQuery(COMPLETED_QUESTIONS_RANKING, {
+    variables: { period },
+  });
 
   return (
     <Table>
@@ -29,10 +43,14 @@ export default function SolvedQuestionsRanking() {
       </TableHeader>
 
       <TableBody>
-        <TableRow>
-          <TableCell>{data.me.name}</TableCell>
-          <TableCell>{data.me.submissionStatistics.solvedQuestions}</TableCell>
-        </TableRow>
+        {data.ranking.edges.map((edge) => {
+          return (
+            <TableRow key={edge.node.id}>
+              <TableCell>{edge.node.name}</TableCell>
+              <TableCell>{edge.node.submissionStatistics.solvedQuestions}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

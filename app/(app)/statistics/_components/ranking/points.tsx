@@ -2,20 +2,27 @@
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { graphql } from "@/gql";
+import type { RankingPeriod } from "@/gql/graphql";
 import { useSuspenseQuery } from "@apollo/client/react";
 
-const MY_POINTS = graphql(`
-  query MyPoints {
-    me {
-      id
-      name
-      totalPoints
+const POINTS_RANKING = graphql(`
+  query PointsRanking($period: RankingPeriod!) {
+    ranking(first: 10, filter: { order: DESC, by: POINTS, period: $period }) {
+      edges {
+        node {
+          id
+          name
+          totalPoints
+        }
+      }
     }
   }
 `);
 
-export default function PointsRanking() {
-  const { data } = useSuspenseQuery(MY_POINTS);
+export default function PointsRanking({ period }: { period: RankingPeriod }) {
+  const { data } = useSuspenseQuery(POINTS_RANKING, {
+    variables: { period },
+  });
 
   return (
     <Table>
@@ -27,10 +34,14 @@ export default function PointsRanking() {
       </TableHeader>
 
       <TableBody>
-        <TableRow>
-          <TableCell>{data.me.name}</TableCell>
-          <TableCell>{data.me.totalPoints}</TableCell>
-        </TableRow>
+        {data.ranking.edges.map((edge) => {
+          return (
+            <TableRow key={edge.node.id}>
+              <TableCell>{edge.node.name}</TableCell>
+              <TableCell>{edge.node.totalPoints}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );
