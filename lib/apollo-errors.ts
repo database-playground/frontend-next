@@ -1,6 +1,6 @@
 /**
  * GraphQL API error codes.
- * 
+ *
  * @see https://github.com/database-playground/backend-v2/blob/main/graph/defs/README.md
  */
 

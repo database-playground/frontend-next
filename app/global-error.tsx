@@ -4,9 +4,15 @@ import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ERROR_FORBIDDEN, ERROR_NOT_FOUND, ERROR_NOT_IMPLEMENTED, ERROR_UNAUTHORIZED, ERROR_USER_VERIFIED } from "@/lib/apollo-errors";
+import {
+  ERROR_FORBIDDEN,
+  ERROR_INVALID_INPUT,
+  ERROR_NOT_FOUND,
+  ERROR_NOT_IMPLEMENTED,
+  ERROR_UNAUTHORIZED,
+} from "@/lib/apollo-errors";
 import { CombinedGraphQLErrors, CombinedProtocolErrors } from "@apollo/client";
-import { AlertCircle, Code, Home, Lock, Search, Shield, type LucideIcon } from "lucide-react";
+import { AlertCircle, Bug, Code, Home, Lock, type LucideIcon, Search, Shield } from "lucide-react";
 import Link from "next/link";
 import posthog from "posthog-js";
 
@@ -19,12 +25,12 @@ type ErrorCommonInfo = {
   title: string;
   description: string;
   icon: LucideIcon;
-}
+};
 
 type ErrorActionInfo = {
   actionName: string;
   actionHref: string;
-}
+};
 
 type ErrorInfo = ErrorCommonInfo & (ErrorActionInfo | { actionName?: undefined; actionHref?: undefined });
 
@@ -60,18 +66,18 @@ function getErrorInfo(error: Error): ErrorInfo {
             icon: Shield,
             actionName: "重新登入",
             actionHref: "/login",
-          }
-        case ERROR_USER_VERIFIED:
-          return {
-            title: "帳號已驗證",
-            description: "此帳號已經完成驗證程序。",
-            icon: Shield,
           };
         case ERROR_NOT_IMPLEMENTED:
           return {
             title: "功能未實作",
             description: "此功能目前尚未實作，請稍後再試。",
             icon: Code,
+          };
+        case ERROR_INVALID_INPUT:
+          return {
+            title: "輸入無效",
+            description: "請聯絡開發者檢查 API 的輸入資料。",
+            icon: Bug,
           };
       }
 
