@@ -1,7 +1,7 @@
 "use server";
 
 import buildUri from "@/lib/build-uri";
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 
 export async function getUpstreamLatency(): Promise<number> {
   "use cache";

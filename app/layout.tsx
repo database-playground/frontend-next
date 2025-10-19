@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   description: "AI 賦能的資料庫練習平台",
 };
 
-export const experimental_ppr = true;
-
 export default async function RootLayout({
   children,
 }: Readonly<{
