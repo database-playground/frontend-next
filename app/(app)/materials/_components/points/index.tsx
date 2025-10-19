@@ -54,7 +54,7 @@ export default function PointCalculateRules() {
                 回報問題和提供系統意見，根據重要性可以獲得 <strong>25 點</strong> 到 <strong>50 點</strong> 不等的點數。
               </li>
               <li>
-                到 <a href="https://github.com/database-playground" target="_blank">GitHub</a>{" "}
+                到 <a href="https://community.dbplay.app/github" target="_blank">GitHub</a>{" "}
                 以 PR 形式貢獻程式碼並獲得接受，可以獲得 <strong>100 點</strong> 到超過 <strong>250 點</strong> 的點數。
               </li>
             </ul>

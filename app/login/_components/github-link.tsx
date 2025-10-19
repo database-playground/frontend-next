@@ -6,7 +6,7 @@ export default function GithubLink() {
       <TooltipTrigger>
         <a
           className="flex items-center gap-2"
-          href="https://github.com/database-playground"
+          href="https://community.dbplay.app/github"
           target="_blank"
         >
           <svg
