@@ -2,11 +2,13 @@ import { Logo } from "@/components/logo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import DiscordLink from "./_components/discord-link";
 import DoYouKnow from "./_components/do-you-know";
 import DoYouKnowSkeleton from "./_components/do-you-know/skeleton";
 import GithubLink from "./_components/github-link";
 import { LoginForm } from "./_components/login-form";
 import PostHogResetter from "./_components/posthog-resetter";
+import Separator from "./_components/separator";
 import { UpstreamStatus, UpstreamStatusPlaceholder } from "./_components/status";
 
 export const metadata: Metadata = {
@@ -50,16 +52,20 @@ export default async function LoginPage() {
           <div
             className={`
               flex flex-wrap items-center gap-4
-              lg:gap-8
+              lg:gap-6
             `}
           >
             <Suspense fallback={<UpstreamStatusPlaceholder />}>
               <UpstreamStatus />
             </Suspense>
 
-            <div className="h-6 w-px bg-stone-400" />
+            <Separator />
 
             <GithubLink />
+
+            <Separator />
+
+            <DiscordLink />
           </div>
         </div>
       </div>
