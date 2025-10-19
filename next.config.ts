@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   reactCompiler: true,
+  cacheComponents: true,
   experimental: {
     viewTransition: true,
     swcPlugins: [
@@ -12,7 +13,6 @@ const nextConfig: NextConfig = {
         { artifactDirectory: "./gql", gqlTagName: "graphql" },
       ],
     ],
-    cacheComponents: true,
     authInterrupts: true,
     turbopackFileSystemCacheForDev: true,
   },
