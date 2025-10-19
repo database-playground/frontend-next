@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <AppShell>
             <div className="mx-auto w-full max-w-7xl flex-1 p-3">
               <ViewTransition name="app-content">
-                <div suppressHydrationWarning>{children}</div>
+                {children}
               </ViewTransition>
             </div>
           </AppShell>
