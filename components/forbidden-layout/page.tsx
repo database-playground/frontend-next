@@ -12,7 +12,7 @@ export default async function ForbiddenLayout() {
     <div
       className={`
         flex min-h-svh flex-col items-center justify-center gap-6
-        bg-gradient-to-br from-red-50 via-white to-red-100 p-6
+        bg-linear-to-br from-red-50 via-white to-red-100 p-6
         md:p-10
       `}
     >

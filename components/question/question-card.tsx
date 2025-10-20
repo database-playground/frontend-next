@@ -3,6 +3,7 @@ import { type FragmentType, graphql, readFragment } from "@/gql";
 import { getQuestionSolvedStatus } from "@/lib/solved-status";
 import { SwordIcon } from "lucide-react";
 import Link from "next/link";
+import { Remark } from "react-remark";
 import DifficultyBadge from "./difficulty-badge";
 import SolvedStatusBadge from "./solved-status-badge";
 
@@ -33,7 +34,9 @@ export default function QuestionCard({
       <div className="flex-1 space-y-3 bg-white p-4">
         <div>
           <h2 className="font-bold tracking-wider">{question.title}</h2>
-          <p className="tracking-wide">{descriptionFirstLine}</p>
+          <p className="tracking-wide">
+            <Remark>{descriptionFirstLine}</Remark>
+          </p>
         </div>
         <div className="flex flex-wrap gap-1">
           <SolvedStatusBadge solvedStatus={solvedStatus} />

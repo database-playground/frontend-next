@@ -19,8 +19,8 @@ export default async function LoginPage() {
   return (
     <div
       className={`
-        flex min-h-svh items-center justify-center bg-gradient-to-br
-        from-blue-100 via-white to-blue-50 px-8 py-6
+        flex min-h-svh items-center justify-center bg-linear-to-br from-blue-100
+        via-white to-blue-50 px-8 py-6
         lg:px-14 lg:py-8
       `}
     >
