@@ -32,6 +32,7 @@ export default function SQLEditor({
     const currentCode = codeMirrorRef.current?.view?.state.doc.toString() ?? "";
     const formattedCode = formatDialect(currentCode, {
       dialect: formatterSqlite,
+      keywordCase: "upper",
     });
 
     codeMirrorRef.current?.view?.dispatch({
