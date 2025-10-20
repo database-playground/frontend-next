@@ -29,6 +29,15 @@ export async function getDoYouKnow() {
     <p key="do-you-knows-wrong-no-penalty">
       寫錯不會扣點數，錯誤次數也不會列入排名<br />可以盡量在平台上練習！
     </p>,
+    <p key="do-you-knows-chat-with-ai-assistant">
+      寫題目卡關了？可以試試看點右下角的「AI 助手」<br/>讓 AI 助教幫你解答
+    </p>,
+    <p key="do-you-knows-discord-community">
+      歡迎加入練功坊的 Discord 社群，<br/>與開發者和其他使用者直接交流！
+    </p>,
+    <p key="do-you-knows-github-contribution">
+      向 GitHub 貢獻程式碼，每次都能<br/>直接獲得 200 - 700 點不等的點數！
+    </p>,
   ];
 
   const randomKnow = knowsList[Math.floor(Math.random() * knowsList.length)];
