@@ -34,6 +34,10 @@ export default function QuestionCard({
   const descriptionFirstLine = question.description.split("\n")[0];
   const solvedStatus = getQuestionSolvedStatus(question);
 
+  const passedRate = question.statistics.attemptedUsers
+    ? question.statistics.passedUsers / question.statistics.attemptedUsers
+    : 0;
+
   return (
     <article className="flex overflow-hidden rounded">
       {/* Question Body */}
@@ -49,7 +53,7 @@ export default function QuestionCard({
           <DifficultyBadge difficulty={question.difficulty} />
           <Badge>{question.category}</Badge>
           <Badge variant="outline">
-            通過率 <ColoredRate rate={question.statistics.passedUsers / question.statistics.attemptedUsers || 0} />
+            通過率 <ColoredRate rate={passedRate} />
           </Badge>
         </div>
       </div>

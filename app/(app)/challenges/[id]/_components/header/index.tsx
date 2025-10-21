@@ -33,8 +33,10 @@ export default function Header({ id }: { id: string }) {
   const { data } = useSuspenseQuery(QUESTION_HEADER, { variables: { id } });
   const { title, difficulty, category, statistics } = data.question;
 
-  const passedRate = statistics.passedUsers / statistics.attemptedUsers || 0;
-  const correctSubmissionRate = statistics.correctSubmissionCount / statistics.submissionCount || 0;
+  const passedRate = statistics.attemptedUsers ? statistics.passedUsers / statistics.attemptedUsers : 0;
+  const correctSubmissionRate = statistics.submissionCount
+    ? statistics.correctSubmissionCount / statistics.submissionCount
+    : 0;
 
   const solvedStatus = getQuestionSolvedStatus(data.question);
 
