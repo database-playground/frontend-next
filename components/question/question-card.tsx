@@ -4,6 +4,7 @@ import { getQuestionSolvedStatus } from "@/lib/solved-status";
 import { SwordIcon } from "lucide-react";
 import Link from "next/link";
 import { Remark } from "react-remark";
+import ColoredRate from "../colored-rate";
 import DifficultyBadge from "./difficulty-badge";
 import SolvedStatusBadge from "./solved-status-badge";
 
@@ -14,6 +15,11 @@ const QUESTION_CARD_FRAGMENT = graphql(`
     description
     difficulty
     category
+
+    statistics {
+      passedUsers
+      attemptedUsers
+    }
 
     ...QuestionSolvedStatus
   }
@@ -42,6 +48,9 @@ export default function QuestionCard({
           <SolvedStatusBadge solvedStatus={solvedStatus} />
           <DifficultyBadge difficulty={question.difficulty} />
           <Badge>{question.category}</Badge>
+          <Badge variant="outline">
+            通過率 <ColoredRate rate={question.statistics.passedUsers / question.statistics.attemptedUsers || 0} />
+          </Badge>
         </div>
       </div>
 
