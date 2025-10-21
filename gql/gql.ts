@@ -14,7 +14,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      statistics {\n        passedUsers\n        attemptedUsers\n        correctSubmissionCount\n        submissionCount\n      }\n\n      ...QuestionSolvedStatus\n    }\n  }\n": typeof types.QuestionHeaderDocument,
     "\n  query CompareAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": typeof types.CompareAnswerDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
     "\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n": typeof types.DatabaseRelationshipDocument,
@@ -40,12 +40,12 @@ type Documents = {
     "\n  fragment QuestionInfoFragment on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n": typeof types.QuestionInfoFragmentFragmentDoc,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        submittedCode\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": typeof types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": typeof types.QuestionSchemaDocument,
-    "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n": typeof types.QuestionCardFragmentDoc,
+    "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    statistics {\n      passedUsers\n      attemptedUsers\n    }\n\n    ...QuestionSolvedStatus\n  }\n": typeof types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        solved\n        attempted\n    }\n": typeof types.QuestionSolvedStatusFragmentDoc,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
 };
 const documents: Documents = {
-    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
+    "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      statistics {\n        passedUsers\n        attemptedUsers\n        correctSubmissionCount\n        submissionCount\n      }\n\n      ...QuestionSolvedStatus\n    }\n  }\n": types.QuestionHeaderDocument,
     "\n  query CompareAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n      lastSubmission {\n        id\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": types.CompareAnswerDocument,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
     "\n  query DatabaseRelationship($id: ID!) {\n    question(id: $id) {\n      database {\n        id\n        slug\n        relationFigure\n      }\n    }\n  }\n": types.DatabaseRelationshipDocument,
@@ -71,7 +71,7 @@ const documents: Documents = {
     "\n  fragment QuestionInfoFragment on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n": types.QuestionInfoFragmentFragmentDoc,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        submittedCode\n        status\n        queryResult {\n          columns\n          rows\n        }\n        error\n      }\n    }\n  }\n": types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": types.QuestionSchemaDocument,
-    "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n": types.QuestionCardFragmentDoc,
+    "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    statistics {\n      passedUsers\n      attemptedUsers\n    }\n\n    ...QuestionSolvedStatus\n  }\n": types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        solved\n        attempted\n    }\n": types.QuestionSolvedStatusFragmentDoc,
     "\n  query BasicUserInfo {\n    me {\n      id\n      name\n      email\n      avatar\n\n      group {\n        name\n      }\n    }\n  }\n": types.BasicUserInfoDocument,
 };
@@ -93,7 +93,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
+export function graphql(source: "\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      statistics {\n        passedUsers\n        attemptedUsers\n        correctSubmissionCount\n        submissionCount\n      }\n\n      ...QuestionSolvedStatus\n    }\n  }\n"): (typeof documents)["\n  query QuestionHeader($id: ID!) {\n    question(id: $id) {\n      id\n      title\n      difficulty\n      category\n\n      statistics {\n        passedUsers\n        attemptedUsers\n        correctSubmissionCount\n        submissionCount\n      }\n\n      ...QuestionSolvedStatus\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -197,7 +197,7 @@ export function graphql(source: "\n  query QuestionSchema($id: ID!) {\n    quest
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n"): (typeof documents)["\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    ...QuestionSolvedStatus\n  }\n"];
+export function graphql(source: "\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    statistics {\n      passedUsers\n      attemptedUsers\n    }\n\n    ...QuestionSolvedStatus\n  }\n"): (typeof documents)["\n  fragment QuestionCard on Question {\n    id\n    title\n    description\n    difficulty\n    category\n\n    statistics {\n      passedUsers\n      attemptedUsers\n    }\n\n    ...QuestionSolvedStatus\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
