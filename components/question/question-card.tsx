@@ -34,9 +34,9 @@ export default function QuestionCard({
       <div className="flex-1 space-y-3 bg-white p-4">
         <div>
           <h2 className="font-bold tracking-wider">{question.title}</h2>
-          <p className="tracking-wide">
+          <div className="tracking-wide">
             <Remark>{descriptionFirstLine}</Remark>
-          </p>
+          </div>
         </div>
         <div className="flex flex-wrap gap-1">
           <SolvedStatusBadge solvedStatus={solvedStatus} />

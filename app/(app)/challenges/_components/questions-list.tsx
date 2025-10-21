@@ -41,6 +41,7 @@ export default function QuestionsList() {
       QuestionDifficulty.Hard,
       QuestionDifficulty.Unspecified,
     ],
+    categories: [],
   });
 
   const deferredSearch = useDebouncedValue(search, 200);
@@ -54,12 +55,10 @@ export default function QuestionsList() {
         {
           descriptionContainsFold: deferredSearch,
         },
-        {
-          categoryContainsFold: deferredSearch,
-        },
       ]
       : undefined,
-    difficultyIn: tags.difficulty.length > 0 ? tags.difficulty : undefined,
+    difficultyIn: tags.difficulty || undefined,
+    categoryIn: tags.categories || undefined,
   };
 
   return (
