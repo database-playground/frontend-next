@@ -24,6 +24,7 @@ type Documents = {
     "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": typeof types.SqlEditorContextDocument,
     "\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n": typeof types.SubmissionHistoryDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": typeof types.DatabaseStructureFragmentDoc,
+    "\n  query TagFilterSection {\n    questionCategories\n  }\n": typeof types.TagFilterSectionDocument,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": typeof types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": typeof types.ListQuestionsDocument,
     "\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n": typeof types.MaterialsSchemaCardFragmentDoc,
@@ -54,6 +55,7 @@ const documents: Documents = {
     "\n  query SqlEditorContext($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        ...DatabaseStructure\n      }\n      lastSubmission {\n        id\n        submittedCode\n      }\n    }\n  }\n": types.SqlEditorContextDocument,
     "\n  query SubmissionHistory($id: ID!) {\n    question(id: $id) {\n      id\n      userSubmissions {\n        id\n        status\n        submittedCode\n        submittedAt\n      }\n    }\n  }\n": types.SubmissionHistoryDocument,
     "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n": types.DatabaseStructureFragmentDoc,
+    "\n  query TagFilterSection {\n    questionCategories\n  }\n": types.TagFilterSectionDocument,
     "\n  query ChallengeStatistics {\n    me {\n      id\n      submissionStatistics {\n        totalQuestions\n        solvedQuestions\n        attemptedQuestions\n      }\n    }\n  }\n": types.ChallengeStatisticsDocument,
     "\n  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {\n    questions(where: $where, first: 10, after: $after) {\n      edges {\n        node {\n          id\n          ...QuestionCard\n          ...QuestionSolvedStatus\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": types.ListQuestionsDocument,
     "\n  fragment MaterialsSchemaCard on Database {\n    id\n    slug\n    description\n  }\n": types.MaterialsSchemaCardFragmentDoc,
@@ -128,6 +130,10 @@ export function graphql(source: "\n  query SubmissionHistory($id: ID!) {\n    qu
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment DatabaseStructure on Database {\n    id\n    structure {\n      tables {\n        columns\n        name\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query TagFilterSection {\n    questionCategories\n  }\n"): (typeof documents)["\n  query TagFilterSection {\n    questionCategories\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
