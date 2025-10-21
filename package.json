@@ -51,7 +51,7 @@
     "lucide-react": "^0.546.0",
     "next": "16.0.0-canary.17",
     "next-themes": "^0.4.6",
-    "posthog-js": "^1.279.0",
+    "posthog-js": "1.278.0",
     "posthog-node": "^5.10.2",
     "react": "19.3.0-canary-71b3a03c-20251021",
     "react-codemirror-merge": "^4.25.2",
