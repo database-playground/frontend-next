@@ -1,7 +1,7 @@
 "use client";
 
 import { useDebouncedValue } from "foxact/use-debounced-value";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useTransition } from "react";
 import type { TagState } from "./filter/tag";
 
 import QuestionCard from "@/components/question/question-card";
@@ -93,6 +93,7 @@ export function ChallengeQuestionsList({
   where: QuestionWhereInput;
   solvedStatusContains: SolvedStatus[];
 }) {
+  const [isPending, startTransition] = useTransition();
   const { data, fetchMore } = useSuspenseQuery(LIST_QUESTIONS, {
     variables: { where },
   });
@@ -116,23 +117,27 @@ export function ChallengeQuestionsList({
       {data?.questions.pageInfo.hasNextPage && (
         <div className="flex w-full justify-center">
           <Button
-            onClick={() =>
-              fetchMore({
-                variables: {
-                  after: data?.questions.pageInfo.endCursor,
-                },
-                updateQuery(previousQueryResult, options) {
-                  return {
-                    questions: {
-                      edges: [
-                        ...(previousQueryResult.questions.edges || []),
-                        ...(options.fetchMoreResult.questions.edges || []),
-                      ],
-                      pageInfo: options.fetchMoreResult.questions.pageInfo,
-                    },
-                  };
-                },
-              })}
+            disabled={isPending}
+            onClick={() => {
+              startTransition(() => {
+                fetchMore({
+                  variables: {
+                    after: data?.questions.pageInfo.endCursor,
+                  },
+                  updateQuery(previousQueryResult, options) {
+                    return {
+                      questions: {
+                        edges: [
+                          ...(previousQueryResult.questions.edges || []),
+                          ...(options.fetchMoreResult.questions.edges || []),
+                        ],
+                        pageInfo: options.fetchMoreResult.questions.pageInfo,
+                      },
+                    };
+                  },
+                });
+              });
+            }}
           >
             載入更多
           </Button>
