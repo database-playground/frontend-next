@@ -27,7 +27,7 @@ function NavItem({ icon, label, active = false }: NavItemProps) {
         active && "bg-primary text-primary-foreground",
       )}
     >
-      <div className="h-4 w-4 flex-shrink-0">{icon}</div>
+      <div className="h-4 w-4 shrink-0">{icon}</div>
       <span className="whitespace-nowrap">{label}</span>
     </Button>
   );
@@ -45,7 +45,7 @@ function UserMenu() {
         >
           <AppAvatar src={user?.avatar} name={user?.name} className="h-4 w-4" />
           <span className="whitespace-nowrap">{user?.name}</span>
-          <ChevronDown className="h-4 w-4 flex-shrink-0" />
+          <ChevronDown className="h-4 w-4 shrink-0" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -86,14 +86,11 @@ export default function AppNavbar({ path }: { path: string }) {
               `}
             >
               {navItems.map((item) => (
-                <Link href={item.pathPrefix} key={item.label}>
-                  <NavItem
-                    key={item.label}
-                    icon={item.icon}
-                    label={item.label}
-                    active={navItemLabel === item.label}
-                  />
-                </Link>
+                <NavItemLink
+                  key={item.label}
+                  item={item}
+                  active={navItemLabel === item.label}
+                />
               ))}
             </div>
           </div>
@@ -136,18 +133,12 @@ export default function AppNavbar({ path }: { path: string }) {
             <div className="flex flex-col space-y-1 px-6 py-4">
               {/* Mobile Navigation Items */}
               {navItems.map((item) => (
-                <Link
-                  href={item.pathPrefix}
+                <NavItemLink
                   key={item.label}
+                  item={item}
+                  active={navItemLabel === item.label}
                   onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <NavItem
-                    key={item.label}
-                    icon={item.icon}
-                    label={item.label}
-                    active={navItemLabel === item.label}
-                  />
-                </Link>
+                />
               ))}
 
               {/* Mobile User Menu */}
@@ -164,11 +155,20 @@ export default function AppNavbar({ path }: { path: string }) {
   );
 }
 
-interface NavItem {
+interface BaseNavItem {
   icon: React.ReactNode;
   label: string;
+}
+
+interface InternalNavItem extends BaseNavItem {
   pathPrefix: string;
 }
+
+interface ExternalNavItem extends BaseNavItem {
+  externalLink: string;
+}
+
+type NavItem = InternalNavItem | ExternalNavItem;
 
 const navItems: NavItem[] = [
   {
@@ -182,23 +182,47 @@ const navItems: NavItem[] = [
     pathPrefix: "/challenges",
   },
   {
-    icon: <MessageSquare className="h-full w-full" />,
-    label: "經驗分享",
-    pathPrefix: "/comments",
-  },
-  {
     icon: <BookOpen className="h-full w-full" />,
     label: "補充資料",
     pathPrefix: "/materials",
+  },
+  {
+    icon: <MessageSquare className="h-full w-full" />,
+    label: "意見分享",
+    externalLink: "https://community.dbplay.app/discord",
   },
 ];
 
 function getActiveNavItemLabel(path: string): string | null {
   for (const item of navItems) {
-    if (path.startsWith(item.pathPrefix)) {
+    if ("pathPrefix" in item && path.startsWith(item.pathPrefix)) {
       return item.label;
     }
   }
 
   return null;
+}
+
+function NavItemLink({ item, active, onClick }: { item: NavItem; active?: boolean; onClick?: () => void }) {
+  if ("pathPrefix" in item) {
+    return (
+      <Link href={item.pathPrefix} onClick={onClick}>
+        <NavItem
+          icon={item.icon}
+          label={item.label}
+          active={active}
+        />
+      </Link>
+    );
+  }
+
+  return (
+    <a href={item.externalLink} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+      <NavItem
+        icon={item.icon}
+        label={item.label}
+        active={active}
+      />
+    </a>
+  );
 }
