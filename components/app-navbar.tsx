@@ -86,14 +86,11 @@ export default function AppNavbar({ path }: { path: string }) {
               `}
             >
               {navItems.map((item) => (
-                <Link href={"pathPrefix" in item ? item.pathPrefix : item.externalLink} key={item.label}>
-                  <NavItem
-                    key={item.label}
-                    icon={item.icon}
-                    label={item.label}
-                    active={navItemLabel === item.label}
-                  />
-                </Link>
+                <NavItemLink
+                  key={item.label}
+                  item={item}
+                  active={navItemLabel === item.label}
+                />
               ))}
             </div>
           </div>
@@ -136,18 +133,12 @@ export default function AppNavbar({ path }: { path: string }) {
             <div className="flex flex-col space-y-1 px-6 py-4">
               {/* Mobile Navigation Items */}
               {navItems.map((item) => (
-                <Link
-                  href={"pathPrefix" in item ? item.pathPrefix : item.externalLink}
+                <NavItemLink
                   key={item.label}
+                  item={item}
+                  active={navItemLabel === item.label}
                   onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <NavItem
-                    key={item.label}
-                    icon={item.icon}
-                    label={item.label}
-                    active={navItemLabel === item.label}
-                  />
-                </Link>
+                />
               ))}
 
               {/* Mobile User Menu */}
@@ -210,4 +201,28 @@ function getActiveNavItemLabel(path: string): string | null {
   }
 
   return null;
+}
+
+function NavItemLink({ item, active, onClick }: { item: NavItem; active?: boolean; onClick?: () => void }) {
+  if ("pathPrefix" in item) {
+    return (
+      <Link href={item.pathPrefix} onClick={onClick}>
+        <NavItem
+          icon={item.icon}
+          label={item.label}
+          active={active}
+        />
+      </Link>
+    );
+  }
+
+  return (
+    <a href={item.externalLink} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+      <NavItem
+        icon={item.icon}
+        label={item.label}
+        active={active}
+      />
+    </a>
+  );
 }
