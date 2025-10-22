@@ -21,7 +21,7 @@ export default function PointCalculateRules() {
                 每天登入可以獲得 <strong>20 點</strong>。
               </li>
               <li>
-                美洲登入可以獲得 <strong>50 點</strong>。
+                每週登入可以獲得 <strong>50 點</strong>。
               </li>
             </ul>
           </div>
