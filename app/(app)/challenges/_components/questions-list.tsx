@@ -11,6 +11,7 @@ import { graphql } from "@/gql";
 import { QuestionDifficulty, type QuestionWhereInput } from "@/gql/graphql";
 import { getQuestionSolvedStatus, type SolvedStatus } from "@/lib/solved-status";
 import { useSuspenseQuery } from "@apollo/client/react";
+import { useLocalStorage } from "foxact/use-local-storage";
 import FilterSection from "./filter";
 
 export const LIST_QUESTIONS = graphql(`
@@ -33,7 +34,7 @@ export const LIST_QUESTIONS = graphql(`
 
 export default function QuestionsList() {
   const [search, setSearch] = useState<string>("");
-  const [tags, setTags] = useState<TagState>({
+  const [tags, setTags] = useLocalStorage<TagState>("question-list:tags", {
     solvedStatus: ["solved", "unsolved", "not-tried"],
     difficulty: [
       QuestionDifficulty.Easy,
