@@ -108,9 +108,9 @@ export async function POST(req: Request) {
 
   const prunedMessages = pruneMessages({
     messages: convertToModelMessages(messages),
-    reasoning: 'none',
-    toolCalls: 'before-last-message',
-    emptyMessages: 'remove',
+    reasoning: "none",
+    toolCalls: "before-last-message",
+    emptyMessages: "remove",
   });
 
   const result = streamText({
