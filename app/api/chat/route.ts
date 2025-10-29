@@ -99,7 +99,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const model = anthropic("claude-sonnet-4-5");
+  const model = anthropic("claude-haiku-4-5");
   const posthogClient = await createPostHogClient();
 
   const tracedModel = withTracing(model, posthogClient, {
