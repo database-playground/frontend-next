@@ -4,7 +4,7 @@ import { getAuthorizedUserInfo } from "@/lib/auth.rsc";
 import { createPostHogClient } from "@/lib/posthog.rsc";
 import { anthropic, type AnthropicProviderOptions } from "@ai-sdk/anthropic";
 import { withTracing } from "@posthog/ai";
-import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
+import { convertToModelMessages, pruneMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -106,11 +106,18 @@ export async function POST(req: Request) {
     posthogDistinctId: userInfo.sub,
   });
 
+  const prunedMessages = pruneMessages({
+    messages: convertToModelMessages(messages),
+    reasoning: 'none',
+    toolCalls: 'before-last-message',
+    emptyMessages: 'remove',
+  });
+
   const result = streamText({
     model: tracedModel,
     providerOptions: {
       anthropic: {
-        thinking: { type: "enabled", budgetTokens: 12000 },
+        thinking: { type: "enabled", budgetTokens: 2000 },
       } satisfies AnthropicProviderOptions,
     },
     messages: [
@@ -134,7 +141,7 @@ export async function POST(req: Request) {
           } satisfies AnthropicProviderOptions,
         },
       },
-      ...convertToModelMessages(messages),
+      ...prunedMessages,
     ],
     stopWhen: stepCountIs(10),
     tools: {
