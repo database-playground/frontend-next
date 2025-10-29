@@ -8,8 +8,6 @@ import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage }
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export const maxDuration = 30;
-
 const QUESTION_INFO = graphql(`
   query QuestionInfo($id: ID!) {
     question(id: $id) {
