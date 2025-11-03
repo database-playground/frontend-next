@@ -1,4 +1,5 @@
 import { Logo } from "@/components/logo";
+import { ENABLE_SOCIAL_PLATFORM } from "@/lib/features";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -59,13 +60,17 @@ export default async function LoginPage() {
               <UpstreamStatus />
             </Suspense>
 
-            <Separator />
+            {ENABLE_SOCIAL_PLATFORM && (
+              <>
+                <Separator />
 
-            <GithubLink />
+                <GithubLink />
 
-            <Separator />
+                <Separator />
 
-            <DiscordLink />
+                <DiscordLink />
+              </>
+            )}
           </div>
         </div>
       </div>

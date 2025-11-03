@@ -1,3 +1,6 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ENABLE_STATISTICS_PAGE } from "@/lib/features";
+import { AlertCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Board from "./_components/board";
@@ -10,6 +13,19 @@ export const metadata: Metadata = {
 };
 
 export default function StatisticsPage() {
+  if (!ENABLE_STATISTICS_PAGE) {
+    return (
+      <Alert>
+        <AlertCircle />
+        <AlertTitle>系統管理員停用了「統計資料」頁面。</AlertTitle>
+        <AlertDescription>
+          如果您需要統計資料，請聯絡系統管理員開啟。<br />
+          如果您是系統管理員：請將環境變數中 NEXT_PUBLIC_FEATURE_STATISTICS_PAGE 的否定值改為 true。
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
     <div>
       <Board />
