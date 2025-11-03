@@ -2,6 +2,7 @@ import AppAvatar from "@/components/avatar";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import useUser from "@/hooks/use-user";
+import { ENABLE_SOCIAL_PLATFORM, ENABLE_STATISTICS_PAGE } from "@/lib/features";
 import { cn } from "@/lib/utils";
 import { BarChart3, BookOpen, ChevronDown, Menu, MessageSquare, Swords, X } from "lucide-react";
 import Link from "next/link";
@@ -171,11 +172,13 @@ interface ExternalNavItem extends BaseNavItem {
 type NavItem = InternalNavItem | ExternalNavItem;
 
 const navItems: NavItem[] = [
-  {
-    icon: <BarChart3 className="h-full w-full" />,
-    label: "統計資料",
-    pathPrefix: "/statistics",
-  },
+  ENABLE_STATISTICS_PAGE
+    ? {
+      icon: <BarChart3 className="h-full w-full" />,
+      label: "統計資料",
+      pathPrefix: "/statistics",
+    }
+    : undefined,
   {
     icon: <Swords className="h-full w-full" />,
     label: "挑戰題目",
@@ -186,12 +189,14 @@ const navItems: NavItem[] = [
     label: "補充資料",
     pathPrefix: "/materials",
   },
-  {
-    icon: <MessageSquare className="h-full w-full" />,
-    label: "意見分享",
-    externalLink: "https://community.dbplay.app/discord",
-  },
-];
+  ENABLE_SOCIAL_PLATFORM
+    ? {
+      icon: <MessageSquare className="h-full w-full" />,
+      label: "意見分享",
+      externalLink: "https://community.dbplay.app/discord",
+    }
+    : undefined,
+].filter((item) => item !== undefined);
 
 function getActiveNavItemLabel(path: string): string | null {
   for (const item of navItems) {
