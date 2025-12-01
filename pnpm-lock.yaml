@@ -14,8 +14,8 @@ importers:
   .:
     dependencies:
       '@ai-sdk/anthropic':
-        specifier: ^2.0.50
-        version: 2.0.50(zod@4.1.13)
+        specifier: ^2.0.52
+        version: 2.0.52(zod@4.1.13)
       '@ai-sdk/react':
         specifier: ^2.0.104
         version: 2.0.104(react@19.3.0-canary-fd524fe0-20251121)(zod@4.1.13)
@@ -241,8 +241,8 @@ packages:
       graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
       typescript: ^5.0.0
 
-  '@ai-sdk/anthropic@2.0.50':
-    resolution: {integrity: sha512-21PaHfoLmouOXXNINTsZJsMw+wE5oLR2He/1kq/sKokTVKyq7ObGT1LDk6ahwxaz/GoaNaGankMh+EgVcdv2Cw==}
+  '@ai-sdk/anthropic@2.0.52':
+    resolution: {integrity: sha512-mUQbEyK2L0Xh977VBtrrsIfdKRFHBATOcJJTcCuBq7lgeNgU5kq0K1XgdiqejICgNHiYG1scNXcm5Hje/BYkXg==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5661,7 +5661,7 @@ snapshots:
       graphql: 16.12.0
       typescript: 5.9.3
 
-  '@ai-sdk/anthropic@2.0.50(zod@4.1.13)':
+  '@ai-sdk/anthropic@2.0.52(zod@4.1.13)':
     dependencies:
       '@ai-sdk/provider': 2.0.0
       '@ai-sdk/provider-utils': 3.0.18(zod@4.1.13)
