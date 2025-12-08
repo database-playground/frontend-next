@@ -58,7 +58,7 @@
     "posthog-node": "^5.17.2",
     "react": "19.3.0-canary-378973b3-20251205",
     "react-codemirror-merge": "^4.25.3",
-    "react-dom": "19.3.0-canary-378973b3-20251205",
+    "react-dom": "19.3.0-canary-52684925-20251110",
     "react-hook-form": "^7.68.0",
     "react-remark": "^2.1.0",
     "remark": "^15.0.1",
