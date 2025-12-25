@@ -19,10 +19,10 @@ const QUESTION_INFO = graphql(`
 const QUESTION_FOR_PROMPT = graphql(`
   fragment QuestionForPrompt on Question {
     id
-    title
+    category
     description
     difficulty
-    category
+    title
   }
 `);
 

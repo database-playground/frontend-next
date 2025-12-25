@@ -37,7 +37,7 @@ type Documents = {
     "\n  fragment PointHistoryLine on Point {\n    id\n    description\n    points\n  }\n": typeof types.PointHistoryLineFragmentDoc,
     "\n  query ResolvedQuestions {\n    me {\n      id\n      submissionStatistics {\n        solvedQuestions\n        totalQuestions\n      }\n    }\n  }\n": typeof types.ResolvedQuestionsDocument,
     "\n  query QuestionInfo($id: ID!) {\n    question(id: $id) {\n      ...QuestionForPrompt\n    }\n  }\n": typeof types.QuestionInfoDocument,
-    "\n  fragment QuestionForPrompt on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n": typeof types.QuestionForPromptFragmentDoc,
+    "\n  fragment QuestionForPrompt on Question {\n    id\n    category\n    description\n    difficulty\n    title\n  }\n": typeof types.QuestionForPromptFragmentDoc,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        error\n        status\n        submittedCode\n        queryResult {\n          columns\n          rows\n        }\n      }\n    }\n  }\n": typeof types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": typeof types.QuestionSchemaDocument,
@@ -69,7 +69,7 @@ const documents: Documents = {
     "\n  fragment PointHistoryLine on Point {\n    id\n    description\n    points\n  }\n": types.PointHistoryLineFragmentDoc,
     "\n  query ResolvedQuestions {\n    me {\n      id\n      submissionStatistics {\n        solvedQuestions\n        totalQuestions\n      }\n    }\n  }\n": types.ResolvedQuestionsDocument,
     "\n  query QuestionInfo($id: ID!) {\n    question(id: $id) {\n      ...QuestionForPrompt\n    }\n  }\n": types.QuestionInfoDocument,
-    "\n  fragment QuestionForPrompt on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n": types.QuestionForPromptFragmentDoc,
+    "\n  fragment QuestionForPrompt on Question {\n    id\n    category\n    description\n    difficulty\n    title\n  }\n": types.QuestionForPromptFragmentDoc,
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        error\n        status\n        submittedCode\n        queryResult {\n          columns\n          rows\n        }\n      }\n    }\n  }\n": types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": types.QuestionSchemaDocument,
@@ -187,7 +187,7 @@ export function graphql(source: "\n  query QuestionInfo($id: ID!) {\n    questio
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment QuestionForPrompt on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n"): (typeof documents)["\n  fragment QuestionForPrompt on Question {\n    id\n    title\n    description\n    difficulty\n    category\n  }\n"];
+export function graphql(source: "\n  fragment QuestionForPrompt on Question {\n    id\n    category\n    description\n    difficulty\n    title\n  }\n"): (typeof documents)["\n  fragment QuestionForPrompt on Question {\n    id\n    category\n    description\n    difficulty\n    title\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
