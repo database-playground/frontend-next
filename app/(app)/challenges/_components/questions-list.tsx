@@ -15,18 +15,18 @@ import { useLocalStorage } from "foxact/use-local-storage";
 import FilterSection from "./filter";
 
 export const LIST_QUESTIONS = graphql(`
-  query ListQuestions($where: QuestionWhereInput, $after: Cursor) {
-    questions(where: $where, first: 10, after: $after) {
+  query ListQuestions($after: Cursor, $where: QuestionWhereInput) {
+    questions(after: $after, first: 10, where: $where) {
       edges {
         node {
-          id
           ...QuestionCard
           ...QuestionSolvedStatus
+          id
         }
       }
       pageInfo {
-        hasNextPage
         endCursor
+        hasNextPage
       }
     }
   }

@@ -17,18 +17,18 @@ export const COMPARE_ANSWER_QUERY = graphql(`
   query CompareAnswer($id: ID!) {
     question(id: $id) {
       id
-      referenceAnswerResult {
-        columns
-        rows
-      }
       lastSubmission {
         id
+        error
         status
         queryResult {
           columns
           rows
         }
-        error
+      }
+      referenceAnswerResult {
+        columns
+        rows
       }
     }
   }

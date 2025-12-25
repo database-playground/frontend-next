@@ -9,8 +9,8 @@ import { toast } from "sonner";
 const MATERIAL_SCHEMA_CARD = graphql(`
   fragment MaterialsSchemaCard on Database {
     id
-    slug
     description
+    slug
   }
 `);
 

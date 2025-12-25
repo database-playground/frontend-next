@@ -7,8 +7,8 @@ const SQL_EDITOR_CONTEXT = graphql(`
     question(id: $id) {
       id
       database {
-        id
         ...DatabaseStructure
+        id
       }
       lastSubmission {
         id

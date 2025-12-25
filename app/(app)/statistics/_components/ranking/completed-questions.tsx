@@ -9,10 +9,11 @@ import { ScoreDiff } from "./score";
 const COMPLETED_QUESTIONS_RANKING = graphql(`
   query CompletedQuestionRanking($period: RankingPeriod!) {
     ranking(
-      first: 10
       filter: { order: DESC, by: COMPLETED_QUESTIONS, period: $period }
+      first: 10
     ) {
       edges {
+        score
         node {
           id
           name
@@ -20,7 +21,6 @@ const COMPLETED_QUESTIONS_RANKING = graphql(`
             solvedQuestions
           }
         }
-        score
       }
     }
   }

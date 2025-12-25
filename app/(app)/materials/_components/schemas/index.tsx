@@ -8,8 +8,8 @@ import { MaterialsSchemaCard } from "./card";
 const MATERIALS_SCHEMA = graphql(`
   query MaterialsSchema {
     databases {
-      id
       ...MaterialsSchemaCard
+      id
     }
   }
 `);

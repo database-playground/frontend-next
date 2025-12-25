@@ -8,14 +8,14 @@ import { ScoreDiff } from "./score";
 
 const POINTS_RANKING = graphql(`
   query PointsRanking($period: RankingPeriod!) {
-    ranking(first: 10, filter: { order: DESC, by: POINTS, period: $period }) {
+    ranking(filter: { order: DESC, by: POINTS, period: $period }, first: 10) {
       edges {
+        score
         node {
           id
           name
           totalPoints
         }
-        score
       }
     }
   }

@@ -12,19 +12,19 @@ import { useSuspenseQuery } from "@apollo/client/react";
 export const QUESTION_HEADER = graphql(`
   query QuestionHeader($id: ID!) {
     question(id: $id) {
+      ...QuestionSolvedStatus
       id
-      title
-      difficulty
       category
+      difficulty
+
+      title
 
       statistics {
-        passedUsers
         attemptedUsers
         correctSubmissionCount
+        passedUsers
         submissionCount
       }
-
-      ...QuestionSolvedStatus
     }
   }
 `);
