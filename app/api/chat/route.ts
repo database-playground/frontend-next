@@ -11,18 +11,18 @@ import { z } from "zod";
 const QUESTION_INFO = graphql(`
   query QuestionInfo($id: ID!) {
     question(id: $id) {
-      ...QuestionInfoFragment
+      ...QuestionForPrompt
     }
   }
 `);
 
-const QUESTION_INFO_FRAGMENT = graphql(`
-  fragment QuestionInfoFragment on Question {
+const QUESTION_FOR_PROMPT = graphql(`
+  fragment QuestionForPrompt on Question {
     id
-    title
+    category
     description
     difficulty
-    category
+    title
   }
 `);
 
@@ -44,13 +44,13 @@ const USER_ANSWER_RESULT = graphql(`
       id
       lastSubmission {
         id
-        submittedCode
+        error
         status
+        submittedCode
         queryResult {
           columns
           rows
         }
-        error
       }
     }
   }
@@ -107,7 +107,7 @@ export async function POST(req: Request) {
   });
 
   const prunedMessages = pruneMessages({
-    messages: convertToModelMessages(messages),
+    messages: await convertToModelMessages(messages),
     reasoning: "none",
     toolCalls: "before-last-message",
     emptyMessages: "remove",
@@ -306,8 +306,8 @@ Step 5: 產生回應 (Generate Response)
 
 情境：`;
 
-export const contextSystemPrompt = (fragment: FragmentType<typeof QUESTION_INFO_FRAGMENT>) => {
-  const { title, description, difficulty, category } = readFragment(QUESTION_INFO_FRAGMENT, fragment);
+export const contextSystemPrompt = (fragment: FragmentType<typeof QUESTION_FOR_PROMPT>) => {
+  const { title, description, difficulty, category } = readFragment(QUESTION_FOR_PROMPT, fragment);
 
   const contextPrompt =
     `輸入資訊 (Input Information)：這個問題是「{{QUESTION_TITLE}}」，難度 {{QUESTION_DIFFICULTY}}，分類 {{QUESTION_CATEGORY}}

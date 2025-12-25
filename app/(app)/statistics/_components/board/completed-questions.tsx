@@ -9,8 +9,8 @@ const COMPLETED_QUESTIONS = graphql(`
     me {
       id
       submissionStatistics {
-        totalQuestions
         solvedQuestions
+        totalQuestions
       }
     }
   }

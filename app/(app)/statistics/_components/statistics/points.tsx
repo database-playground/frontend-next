@@ -12,8 +12,8 @@ const POINTS = graphql(`
       points(first: 5, orderBy: { field: GRANTED_AT, direction: DESC }) {
         edges {
           node {
+            ...PointHistoryLine
             id
-            ...PointFragment
           }
         }
       }
@@ -21,8 +21,9 @@ const POINTS = graphql(`
   }
 `);
 
-const POINT_FRAGMENT = graphql(`
-  fragment PointFragment on Point {
+const POINT_HISTORY_LINE = graphql(`
+  fragment PointHistoryLine on Point {
+    id
     description
     points
   }
@@ -49,9 +50,9 @@ export default function Points() {
 function PointHistoryLine({
   fragment,
 }: {
-  fragment: FragmentType<typeof POINT_FRAGMENT>;
+  fragment: FragmentType<typeof POINT_HISTORY_LINE>;
 }) {
-  const point = readFragment(POINT_FRAGMENT, fragment);
+  const point = readFragment(POINT_HISTORY_LINE, fragment);
   const symbol = point.points > 0 ? "+" : "-";
 
   return (

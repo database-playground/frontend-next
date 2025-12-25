@@ -10,18 +10,18 @@ import SolvedStatusBadge from "./solved-status-badge";
 
 const QUESTION_CARD_FRAGMENT = graphql(`
   fragment QuestionCard on Question {
+    ...QuestionSolvedStatus
     id
-    title
+    category
     description
     difficulty
-    category
+
+    title
 
     statistics {
-      passedUsers
       attemptedUsers
+      passedUsers
     }
-
-    ...QuestionSolvedStatus
   }
 `);
 

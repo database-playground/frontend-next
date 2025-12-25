@@ -6,8 +6,8 @@ export interface CorrectAnswerProps {
   id: string;
 }
 
-const CORRECT_ANSWER_QUERY = graphql(`
-  query CorrectAnswer($id: ID!) {
+const CHALLENGE_CORRECT_ANSWER_QUERY = graphql(`
+  query ChallengeCorrectAnswer($id: ID!) {
     question(id: $id) {
       id
       referenceAnswerResult {
@@ -19,7 +19,7 @@ const CORRECT_ANSWER_QUERY = graphql(`
 `);
 
 export default function CorrectAnswer({ id }: CorrectAnswerProps) {
-  const { data } = useSuspenseQuery(CORRECT_ANSWER_QUERY, {
+  const { data } = useSuspenseQuery(CHALLENGE_CORRECT_ANSWER_QUERY, {
     variables: { id },
   });
   const { columns, rows } = data.question.referenceAnswerResult;

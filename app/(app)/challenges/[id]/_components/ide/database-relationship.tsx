@@ -5,10 +5,11 @@ import Image from "next/image";
 export const DATABASE_RELATIONSHIP = graphql(`
   query DatabaseRelationship($id: ID!) {
     question(id: $id) {
+      id
       database {
         id
-        slug
         relationFigure
+        slug
       }
     }
   }

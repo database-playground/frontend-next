@@ -9,9 +9,9 @@ const CHALLENGE_STATISTICS = graphql(`
     me {
       id
       submissionStatistics {
-        totalQuestions
-        solvedQuestions
         attemptedQuestions
+        solvedQuestions
+        totalQuestions
       }
     }
   }

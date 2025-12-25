@@ -4,8 +4,9 @@ export type SolvedStatus = "solved" | "unsolved" | "not-tried";
 
 export const QUESTION_SOLVED_STATUS_FRAGMENT = graphql(`
     fragment QuestionSolvedStatus on Question {
-        solved
+        id
         attempted
+        solved
     }
 `);
 

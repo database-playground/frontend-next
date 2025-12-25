@@ -15,12 +15,12 @@ export const MY_ANSWER = graphql(`
       id
       lastSubmission {
         id
+        error
         status
         queryResult {
           columns
           rows
         }
-        error
       }
     }
   }

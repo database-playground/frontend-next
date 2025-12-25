@@ -15,8 +15,8 @@ export const SUBMISSION_HISTORY = graphql(`
       userSubmissions {
         id
         status
-        submittedCode
         submittedAt
+        submittedCode
       }
     }
   }
