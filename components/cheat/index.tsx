@@ -1,11 +1,11 @@
 "use client";
 
 import "devtools-detect";
+import { graphql, readFragment } from "@/gql";
+import { CHEAT_DETECTION } from "@/lib/features";
+import { useMutation, useSuspenseQuery } from "@apollo/client/react";
 import { useEffect } from "react";
 import CheatForbiddenLayout from "./cheat-overlay";
-import { graphql, readFragment } from "@/gql";
-import { useMutation, useSuspenseQuery } from "@apollo/client/react";
-import { CHEAT_DETECTION } from "@/lib/features";
 
 const CREATE_MY_CHEAT_RECORD = graphql(`
   mutation CreateMyCheatRecord($reason: String!) {
@@ -45,7 +45,7 @@ export default function CheatWrapper({ children }: React.PropsWithChildren) {
   const cheatReason = useCheatReason();
 
   useCheatDetector({
-    enable: CHEAT_DETECTION && !cheatReason
+    enable: CHEAT_DETECTION && !cheatReason,
   });
 
   if (cheatReason) {
@@ -73,9 +73,9 @@ export function useCheatDetector({ enable }: { enable?: boolean }) {
         return;
       }
       throttle = true;
-  
+
       await createMyCheatRecord({ variables: { reason } });
-  
+
       throttleTimeout = setTimeout(() => {
         throttle = false;
         throttleTimeout = null;
