@@ -70,7 +70,6 @@ export function useCheatDetector({ enable }: { enable?: boolean }) {
 
     const createRecord = async (reason: string) => {
       if (throttle) {
-        console.log("[throttled] reason:", reason);
         return;
       }
       throttle = true;
