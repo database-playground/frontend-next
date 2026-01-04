@@ -40,7 +40,7 @@ export default function CheatForbiddenLayout({
       </Link>
       <Card className="min-w-md">
         <CardHeader className="flex w-full flex-col items-center text-center">
-          <AlertTriangle className="mb-2 size-7 text-red-500" />
+          <AlertTriangle className="mb-2 size-7 text-red-500" aria-hidden />
           <CardTitle className="text-xl">您已經被系統判定為作弊</CardTitle>
           <CardDescription className="space-y-2">
             <p>

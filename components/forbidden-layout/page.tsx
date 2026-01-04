@@ -32,7 +32,7 @@ export default async function ForbiddenLayout() {
       </Link>
       <Card className="min-w-md">
         <CardHeader className="flex w-full flex-col items-center text-center">
-          <AlertTriangle className="mb-2 size-7 text-red-500" />
+          <AlertTriangle className="mb-2 size-7 text-red-500" aria-hidden />
           <CardTitle className="text-xl">無權開啟此頁面</CardTitle>
           <CardDescription>
             您的帳號尚未開通，無法使用系統。請聯絡管理員開通帳號。
