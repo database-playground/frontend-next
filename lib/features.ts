@@ -10,7 +10,7 @@ function requireExplicitlyDisabled(feature: string | undefined) {
 }
 
 /**
- * Return false if the feature is explicitly enabled; true otherwise.
+ * Return true if the feature is explicitly enabled; false otherwise.
  */
 function requireExplicitlyEnabled(feature: string | undefined) {
   return feature === "true" || feature === "1";
