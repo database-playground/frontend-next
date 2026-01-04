@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import CheatForbiddenLayout from "./cheat-overlay";
 import { graphql, readFragment } from "@/gql";
 import { useMutation, useSuspenseQuery } from "@apollo/client/react";
+import { CHEAT_DETECTION } from "@/lib/features";
 
 const CREATE_MY_CHEAT_RECORD = graphql(`
   mutation CreateMyCheatRecord($reason: String!) {
@@ -41,11 +42,10 @@ const GET_MY_CHEAT_RECORD = graphql(`
 const THROTTLE_TIME_MS = 1000;
 
 export default function CheatWrapper({ children }: React.PropsWithChildren) {
-  const cheatDetectionEnabled = process.env.NEXT_PUBLIC_FEATURE_CHEAT_DETECTION === "true";
   const cheatReason = useCheatReason();
 
   useCheatDetector({
-    enable: cheatDetectionEnabled && !cheatReason
+    enable: CHEAT_DETECTION && !cheatReason
   });
 
   if (cheatReason) {
