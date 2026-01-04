@@ -22,7 +22,7 @@ export default function DatabaseRelationship({ id }: { id: string }) {
   const { slug, relationFigure } = data.question.database;
 
   return (
-    <figure className="relative space-y-2">
+    <figure className="relative space-y-2" onContextMenu={(event) => event.preventDefault()}>
       {/* fixme: width and height are currently forced to 4:3 */}
       <Image
         unoptimized
