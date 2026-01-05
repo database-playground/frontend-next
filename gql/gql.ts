@@ -41,6 +41,9 @@ type Documents = {
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": typeof types.CorrectAnswerDocument,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        error\n        status\n        submittedCode\n        queryResult {\n          columns\n          rows\n        }\n      }\n    }\n  }\n": typeof types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": typeof types.QuestionSchemaDocument,
+    "\n  mutation CreateMyCheatRecord($reason: String!) {\n    createCheatRecord(reason: $reason) {\n      id\n    }\n  }\n": typeof types.CreateMyCheatRecordDocument,
+    "\n  fragment CheatRecordCheatReason on CheatRecord {\n    id\n    reason\n  }\n": typeof types.CheatRecordCheatReasonFragmentDoc,
+    "\n  query MyCheatRecords {\n    me {\n      id\n      cheating\n      cheatRecords(last: 1) {\n        edges {\n          node {\n            ...CheatRecordCheatReason\n            id\n          }\n        }\n      }\n    }\n  }\n": typeof types.MyCheatRecordsDocument,
     "\n  fragment QuestionCard on Question {\n    ...QuestionSolvedStatus\n    id\n    category\n    description\n    difficulty\n\n    title\n\n    statistics {\n      attemptedUsers\n      passedUsers\n    }\n  }\n": typeof types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        id\n        attempted\n        solved\n    }\n": typeof types.QuestionSolvedStatusFragmentDoc,
     "\n  query BasicUserInfo {\n    me {\n      id\n      avatar\n      email\n      name\n\n      group {\n        id\n        name\n      }\n    }\n  }\n": typeof types.BasicUserInfoDocument,
@@ -73,6 +76,9 @@ const documents: Documents = {
     "\n  query CorrectAnswer($id: ID!) {\n    question(id: $id) {\n      id\n      referenceAnswerResult {\n        columns\n        rows\n      }\n    }\n  }\n": types.CorrectAnswerDocument,
     "\n  query UserAnswerResult($id: ID!) {\n    question(id: $id) {\n      id\n      lastSubmission {\n        id\n        error\n        status\n        submittedCode\n        queryResult {\n          columns\n          rows\n        }\n      }\n    }\n  }\n": types.UserAnswerResultDocument,
     "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }": types.QuestionSchemaDocument,
+    "\n  mutation CreateMyCheatRecord($reason: String!) {\n    createCheatRecord(reason: $reason) {\n      id\n    }\n  }\n": types.CreateMyCheatRecordDocument,
+    "\n  fragment CheatRecordCheatReason on CheatRecord {\n    id\n    reason\n  }\n": types.CheatRecordCheatReasonFragmentDoc,
+    "\n  query MyCheatRecords {\n    me {\n      id\n      cheating\n      cheatRecords(last: 1) {\n        edges {\n          node {\n            ...CheatRecordCheatReason\n            id\n          }\n        }\n      }\n    }\n  }\n": types.MyCheatRecordsDocument,
     "\n  fragment QuestionCard on Question {\n    ...QuestionSolvedStatus\n    id\n    category\n    description\n    difficulty\n\n    title\n\n    statistics {\n      attemptedUsers\n      passedUsers\n    }\n  }\n": types.QuestionCardFragmentDoc,
     "\n    fragment QuestionSolvedStatus on Question {\n        id\n        attempted\n        solved\n    }\n": types.QuestionSolvedStatusFragmentDoc,
     "\n  query BasicUserInfo {\n    me {\n      id\n      avatar\n      email\n      name\n\n      group {\n        id\n        name\n      }\n    }\n  }\n": types.BasicUserInfoDocument,
@@ -200,6 +206,18 @@ export function graphql(source: "\n  query UserAnswerResult($id: ID!) {\n    que
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }"): (typeof documents)["\n  query QuestionSchema($id: ID!) {\n    question(id: $id) {\n      id\n      database {\n        id\n        structure {\n          tables {\n            columns\n            name\n          }\n        }\n      }\n    }\n  }"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateMyCheatRecord($reason: String!) {\n    createCheatRecord(reason: $reason) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateMyCheatRecord($reason: String!) {\n    createCheatRecord(reason: $reason) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment CheatRecordCheatReason on CheatRecord {\n    id\n    reason\n  }\n"): (typeof documents)["\n  fragment CheatRecordCheatReason on CheatRecord {\n    id\n    reason\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query MyCheatRecords {\n    me {\n      id\n      cheating\n      cheatRecords(last: 1) {\n        edges {\n          node {\n            ...CheatRecordCheatReason\n            id\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query MyCheatRecords {\n    me {\n      id\n      cheating\n      cheatRecords(last: 1) {\n        edges {\n          node {\n            ...CheatRecordCheatReason\n            id\n          }\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -31,7 +31,7 @@ export default async function NotFoundLayout() {
       </Link>
       <Card className="min-w-md">
         <CardHeader className="flex w-full flex-col items-center text-center">
-          <AlertTriangle className="mb-2 size-7 text-red-500" />
+          <AlertTriangle className="mb-2 size-7 text-red-500" aria-hidden />
           <CardTitle className="text-xl">找不到此頁面</CardTitle>
           <CardDescription>
             此頁面不存在或已經被移除。<br />請確認網址是否正確，或回到首頁。

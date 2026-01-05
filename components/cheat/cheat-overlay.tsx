@@ -1,13 +1,14 @@
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import AuthorizedApolloWrapper from "@/providers/use-apollo.rsc";
 import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
-import { UserInfo } from "./user-info";
 
-export default async function ForbiddenLayout() {
+export default function CheatForbiddenLayout({
+  cheatReason,
+}: {
+  cheatReason: string;
+}) {
   return (
     <div
       className={`
@@ -33,9 +34,14 @@ export default async function ForbiddenLayout() {
       <Card className="min-w-md">
         <CardHeader className="flex w-full flex-col items-center text-center">
           <AlertTriangle className="mb-2 size-7 text-red-500" aria-hidden />
-          <CardTitle className="text-xl">無權開啟此頁面</CardTitle>
-          <CardDescription>
-            您的帳號尚未開通，無法使用系統。請聯絡管理員開通帳號。
+          <CardTitle className="text-xl">您已經被系統判定為作弊</CardTitle>
+          <CardDescription className="space-y-2">
+            <p>
+              您的帳號已被系統判定為作弊，禁止繼續作答。作弊將會導致考試成績作廢，同時我們也會將您的記錄交給校方懲處。
+            </p>
+            <p>
+              如果您沒有作弊行為，請當場與監考官告知，我們判斷後可以解除這個狀態。
+            </p>
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-4">
@@ -46,11 +52,7 @@ export default async function ForbiddenLayout() {
         <CardFooter
           className={`justify-center text-center text-xs text-muted-foreground`}
         >
-          <Suspense>
-            <AuthorizedApolloWrapper>
-              <UserInfo />
-            </AuthorizedApolloWrapper>
-          </Suspense>
+          作弊原因：{cheatReason}
         </CardFooter>
       </Card>
     </div>
