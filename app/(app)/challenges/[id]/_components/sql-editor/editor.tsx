@@ -29,17 +29,23 @@ export default function SQLEditor({
       "sql-formatter"
     );
 
-    const currentCode = codeMirrorRef.current?.view?.state.doc.toString() ?? "";
-    const formattedCode = formatDialect(currentCode, {
-      dialect: formatterSqlite,
-      keywordCase: "upper",
-    });
-
-    codeMirrorRef.current?.view?.dispatch({
-      changes: { from: 0, to: currentCode.length, insert: formattedCode },
-    });
-
-    toast.success("成功格式化 SQL 程式碼");
+    try {
+      const currentCode = codeMirrorRef.current?.view?.state.doc.toString() ?? "";
+      const formattedCode = formatDialect(currentCode, {
+        dialect: formatterSqlite,
+        keywordCase: "upper",
+      });
+  
+      codeMirrorRef.current?.view?.dispatch({
+        changes: { from: 0, to: currentCode.length, insert: formattedCode },
+      });
+  
+      toast.success("成功格式化 SQL 程式碼");
+    } catch (error) {
+      toast.error("無法格式化 SQL 程式碼", {
+        description: error instanceof Error ? error.message : undefined,
+      });
+    }
   };
 
   return (
