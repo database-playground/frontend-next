@@ -18,7 +18,7 @@ export default function QuestionDescription({ id }: { id: string }) {
   const { description } = data.question;
 
   return (
-    <div className="prose leading-6 tracking-wide text-foreground">
+    <div className="prose leading-6 tracking-wide text-foreground select-none">
       <Remark>{description}</Remark>
     </div>
   );

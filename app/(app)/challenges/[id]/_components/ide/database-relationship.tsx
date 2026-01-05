@@ -22,7 +22,7 @@ export default function DatabaseRelationship({ id }: { id: string }) {
   const { slug, relationFigure } = data.question.database;
 
   return (
-    <figure className="relative space-y-2">
+    <figure className="relative space-y-2" onContextMenu={(event) => event.preventDefault()}>
       {/* fixme: width and height are currently forced to 4:3 */}
       <Image
         unoptimized
@@ -30,9 +30,9 @@ export default function DatabaseRelationship({ id }: { id: string }) {
         width={400}
         height={300}
         alt={`Database relationship diagram for ${slug}`}
-        className="w-full rounded"
+        className="w-full rounded drag-none"
       />
-      <figcaption className="text-sm text-gray-500">
+      <figcaption className="text-sm text-gray-500 drag-none">
         資料庫「{slug}」關聯圖
       </figcaption>
     </figure>

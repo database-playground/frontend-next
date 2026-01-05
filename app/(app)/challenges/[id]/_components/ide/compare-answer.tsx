@@ -113,7 +113,7 @@ export default function CompareAnswer({ id }: CompareAnswerProps) {
 
   // 顯示比較界面
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 select-none">
       <Alert variant="destructive">
         <XCircle />
         <AlertTitle>答案不正確</AlertTitle>

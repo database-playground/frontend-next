@@ -7,7 +7,7 @@ export interface AnswerTableProps {
 
 export default function AnswerTable({ columns, rows }: AnswerTableProps) {
   return (
-    <Table>
+    <Table className="select-none">
       <TableHeader>
         <TableRow>
           {columns.map((column) => <TableHead key={column}>{column}</TableHead>)}
