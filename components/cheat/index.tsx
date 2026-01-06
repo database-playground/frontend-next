@@ -1,6 +1,5 @@
 "use client";
 
-import "devtools-detect";
 import { graphql, readFragment } from "@/gql";
 import { CHEAT_DETECTION } from "@/lib/features";
 import { useMutation, useSuspenseQuery } from "@apollo/client/react";
@@ -82,19 +81,13 @@ export function useCheatDetector({ enable }: { enable?: boolean }) {
       }, THROTTLE_TIME_MS);
     };
 
-    const devtoolsChangeHandler = async () => {
-      await createRecord("開啟開發者工具");
-    };
-
     const screenLeaveHandler = async () => {
       await createRecord("離開系統");
     };
 
-    window.addEventListener("devtoolschange", devtoolsChangeHandler);
     window.addEventListener("blur", screenLeaveHandler);
 
     return () => {
-      window.removeEventListener("devtoolschange", devtoolsChangeHandler);
       window.removeEventListener("blur", screenLeaveHandler);
       if (throttleTimeout) {
         clearTimeout(throttleTimeout);
